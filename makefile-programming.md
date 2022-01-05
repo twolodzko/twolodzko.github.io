@@ -333,10 +333,12 @@ test-testme:
 While Makefile's metaprogramming utilities are not as impressive as with some LISPs,
 they still can be quite helpful. Makefile supports [macros][macros] in two forms.
 We saw one form of macros in the section on [conditionals](#conditionals) when
-defining the `less` macro that was called using `$(call macro,args...)`. The other
-kind of macros is declared using the `define` block and called the same way as
-variables. The second kind of macros is snippets of code that get pasted to the
-code at the execution time.
+defining the `less` macro that was called using `$(call macro,args...)`. You might
+have noticed that in fact `less` is a named [lambda function][anonymous-function].
+
+The second kind of macros is declared using the `define` block and called the same
+way as variables. The second kind of macros is snippets of code that get pasted
+to the code at the execution time.
 
 ```makefile
 define date
@@ -419,3 +421,4 @@ endif
  [turing-complete]: https://stackoverflow.com/questions/3480950/are-makefiles-turing-complete/3480982#3480982
  [tco]: https://stackoverflow.com/questions/310974/what-is-tail-call-optimization
  [main]: https://stackoverflow.com/questions/2057689/how-does-make-app-know-default-target-to-build-if-no-target-is-specified
+ [anonymous-function]: https://en.wikipedia.org/wiki/Anonymous_function
