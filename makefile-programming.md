@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Makefile Programming Language Tutorial"
-date:   2021-01-05
+date:   2021-01-06
 ---
 
 [Makefile][docs] language is a [functional][functional], dynamically typed language,
@@ -58,16 +58,23 @@ GREET = $(MESSAGE)
 MESSAGE := Hi
 
 main:
-    echo $(GREET) World
+    @ echo $(GREET) World  # with @ the command is not printed
 ```
 
-*If we used* `GREET := $(MESSAGE)` in the first line and didn't provide the value for
-neither `GREET` nor `MESSAGE`, it would be null be default and print as an empty string,
+If we used instead
+
+
+```diff
+- GREET = $(MESSAGE)
++ GREET := $(MESSAGE)
+````
+
+and didn't provide the value for
+neither `GREET` nor `MESSAGE`, `GREET` would be null by default and print as an empty string,
 like below.
 
 ```shell
 $ make -f variables.mk
-echo  World
 World
 ```
 
@@ -75,16 +82,12 @@ However with `GREET = $(MESSAGE)`, it expands to the value it points to:
 
 ```shell
 $ make -f variables.mk
-echo Hi World
 Hi World
 $ make -f variables.mk GREET=Hola
-echo Hola World
 Hola World
 $ make -f variables.mk MESSAGE=Hello
-echo Hello World
 Hello World
 $ make -f variables.mk GREET=Hola MESSAGE=Hello
-echo Hola World
 Hola World
 ```
 
@@ -95,7 +98,7 @@ work*.
 ```makefile
 invalid:
 	MESSAGE := Hello
-	echo $(MESSAGE) World
+	@ echo $(MESSAGE) World
 ```
 
 ```shell
@@ -147,9 +150,7 @@ date:
 ```
 
 By default, Makefile assumes [the first function][main] in the file to be the
-main entry point (like the `main` function in Go). Notice the `@` symbols
-at the beginnings of the lines, they turn off the default debug mode
-that prints all the executed commands.
+main entry point (like the `main` function in Go).
 
 ```shell
 $ make -f functions.mk
@@ -308,6 +309,10 @@ common in functional programming languages. It iterates over `LIST`, chopping
 off elements from the beginning of the array and adding them to `TOTAL` variable
 that is printed at the end.
 
+When using recursion, it may be a good idea to add `MAKEFLAGS += --no-print-directory`
+to the script. It will silence the Make messages informing about every new call
+to `make`.
+
 ## Unit testing
 
 While Makefile does not come out of a box with unit testing utilities, it can
@@ -359,7 +364,7 @@ line. To do this, just use the `$(shell command)` that executes the
 `command` in Shell. This can be used for expanding [conditionals](#conditionals)
 or for arithmetics using `expr`, etc.
 
-## Example
+## Examples
 
 To give a slightly more complicated example, below I show the implementation of
 [Quicksort][quicksort] algorithm in Makefile. The code uses variables,
@@ -402,6 +407,10 @@ else
 endif
 ```
 
+For other examples, here you can find [tic-tac-toe game implemented in Make][ttt],
+and here someone implemented [integer arithmetics][make-arith] in pure Makefile
+(no `expr` or Bash).
+
 
  [book]: https://www.oreilly.com/library/view/managing-projects-with/0596006101/
  [docs]: https://www.gnu.org/software/make/manual/make.html
@@ -422,3 +431,5 @@ endif
  [tco]: https://stackoverflow.com/questions/310974/what-is-tail-call-optimization
  [main]: https://stackoverflow.com/questions/2057689/how-does-make-app-know-default-target-to-build-if-no-target-is-specified
  [anonymous-function]: https://en.wikipedia.org/wiki/Anonymous_function
+ [ttt]: https://github.com/twolodzko/MakeTicTacToe
+ [make-arith]: https://www.cmcrossroads.com/article/learning-gnu-make-functions-arithmetic
