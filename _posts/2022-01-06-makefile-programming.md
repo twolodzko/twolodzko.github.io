@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Makefile Programming Language Tutorial"
-date:   2021-01-06
+date:   2022-01-06
 permalink: /makefile-programming
 ---
 
