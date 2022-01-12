@@ -2,6 +2,7 @@
 layout: post
 title:  "Bash pocket guide"
 date:   2021-02-26
+permalink: /bash
 ---
 
 Bash is like regular expressions: everyone uses it, nobody knows it well. Every time I need to write Bash, I find
