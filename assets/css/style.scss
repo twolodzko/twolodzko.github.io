@@ -2,3 +2,15 @@
 ---
 
 @import "{{ site.theme }}";
+
+.post-list {
+    color: black;
+}
+
+.post-list li {
+    list-style-type: none;
+}
+
+.post-list .date {
+    color: darkgray;
+}
