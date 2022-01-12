@@ -3,6 +3,7 @@ layout:        post
 title:         "Deploying Machine Learning Models: A Checklist"
 date:          2021-01-05
 modified_date: 2021-01-12
+permalink: /ml-checklist
 ---
 
 In [The Checklist Manifesto][checklist], Atul Gawande shows how using checklists can make everyone's

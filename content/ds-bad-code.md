@@ -2,6 +2,7 @@
 layout: post
 title:  "Data Scientists Write Bad Code or Maybe That's Not the Problem?"
 date:   2021-11-24
+permalink: /ds-bad-code
 ---
 
 Technologies and methodologies that worked for software engineering don't necessarily do for data science. At the same time, we hear software engineers complaining about the quality of the data science code and [the tooling used][joel-grus]. But maybe the two disciplines are less similar than they may appear? I recently started wondering how they differ. [Vicki Boykis'][two-modes] post on the two models of programmer's brain finally inspired me to write my thoughts down. Let me put on my data science hat and play the Devil's advocate. I'd argue that there are reasons why data science is different from programming.

@@ -2,6 +2,7 @@
 layout: post
 title:  "Makefile Programming Language Tutorial"
 date:   2021-01-06
+permalink: /makefile-programming
 ---
 
 [Makefile][docs] language is a [functional][functional], dynamically typed language,

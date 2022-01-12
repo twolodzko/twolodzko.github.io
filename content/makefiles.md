@@ -2,6 +2,7 @@
 layout: post
 title:  "Makefiles for not-only programmers"
 date:   2020-11-02
+permalink: /makefiles
 ---
 
 Make is commonly used in software development for managing the compilation of the source code. Use cases of make however

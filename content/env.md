@@ -2,6 +2,7 @@
 layout: post
 title:  "Environment variables"
 date:   2021-09-28
+permalink: /env
 ---
 
 Using environment variables for storing configuration is a de facto standard. It
