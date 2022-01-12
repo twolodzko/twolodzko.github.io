@@ -4,14 +4,14 @@ title: Timothy Wolodzko
 permalink: /
 ---
 
-<div class="post-list">
+<div class="main-links">
     <h2>My posts</h2>
 
-    <ul>
+    <ul class="posts">
         {% for post in site.posts %}
         <li>
-            <a href="{{ post.url }}"><span class="date">{{ post.date | date_to_string }}</span> &mdash; {{ post.title
-                }}</a>
+            <span class="date">{{ post.date | date_to_string }}</span> &mdash;
+            <a href="{{ post.url }}">{{ post.title }}</a>
         </li>
         {% endfor %}
     </ul>

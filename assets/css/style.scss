@@ -3,20 +3,12 @@
 
 @import "{{ site.theme }}";
 
-.post-list {
-    color: black;
-}
-
-.post-list ul a {
-    color: black;
-}
-
-.post-list ul {
+.posts ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.post-list .date {
+.posts .date {
     color: darkgray;
 }
