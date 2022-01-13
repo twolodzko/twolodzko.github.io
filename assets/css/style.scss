@@ -2,13 +2,3 @@
 ---
 
 @import "{{ site.theme }}";
-
-ul.posts {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-.posts li .date {
-    color: rgb(80, 80, 80);
-}
