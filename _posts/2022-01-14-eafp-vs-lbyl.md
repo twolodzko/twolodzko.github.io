@@ -9,7 +9,7 @@ forgiveness than permission (EAFP)][eafp]. There are [pros and cons of both styl
 cases may be more readable and sometimes considered as [more idiomatic in Python][idiomatic-python] and other
 modern languages. Both styles are best illustrated with an example. Say that we are implementing a function that
 needs to divide two numbers, so it could fail due to `ZeroDivisionError`. Below, I marked with `+` the additional
-steps will be taken when the exception would not appear, and with `-` the steps that are taken when it would
+steps that will be taken when the exception would not appear, and with `-` the steps that are taken when it would
 appear. To look before we leap, we would check if the number is non-zero and only then run the division.
 
 ```diff
@@ -100,7 +100,7 @@ for f in [lbyl, eafp]:
 As we can see below, for code that always fails (100% error rate), there's a big overhead for EAFP. 
 The overhead for EAFP drops with exceptions happening more rarely.
 
-![For error rate 100% EAFP has avr runtime of ~35ms, at 10% it drops to ~17ms, and with <=1% it goes below 15ms. For LBYL the error rate if fairly flat around ~14ms.](../images/eapf-vs-lbyl.png)
+![For error rate 100% EAFP has average runtime of ~35ms, at 10% it drops to ~17ms, and with <=1% it goes below 15ms. For LBYL the error rate is fairly flat around ~14ms.](../images/eapf-vs-lbyl.png)
 
 What does it show? There is an overhead for EAFP only when it needs to catch *a lot* of exceptions,
 when they happen rarely (what *should* be the case), there is no overhead relatively to LBYL.

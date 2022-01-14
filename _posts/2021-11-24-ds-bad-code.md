@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Data Scientists Write Bad Code or Maybe That's Not the Problem?"
-date:   2021-11-24
 permalink: /ds-bad-code
 ---
 
