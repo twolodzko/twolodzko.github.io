@@ -17,8 +17,8 @@ appear. To look before we leap, we would check if the number is non-zero and onl
     return y/x
 ```
 
-But instead, it might be easier to ask for forgiveness than permission: divide the numbers, but when doesn't work
-due to `ZeroDivisionError` handle the exception.
+But instead, it might be easier to ask for forgiveness than permission: divide the numbers, but when it doesn't work
+due to `ZeroDivisionError`, handle the exception.
 
 ```diff
 try:
