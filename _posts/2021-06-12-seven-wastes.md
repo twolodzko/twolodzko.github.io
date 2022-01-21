@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Can Machine Learning be Lean?"
-date:   2021-06-12
 permalink: /7-wastes
 ---
 

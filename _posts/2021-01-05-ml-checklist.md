@@ -1,7 +1,6 @@
 ---
 layout:        post
 title:         "Deploying Machine Learning Models: A Checklist"
-date:          2021-01-05
 modified_date: 2021-01-12
 permalink: /ml-checklist
 ---

@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Makefiles for not-only programmers"
-date:   2020-11-02
 permalink: /makefiles
 ---
 
