@@ -123,6 +123,9 @@ several [methods for interacting with lists][text-functions]:
  * `$(wordlist $(START), $(END), $(LIST))` returns elements from `START` to `END` (inclusive),
  * `variable += value` adds `value` to `variable`, treating `variable` as a list.
 
+To do `(cons cat cdr)` as in Scheme, in Makefile we just need to construct it is a regular
+string `"$(CAT) $(CDR)"`.
+
 Lists are passed as strings with elements separated by spaces, `LIST="1 2 3 4"` is a
 list of four elements. Unlike other LISPs, Makefile does not have native support
 for lists of lists or other data structures, so implementing them is left as an
