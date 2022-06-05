@@ -25,7 +25,7 @@ of chained programs
 > 1. Make each program do one thing well. [...]
 > 2. Expect the output of every program to become the input to another, as yet unknown, program. [...]
 
-It is also popular in functional programming languages. [OCaml uses] the `|>` pipe operator
+It is also popular in functional programming languages. For example, [Haskell] uses syntax inspired by mathematical notation `(f . g)`. [OCaml] has the `|>` pipe operator
 defined as
 
 ```ocaml
@@ -91,7 +91,8 @@ so the model can be used for making predictions.
  [pure functions]: https://en.wikipedia.org/wiki/Pure_function
  [unix pipes]: https://en.wikipedia.org/wiki/Pipeline_(Unix)
  [unix philosophy]: https://en.wikipedia.org/wiki/Unix_philosophy
- [ocaml uses]: https://stackoverflow.com/questions/8986010/is-it-possible-to-use-pipes-in-ocaml
+ [haskell]: https://wiki.haskell.org/Function_composition
+ [ocaml]: https://stackoverflow.com/questions/8986010/is-it-possible-to-use-pipes-in-ocaml
  [clojure]: https://clojure.org/guides/threading_macros
  [programming language r]: https://www.r-bloggers.com/2021/05/the-new-r-pipe/
  [functional architecture]: https://www.goodreads.com/book/show/34921689-domain-modeling-made-functional
