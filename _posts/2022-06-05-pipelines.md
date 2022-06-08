@@ -31,7 +31,7 @@ of chained programs
 
 ## Pipelines in functional programming
 
-It is also popular in functional programming languages. For example, [Haskell] uses syntax inspired by mathematical
+Pipelines are also popular in functional programming languages. For example, [Haskell] uses syntax inspired by mathematical
 notation `(f . g)`. [OCaml] has the `|>` pipe operator defined as
 
 ```ocaml
