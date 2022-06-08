@@ -5,7 +5,7 @@ permalink: /pipelines
 usemathjax: true
 ---
 
-In mathematics, two functions $f$ and $g$ can be [composed] $f \circ g$, what is defined as
+In mathematics, two functions $$f$$ and $$g$$ can be [composed] $$f \circ g$$, what is defined as
 
 $$
 (f \circ g)(x) = f(g(x))
@@ -75,8 +75,8 @@ code easier. Pipelines also ensure consistency, because they guarantee that the 
 same order. 
 
 The pipeline like above, consisting of [pure functions], fulfill all the mathematical properties of function
-composition. Since we can define a new function $p(x) = f(g(x))$, we can use it for a composition as well
-$h \circ p = h \circ f \circ g$. For the same reason pipelines in programming can as well be composed of other
+composition. Since we can define a new function $$p(x) = f(g(x))$$, we can use it for a composition as well
+$$h \circ p = h \circ f \circ g$$. For the same reason pipelines in programming can as well be composed of other
 pipelines. This is how a program can be decomposed into a series of smaller steps in a [functional architecture].
 
 ## Mutable pipelines
