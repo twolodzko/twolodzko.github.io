@@ -78,7 +78,7 @@ pipelines. This is how a program can be decomposed into a series of smaller step
 
 ## Mutable pipelines
 
-But there is another kind of a pipeline, the mutable (or trainable) one. In [Python's] [scikit-learn]
+But there is another kind of a pipeline, the mutable (or trainable) one. In Python's [scikit-learn]
 the code is often written in terms of pipelines like below
 
 ```python
