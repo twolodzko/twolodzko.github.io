@@ -127,7 +127,7 @@ transform(fit([
 An additional benefit is that the steps can be easily changed, replaced, or removed, which makes iterating over the
 code easier. Individual steps can be implemented and tested separatelly. The steps, as LEGO blocks, can be used to
 compose many different pipelines. Pipelines also ensure consistency, because they guarantee that the steps would be
-always invoked in the same order. 
+always invoked in the same order. They are simple, yet powerful design pattern.
 
 
  [composed]: https://en.wikipedia.org/wiki/Function_composition
