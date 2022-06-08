@@ -10,6 +10,8 @@ $$
 (f \circ g)(x) = f(g(x))
 $$
 
+## Unix pipes
+
 As a design pattern in programming, they were popularized by [unix pipes], where series of commands can be 
 composed using the pipe `|` operator. For example, the command below would count the
 unique cells from the second column of a CSV file by combining the `cut`, `sort`, and `uniq`
@@ -24,6 +26,8 @@ of chained programs
 
 > 1. Make each program do one thing well. [...]
 > 2. Expect the output of every program to become the input to another, as yet unknown, program. [...]
+
+## Pipelines in functional programming
 
 It is also popular in functional programming languages. For example, [Haskell] uses syntax inspired by mathematical notation `(f . g)`. [OCaml] has the `|>` pipe operator
 defined as
@@ -44,6 +48,8 @@ the following form
     (/ 8))
 ```
 
+## Data processing pipelines in R
+
 The pipes were also a very popular pattern in statistical [programming language R], where they
 were first available through an external library that exposed the `%>%` operator, which in R 4.0.0 was included in the core language as `|>`. For example, to calculate per-group averages
 an R user could use the following code
@@ -63,14 +69,16 @@ mtcars |>
 ## 3     8  15.1
 ```
 
-*OK, but what's the fuss?* The main reason of using pipelines is that they lead to more readable and concise code. Moreover, the steps can be easily changed, replaced, or removed.
+*OK, but what's the fuss?* The main reason of using pipelines is that they lead to more concise and readable code. Additional benefit is that the steps can be easily changed, replaced, or removed, what makes iterating over the code easier. Pipelines also ensure consistency, because they guarantee that the steps would be always invoked in the same order. 
 
-The pipeline like above, consisting of [pure functions], fulfills all the mathematical properties of function composition. Since we can define a new function $h(x) = f(g(x))$,
-we can use it for a composition as well $k \circ h = k \circ f \circ g$. For the same reason
-pipeline in programming can as well be composed of other pipelines. This is how a program
+The pipeline like above, consisting of [pure functions], fulfill all the mathematical properties of function composition. Since we can define a new function $p(x) = f(g(x))$,
+we can use it for a composition as well $h \circ p = h \circ f \circ g$. For the same reason
+pipelines in programming can as well be composed of other pipelines. This is how a program
 can be decomposed into a series of smaller steps in a [functional architecture].
 
-But there is another kind of a pipeline, the mutable one. In [Python's] [scikit-learn]
+## Mutable pipelines
+
+But there is another kind of a pipeline, the mutable (or trainable) one. In [Python's] [scikit-learn]
 the code is often written in terms of pipelines like below
 
 ```python
@@ -81,10 +89,36 @@ complete_pipeline = Pipeline([
 ```
 
 This pipeline is an object with the same interface as it's steps, [exposing methods] like
-`fit`, `transform`, or `predict`. When calling `complete_pipeline.fit(X, y)`, the pipeline would call `fit` in `preprocessor` and pass the result as and input to the `fit` method of the `estimator`. Notice that the `fit` method mutates the object, so after calling it, each of the
+`fit`, `transform`, or `predict`. When calling `complete_pipeline.fit(X, y)`, the pipeline would call `fit` in `preprocessor` and pass the result as an input to the `fit` method of the `estimator`. The objects are Notice that the `fit` method mutates the object, so after calling it, each of the
 steps would be behaving differently then before. If during preprocessing we used a scaling transformer, it would learn how to scale the data given the training set, so it could apply the
 transformation to new data. Calling `fit` on machine learning model, would lead to training it,
 so the model can be used for making predictions.
+
+We need a `fit` method that sets up the pipeline and `transform` or `predict` method that applies it.
+In scikit-learn the objects and so the pipeline are mutable, but it would also be possible to create
+a pipeline in functional programming paradighm. The only thing needed would be the support for [first-class functions]. In such a case, `fit` function would return the predict pipeline build from individual step functions. 
+Such purely functional pipeline could look like in the example below.
+
+```python
+def fit(steps, input):
+    new_steps = []
+    for step in steps:
+        fitted = step(input)
+        input = fitted(input)
+        new_steps.append(fitted)
+    return new_steps
+
+def transform(steps, input):
+    output = input
+    for step in steps:
+        output = step(output)
+    return output
+
+transform(fit([
+    lambda x: lambda y: y + x,  # => y + 2
+    lambda x: lambda y: y / x,  # => y / 4
+], 2), 7)
+```
 
 
  [composed]: https://en.wikipedia.org/wiki/Function_composition
@@ -99,3 +133,4 @@ so the model can be used for making predictions.
  [scikit-learn]: https://mahmoudyusof.github.io/general/scikit-learn-pipelines/
  [exposing methods]: https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html
  [python's]: https://www.youtube.com/watch?v=BFaadIqWlAg
+ [first-class functions]: https://en.wikipedia.org/wiki/First-class_function
