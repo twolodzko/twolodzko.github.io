@@ -11,7 +11,7 @@ $$
 (f \circ g)(x) = f(g(x))
 $$
 
-The same way, functions in programming can be composed into pipelines.
+In the same way, functions in programming can be composed into pipelines.
 
 ## Unix pipes
 
@@ -32,13 +32,13 @@ of chained programs
 ## Pipelines in functional programming
 
 Pipelines are also popular in functional programming languages. For example, [Haskell] uses syntax inspired by mathematical
-notation `(f . g)`. [OCaml] has the `|>` pipe operator defined as
+notation `(f . g)`. [OCaml] has the `|>` pipe operator defined as an inflix operator
 
 ```ocaml
 let (|>) v f = f v
 ```
 
-so `v |> f` gets translated to the `f v` function call, so `2 |> (+) 2 |> (/) 8` is the same as
+When using it, `v |> f` gets translated to the `f v` function call, so `2 |> (+) 2 |> (/) 8` becomes
 `(/) 8 ((+) 2 2)`. [Clojure] uses the threading macros `->` and `->>` that pass the input as 
 the first or second argument subsequently. In Clojure, the example that I just used would take
 the following form
@@ -52,9 +52,10 @@ the following form
 
 ## Data processing pipelines in R
 
-The pipes were also a very popular pattern in statistical [programming language R], where they
-were first available through an external library that exposed the `%>%` operator, which in R 4.0.0 was included in
-the core language as `|>`. For example, to calculate per-group averages an R user could use the following code
+The pipes were also a very popular pattern in statistical [programming language R], where it was first available through
+an external library that exposed the `%>%` operator, but due to its heavy usage in the R community, in R 4.0.0 it was
+included in the core language as `|>`. For example, to calculate per-group averages an R user could use the following
+code
 
 ```r
 library(dplyr) 
@@ -72,14 +73,14 @@ mtcars |>
 ```
 
 The pipelines like above, consisting of [pure functions], fulfill all the mathematical properties of function
-composition. Since we can define a new function $$p(x) = f(g(x))$$, we can use it for a composition as well
-$$h \circ p = h \circ f \circ g$$. For the same reason pipelines in programming can as well be composed of other
-pipelines. This is how a program can be decomposed into a series of smaller steps in a [functional architecture].
+composition. We can define a new function $$p(x) = f(g(x))$$ and use it in a composition $$h \circ p = h \circ f \circ g$$.
+For the same reason, pipelines can use other pipelines as steps. This is how a program can be decomposed into a series
+of smaller steps in a [functional architecture].
 
 ## Mutable pipelines
 
-But there is another kind of a pipeline, the mutable (or trainable) one. In Python's [scikit-learn]
-the code is often written in terms of pipelines like below
+But there is another kind of a pipeline, the mutable (or trainable) one. They are commonly used in Python's [scikit-learn]
+and take the form below
 
 ```python
 complete_pipeline = Pipeline([
@@ -88,17 +89,18 @@ complete_pipeline = Pipeline([
 ])
 ```
 
-This pipeline is an object with the same interface as its steps, [exposing methods] like
-`fit`, `transform`, or `predict`. When calling `complete_pipeline.fit(X, y)`, the pipeline would call `fit` in
-`preprocessor` and pass the result as an input to the `fit` method of the `estimator`. Notice that
-the `fit` method mutates the object, so after calling it, each of the steps would be behaving differently than before.
-If during preprocessing we used a scaling transformer, it would learn how to scale the data given the training set,
-and be able to apply the transformation to new data. Calling `fit` on the machine learning model would lead to training it,
-so the model can be used for making predictions.
+This pipeline is an object with the same interface as its steps ([exposing] the `fit`, `transform`, or `predict` methods).
+When running `complete_pipeline.fit(X, y)`, the pipeline would call `fit` in `preprocessor` and pass the result as an
+input to the `fit` method of the `estimator`. Notice that the `fit` method mutates the pipeline object. If during
+preprocessing we used a scaling transformer, it would learn how to scale the data given the training set and be able
+to apply the transformation to new data. Calling `fit` on the machine learning model would lead to training it, so
+the model can be used for making predictions.
+
+## Non-mutable, trainable pipelines
 
 We need a `fit` method that sets up the pipeline and a `transform` or `predict` method to apply it.
-In scikit-learn the objects and so the pipeline is mutable, but it would also be possible to create
-a pipeline in a functional programming paradigm. The only thing needed would be the support for [first-class functions].
+In scikit-learn the pipeline and the objects it consists of are mutable, however, it would also be possible to create
+a pipeline in a functional programming paradigm. The only thing we need is the support for [first-class functions].
 In such a case, the `fit` function would return the predicted pipeline build from individual step functions. 
 Such a purely functional pipeline could look like in the example below.
 
@@ -123,11 +125,16 @@ transform(fit([
 ], 2), 7)                       # => 9 / 4 = 2.25
 ```
 
-*OK, but what's the fuss?* The main reason for using pipelines is that they lead to more concise and readable code.
+As you can see, `fit` and `transform` serve completely different purposes. `fit` is used as a pipeline factory,
+while `transform` runs a regular, non-mutable pipeline.
+
+## *OK, but what's the fuss?*
+
+The main reason for using pipelines is that they lead to more concise and readable code.
 An additional benefit is that the steps can be easily changed, replaced, or removed, which makes iterating over the
-code easier. Individual steps can be implemented and tested separatelly. The steps, as LEGO blocks, can be used to
+code easier. Individual steps can be implemented and tested separately. The steps, like LEGO blocks, can be used to
 compose many different pipelines. Pipelines also ensure consistency, because they guarantee that the steps would be
-always invoked in the same order. They are simple, yet powerful design pattern.
+always invoked in the same order. It is a simple, yet powerful design pattern.
 
 
  [composed]: https://en.wikipedia.org/wiki/Function_composition
