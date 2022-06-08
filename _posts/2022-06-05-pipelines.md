@@ -90,13 +90,13 @@ complete_pipeline = Pipeline([
 
 This pipeline is an object with the same interface as its steps, [exposing methods] like
 `fit`, `transform`, or `predict`. When calling `complete_pipeline.fit(X, y)`, the pipeline would call `fit` in
-`preprocessor` and pass the result as an input to the `fit` method of the `estimator`. The objects are Notice that
+`preprocessor` and pass the result as an input to the `fit` method of the `estimator`. Notice that
 the `fit` method mutates the object, so after calling it, each of the steps would be behaving differently than before.
 If during preprocessing we used a scaling transformer, it would learn how to scale the data given the training set,
-so it could apply the transformation to new data. Calling `fit` on the machine learning model would lead to training it,
+and be able to apply the transformation to new data. Calling `fit` on the machine learning model would lead to training it,
 so the model can be used for making predictions.
 
-We need a `fit` method that sets up the pipeline and a `transform` or `predict` method that applies it.
+We need a `fit` method that sets up the pipeline and a `transform` or `predict` method to apply it.
 In scikit-learn the objects and so the pipeline is mutable, but it would also be possible to create
 a pipeline in a functional programming paradigm. The only thing needed would be the support for [first-class functions].
 In such a case, the `fit` function would return the predicted pipeline build from individual step functions. 
