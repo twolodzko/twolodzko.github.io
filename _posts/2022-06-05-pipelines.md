@@ -13,9 +13,8 @@ $$
 ## Unix pipes
 
 As a design pattern in programming, they were popularized by [unix pipes], where a series of commands can be 
-composed using the pipe `|` operator. For example, the command below would count the
-unique cells from the second column of a CSV file by combining the `cut`, `sort`, and `uniq`
-commands.
+composed using the pipe `|` operator. For example, the command below would count the unique cells from the second
+column of a CSV file by combining the `cut`, `sort`, and `uniq` commands.
 
 ```shell
 cut -d, -f2 data.csv | sort | uniq -c
@@ -29,8 +28,8 @@ of chained programs
 
 ## Pipelines in functional programming
 
-It is also popular in functional programming languages. For example, [Haskell] uses syntax inspired by mathematical notation `(f . g)`. [OCaml] has the `|>` pipe operator
-defined as
+It is also popular in functional programming languages. For example, [Haskell] uses syntax inspired by mathematical
+notation `(f . g)`. [OCaml] has the `|>` pipe operator defined as
 
 ```ocaml
 let (|>) v f = f v
@@ -51,8 +50,8 @@ the following form
 ## Data processing pipelines in R
 
 The pipes were also a very popular pattern in statistical [programming language R], where they
-were first available through an external library that exposed the `%>%` operator, which in R 4.0.0 was included in the core language as `|>`. For example, to calculate per-group averages
-an R user could use the following code
+were first available through an external library that exposed the `%>%` operator, which in R 4.0.0 was included in
+the core language as `|>`. For example, to calculate per-group averages an R user could use the following code
 
 ```r
 library(dplyr) 
@@ -69,12 +68,15 @@ mtcars |>
 ## 3     8  15.1
 ```
 
-*OK, but what's the fuss?* The main reason for using pipelines is that they lead to more concise and readable code. An additional benefit is that the steps can be easily changed, replaced, or removed, which makes iterating over the code easier. Pipelines also ensure consistency, because they guarantee that the steps would be always invoked in the same order. 
+*OK, but what's the fuss?* The main reason for using pipelines is that they lead to more concise and readable code.
+An additional benefit is that the steps can be easily changed, replaced, or removed, which makes iterating over the
+code easier. Pipelines also ensure consistency, because they guarantee that the steps would be always invoked in the
+same order. 
 
-The pipeline like above, consisting of [pure functions], fulfill all the mathematical properties of function composition. Since we can define a new function $p(x) = f(g(x))$,
-we can use it for a composition as well $h \circ p = h \circ f \circ g$. For the same reason
-pipelines in programming can as well be composed of other pipelines. This is how a program
-can be decomposed into a series of smaller steps in a [functional architecture].
+The pipeline like above, consisting of [pure functions], fulfill all the mathematical properties of function
+composition. Since we can define a new function $p(x) = f(g(x))$, we can use it for a composition as well
+$h \circ p = h \circ f \circ g$. For the same reason pipelines in programming can as well be composed of other
+pipelines. This is how a program can be decomposed into a series of smaller steps in a [functional architecture].
 
 ## Mutable pipelines
 
@@ -89,14 +91,17 @@ complete_pipeline = Pipeline([
 ```
 
 This pipeline is an object with the same interface as its steps, [exposing methods] like
-`fit`, `transform`, or `predict`. When calling `complete_pipeline.fit(X, y)`, the pipeline would call `fit` in `preprocessor` and pass the result as an input to the `fit` method of the `estimator`. The objects are Notice that the `fit` method mutates the object, so after calling it, each of the
-steps would be behaving differently than before. If during preprocessing we used a scaling transformer, it would learn how to scale the data given the training set, so it could apply the
-transformation to new data. Calling `fit` on the machine learning model would lead to training it,
+`fit`, `transform`, or `predict`. When calling `complete_pipeline.fit(X, y)`, the pipeline would call `fit` in
+`preprocessor` and pass the result as an input to the `fit` method of the `estimator`. The objects are Notice that
+the `fit` method mutates the object, so after calling it, each of the steps would be behaving differently than before.
+If during preprocessing we used a scaling transformer, it would learn how to scale the data given the training set,
+so it could apply the transformation to new data. Calling `fit` on the machine learning model would lead to training it,
 so the model can be used for making predictions.
 
 We need a `fit` method that sets up the pipeline and a `transform` or `predict` method that applies it.
 In scikit-learn the objects and so the pipeline is mutable, but it would also be possible to create
-a pipeline in a functional programming paradigm. The only thing needed would be the support for [first-class functions]. In such a case, the `fit` function would return the predicted pipeline build from individual step functions. 
+a pipeline in a functional programming paradigm. The only thing needed would be the support for [first-class functions].
+In such a case, the `fit` function would return the predicted pipeline build from individual step functions. 
 Such a purely functional pipeline could look like in the example below.
 
 ```python
@@ -121,8 +126,7 @@ transform(fit([
 ```
 
 Pipelines are simple, yet powerful and often get omitted when discussing design patterns.
-They carry a key role in many data processing tasks, including modern machine learning
-pipelines.
+They carry a key role in many data processing tasks, including modern machine learning pipelines.
 
 
  [composed]: https://en.wikipedia.org/wiki/Function_composition
