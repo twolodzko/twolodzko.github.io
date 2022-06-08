@@ -147,6 +147,6 @@ always invoked in the same order. It is a simple, yet powerful design pattern.
  [programming language r]: https://www.r-bloggers.com/2021/05/the-new-r-pipe/
  [functional architecture]: https://www.goodreads.com/book/show/34921689-domain-modeling-made-functional
  [scikit-learn]: https://mahmoudyusof.github.io/general/scikit-learn-pipelines/
- [exposing methods]: https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html
+ [exposing]: https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html
  [python's]: https://www.youtube.com/watch?v=BFaadIqWlAg
  [first-class functions]: https://en.wikipedia.org/wiki/First-class_function
