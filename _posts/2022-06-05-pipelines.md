@@ -11,6 +11,8 @@ $$
 (f \circ g)(x) = f(g(x))
 $$
 
+The same way, functions in programming can be composed to pipelines.
+
 ## Unix pipes
 
 As a design pattern in programming, they were popularized by [unix pipes], where a series of commands can be 
