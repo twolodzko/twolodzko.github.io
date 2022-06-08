@@ -125,7 +125,7 @@ def transform(steps, input):
 transform(fit([
     lambda x: lambda y: y + x,  # => y + 2
     lambda x: lambda y: y / x,  # => y / 4
-], 2), 7)
+], 2), 7)                       # => 9 / 4 = 2.25
 ```
 
 Pipelines are simple, yet powerful and often get omitted when discussing design patterns.
