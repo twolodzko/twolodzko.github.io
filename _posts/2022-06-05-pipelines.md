@@ -71,12 +71,7 @@ mtcars |>
 ## 3     8  15.1
 ```
 
-*OK, but what's the fuss?* The main reason for using pipelines is that they lead to more concise and readable code.
-An additional benefit is that the steps can be easily changed, replaced, or removed, which makes iterating over the
-code easier. Pipelines also ensure consistency, because they guarantee that the steps would be always invoked in the
-same order. 
-
-The pipeline like above, consisting of [pure functions], fulfill all the mathematical properties of function
+The pipelines like above, consisting of [pure functions], fulfill all the mathematical properties of function
 composition. Since we can define a new function $$p(x) = f(g(x))$$, we can use it for a composition as well
 $$h \circ p = h \circ f \circ g$$. For the same reason pipelines in programming can as well be composed of other
 pipelines. This is how a program can be decomposed into a series of smaller steps in a [functional architecture].
@@ -130,6 +125,12 @@ transform(fit([
 
 Pipelines are simple, yet powerful and often get omitted when discussing design patterns.
 They carry a key role in many data processing tasks, including modern machine learning pipelines.
+
+*OK, but what's the fuss?* The main reason for using pipelines is that they lead to more concise and readable code.
+An additional benefit is that the steps can be easily changed, replaced, or removed, which makes iterating over the
+code easier. Individual steps can be implemented and tested separatelly. The steps, as LEGO blocks, can be used to
+compose many different pipelines. Pipelines also ensure consistency, because they guarantee that the steps would be
+always invoked in the same order. 
 
 
  [composed]: https://en.wikipedia.org/wiki/Function_composition
