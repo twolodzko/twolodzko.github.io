@@ -123,9 +123,6 @@ transform(fit([
 ], 2), 7)                       # => 9 / 4 = 2.25
 ```
 
-Pipelines are simple, yet powerful and often get omitted when discussing design patterns.
-They carry a key role in many data processing tasks, including modern machine learning pipelines.
-
 *OK, but what's the fuss?* The main reason for using pipelines is that they lead to more concise and readable code.
 An additional benefit is that the steps can be easily changed, replaced, or removed, which makes iterating over the
 code easier. Individual steps can be implemented and tested separatelly. The steps, as LEGO blocks, can be used to
