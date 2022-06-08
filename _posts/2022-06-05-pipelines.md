@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Pielines: The #1 data processing design pattern"
+title:  "Pipelines: The #1 data processing design pattern"
 permalink: /pipelines
 ---
 
@@ -12,7 +12,7 @@ $$
 
 ## Unix pipes
 
-As a design pattern in programming, they were popularized by [unix pipes], where series of commands can be 
+As a design pattern in programming, they were popularized by [unix pipes], where a series of commands can be 
 composed using the pipe `|` operator. For example, the command below would count the
 unique cells from the second column of a CSV file by combining the `cut`, `sort`, and `uniq`
 commands.
@@ -21,7 +21,7 @@ commands.
 cut -d, -f2 data.csv | sort | uniq -c
 ```
 
-The pattern was a consequence of [unix philosophy], that assumed the workflow composed
+The pattern was a consequence of [unix philosophy], which assumed the workflow composed
 of chained programs
 
 > 1. Make each program do one thing well. [...]
@@ -38,7 +38,7 @@ let (|>) v f = f v
 
 so `v |> f` gets translated to the `f v` function call, so `2 |> (+) 2 |> (/) 8` is the same as
 `(/) 8 ((+) 2 2)`. [Clojure] uses the threading macros `->` and `->>` that pass the input as 
-first or second argument subsequently. In Clojure, the example that I just used would take
+the first or second argument subsequently. In Clojure, the example that I just used would take
 the following form
 
 ```clojure
@@ -69,7 +69,7 @@ mtcars |>
 ## 3     8  15.1
 ```
 
-*OK, but what's the fuss?* The main reason of using pipelines is that they lead to more concise and readable code. Additional benefit is that the steps can be easily changed, replaced, or removed, what makes iterating over the code easier. Pipelines also ensure consistency, because they guarantee that the steps would be always invoked in the same order. 
+*OK, but what's the fuss?* The main reason for using pipelines is that they lead to more concise and readable code. An additional benefit is that the steps can be easily changed, replaced, or removed, which makes iterating over the code easier. Pipelines also ensure consistency, because they guarantee that the steps would be always invoked in the same order. 
 
 The pipeline like above, consisting of [pure functions], fulfill all the mathematical properties of function composition. Since we can define a new function $p(x) = f(g(x))$,
 we can use it for a composition as well $h \circ p = h \circ f \circ g$. For the same reason
@@ -88,16 +88,16 @@ complete_pipeline = Pipeline([
 ])
 ```
 
-This pipeline is an object with the same interface as it's steps, [exposing methods] like
+This pipeline is an object with the same interface as its steps, [exposing methods] like
 `fit`, `transform`, or `predict`. When calling `complete_pipeline.fit(X, y)`, the pipeline would call `fit` in `preprocessor` and pass the result as an input to the `fit` method of the `estimator`. The objects are Notice that the `fit` method mutates the object, so after calling it, each of the
-steps would be behaving differently then before. If during preprocessing we used a scaling transformer, it would learn how to scale the data given the training set, so it could apply the
-transformation to new data. Calling `fit` on machine learning model, would lead to training it,
+steps would be behaving differently than before. If during preprocessing we used a scaling transformer, it would learn how to scale the data given the training set, so it could apply the
+transformation to new data. Calling `fit` on the machine learning model would lead to training it,
 so the model can be used for making predictions.
 
-We need a `fit` method that sets up the pipeline and `transform` or `predict` method that applies it.
-In scikit-learn the objects and so the pipeline are mutable, but it would also be possible to create
-a pipeline in functional programming paradighm. The only thing needed would be the support for [first-class functions]. In such a case, `fit` function would return the predict pipeline build from individual step functions. 
-Such purely functional pipeline could look like in the example below.
+We need a `fit` method that sets up the pipeline and a `transform` or `predict` method that applies it.
+In scikit-learn the objects and so the pipeline is mutable, but it would also be possible to create
+a pipeline in a functional programming paradigm. The only thing needed would be the support for [first-class functions]. In such a case, the `fit` function would return the predicted pipeline build from individual step functions. 
+Such a purely functional pipeline could look like in the example below.
 
 ```python
 def fit(steps, input):
@@ -119,6 +119,10 @@ transform(fit([
     lambda x: lambda y: y / x,  # => y / 4
 ], 2), 7)
 ```
+
+Pipelines are simple, yet powerful and often get omitted when discussing design patterns.
+They carry a key role in many data processing tasks, including modern machine learning
+pipelines.
 
 
  [composed]: https://en.wikipedia.org/wiki/Function_composition
