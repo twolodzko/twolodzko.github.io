@@ -13,7 +13,7 @@ features with other functional languages, it has rather an unorthodox syntax.
 In the following tutorial, I would be assuming that you are using a Unix-like operating
 system. GNU Make is probably already preinstalled, so you don't need to do anything.
 
-The code examples can be found [here](https://github.com/twolodzko/twolodzko.github.io/tree/master/snippets/makefiles).
+The code examples can be found [here](./snippets/makefiles/).
 
 ## Variables
 
@@ -204,7 +204,7 @@ three:
     @ echo Three
 ```
 
-Since the functions don't share any state, the only way to pass 
+Since the functions don't share any state, the only way to pass
 data between them is through writing and reading files.
 
 ## Conditionals
@@ -222,13 +222,13 @@ endif
 
 The [conditional statements][conditionals] can be chained
 
-> conditional-directive-one  
-> text-if-one-is-true  
-> `else` conditional-directive-two  
-> text-if-two-is-true  
-> `else`  
-> text-if-one-and-two-are-false  
-> `endif`  
+> conditional-directive-one
+> text-if-one-is-true
+> `else` conditional-directive-two
+> text-if-two-is-true
+> `else`
+> text-if-one-and-two-are-false
+> `endif`
 
 The statements can sometimes be tricky. For example, calling
 `make -f conditionals.mk invalid` won't work
@@ -397,7 +397,7 @@ endif
 
 Another example shows tail-recursive implementation of Fibonacci sequence generator.
 Unfortunately, to my best knowledge Makefile does not support [tail call optimization][tco]
-as many functional programming languages do, so it would be rather slow. The example also 
+as many functional programming languages do, so it would be rather slow. The example also
 shows limitation of integer type numbers, as it will overflow when using `NUMBER` over 91.
 
 ```makefile

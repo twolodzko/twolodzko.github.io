@@ -3,7 +3,9 @@
     (define (impl inp out)
         (if (null? inp)
             out
-            (impl (cdr inp) (cons (car inp) out))))
+            (impl
+                (cdr inp)
+                (cons (car inp) out))))
     (impl lst '()))
 
 (define (fit steps input)
