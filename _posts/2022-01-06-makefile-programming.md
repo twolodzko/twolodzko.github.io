@@ -13,7 +13,7 @@ features with other functional languages, it has rather an unorthodox syntax.
 In the following tutorial, I would be assuming that you are using a Unix-like operating
 system. GNU Make is probably already preinstalled, so you don't need to do anything.
 
-The code examples can be found [here](./snippets/makefiles/).
+The code examples can be found [here](https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/makefiles/).
 
 ## Variables
 

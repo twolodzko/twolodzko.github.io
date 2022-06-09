@@ -102,7 +102,7 @@ We need a `fit` method that sets up the pipeline and a `transform` or `predict` 
 In scikit-learn the pipeline and the objects it consists of are mutable, however, it would also be possible to create
 a pipeline in a functional programming paradigm. The only thing we need is the support for [first-class functions].
 In such a case, the `fit` function would return the predicted pipeline build from individual step functions. 
-Such a purely functional pipeline could look like in the example below (or the [same example in Scheme](./snippets/pipeline.scm)).
+Such a purely functional pipeline could look like in the example below (or the [same example in Scheme](https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/pipeline.scm)).
 
 ```python
 def fit(steps, input):
