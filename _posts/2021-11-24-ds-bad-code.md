@@ -59,7 +59,7 @@ We de facto seem to be working differently when doing research and writing produ
 [two-modes]: https://veekaybee.github.io/2021/11/07/typed-pipe/
 [no-prod-notebooks]: https://martinfowler.com/articles/productize-data-sci-notebooks.html
 [tdd]: https://www.goodreads.com/book/show/4268826-growing-object-oriented-software-guided-by-tests
-[rdd1]: https://practical.li/clojure/repl-driven-devlopment.html
+[rdd1]: https://web.archive.org/web/20210920203741/https://practical.li/clojure/repl-driven-devlopment.html
 [rdd2]: https://mikelevins.github.io/posts/2020-12-18-repl-driven
 [thoughtworks-podcast]: https://podcasts.apple.com/pl/podcast/thoughtworks-technology-podcast/id881136697?i=1000542363263
 [mocking]: https://realpython.com/python-mock-library/
