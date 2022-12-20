@@ -31,7 +31,7 @@ theory. I started reading [the dragon book], though I never finished it. I neede
 and this is how I discovered the *[Build Your Own Lisp]* book. It was nice, but it had code examples in C and focused
 too much on C for me. Hopefully, I also found the great *[Writing An Interpreter In Go]* book that used Go language to
 illustrate building an interpreter for a (non-lisp) programming language. Another great inspiration and source of help
-was the [make a lisp repository] with an end-to-end tutorial and learning materials for freaks like me.
+were the [make a lisp repository] with an end-to-end tutorial and learning materials for freaks like me.
 Around the same time, I was reading the classic programming books: *[The Little Schemer]* and
 *[Structure and Interpretation of Computer Programs]*, which used Scheme, so I was curious to write
 my Scheme, to get a better "behind the scenes" understanding. Among other resources,
@@ -111,13 +111,13 @@ while Go camelCase for private functions and PascalCase for public functions.
 
 # So what are the pros and cons of those langauges?
 
-* **Go** is elegant in its simplicity, and has great documentation and developer tools. It has a simple but strict static
+* **Go** is elegant in its simplicity and has great documentation and developer tools. It has a simple but strict static
    type system, so implementing dynamic types was quite tedious. The big upside is that Go has a large and active
    community, so it's easy to find online an answer to any *"how to..."* question, or get it answered on
    [StackOverflow.com](http://www.stackoverflow.com) (not necessarily the case for the other languages).
 * **OCaml** was a real pleasure to use, though it would be even better if it had better documentation.
 * **Erlang**... is interesting. There are many great ideas behind it. It also shows how the simplicity of a language does
-   not make it less expressive: all the values are immutable, has [no namespaces], no custom types, etc, while being
+   not make it less expressive: all the values are immutable, it has [no namespaces], no custom types, etc, while being
    a language designed for building complex, concurrent systems. I liked how Erland uses uppercase-only for variable
    names, making them visually distinct (Go does a similar thing for private vs public functions).
 * **Scheme**, oh good old Scheme. What I was missing the most as compared to other functional languages was pattern-matching.
@@ -129,10 +129,12 @@ while Go camelCase for private functions and PascalCase for public functions.
 
 It was a great learning experience. Now, I'm struggling between resting from lisp and the compulsion to repeat it in
 another language. It could be a chance to learn better how Haskell handles side effects. On another hand, I already did
-it in functional languages. Cool kids those days learn Rust, so who knows? Lua also sounds intriguing.
+it in functional languages. Cool kids those days learn Rust, so who knows? Lua also sounds intriguing.[^1]
 Finally, I didn't touch JavaScript for years and there is this TypeScript thing, right? Or maybe Crystal?
 Some masochistic part of me thinks of doing it in AWK or a [Makefile], but not sure if this would be the pleasant kind
 of pain.
+
+ [^1]: I did it: <https://github.com/twolodzko/luali>
 
  [The Little Schemer]: https://www.goodreads.com/book/show/548914.The_Little_Schemer
  [Go]: https://github.com/twolodzko/gosch
