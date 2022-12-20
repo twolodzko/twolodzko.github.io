@@ -2,58 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://twolodzko.github.io/index.html</loc>
-    <lastmod>2022-12-20T18:37:03.835Z</lastmod>
+    <lastmod>2022-12-20T20:48:44.253Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/about.html</loc>
-    <lastmod>2022-12-20T18:37:04.287Z</lastmod>
+    <lastmod>2022-12-20T20:48:44.529Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/env.html</loc>
-    <lastmod>2022-12-20T18:37:04.939Z</lastmod>
+    <lastmod>2022-12-20T20:48:45.069Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/makefiles.html</loc>
-    <lastmod>2022-12-20T18:37:05.607Z</lastmod>
+    <lastmod>2022-12-20T20:48:45.653Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/bash.html</loc>
-    <lastmod>2022-12-20T18:37:06.351Z</lastmod>
+    <lastmod>2022-12-20T20:48:46.353Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/implementing-lisps.html</loc>
-    <lastmod>2022-12-20T18:37:06.767Z</lastmod>
+    <lastmod>2022-12-20T20:48:46.741Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/makefile-programming.html</loc>
-    <lastmod>2022-12-20T18:37:07.503Z</lastmod>
+    <lastmod>2022-12-20T20:48:47.389Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/eafp-vs-lbyl.html</loc>
-    <lastmod>2022-12-20T18:37:07.835Z</lastmod>
+    <lastmod>2022-12-20T20:48:47.705Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/dev-tools.html</loc>
-    <lastmod>2022-12-20T18:37:08.539Z</lastmod>
+    <lastmod>2022-12-20T20:48:48.225Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/seven-wastes.html</loc>
-    <lastmod>2022-12-20T18:37:08.911Z</lastmod>
+    <lastmod>2022-12-20T20:48:48.565Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/ml-checklist.html</loc>
-    <lastmod>2022-12-20T18:37:09.379Z</lastmod>
+    <lastmod>2022-12-20T20:48:49.017Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/ds-bad-code.html</loc>
-    <lastmod>2022-12-20T18:37:09.723Z</lastmod>
+    <lastmod>2022-12-20T20:48:49.345Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/pipelines.html</loc>
-    <lastmod>2022-12-20T18:37:10.327Z</lastmod>
+    <lastmod>2022-12-20T20:48:49.873Z</lastmod>
   </url>
   <url>
     <loc>https://twolodzko.github.io/posts/quarto.html</loc>
-    <lastmod>2022-12-20T18:37:10.907Z</lastmod>
+    <lastmod>2022-12-20T20:48:50.405Z</lastmod>
   </url>
 </urlset>
