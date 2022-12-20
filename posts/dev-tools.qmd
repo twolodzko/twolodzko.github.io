@@ -3,6 +3,7 @@ title: "My favorite developer tools for Python"
 date: 2022-03-25
 aliases:
   - "/dev-tools"
+categories: [blog]
 ---
 
 # Dependency management

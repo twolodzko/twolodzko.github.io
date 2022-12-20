@@ -3,6 +3,7 @@ title:  "Makefile Programming Language Tutorial"
 date: 2022-01-06
 aliases:
   - "/makefile-programming"
+categories: [blog]
 ---
 
 [Makefile][docs] language is a [functional][functional], dynamically typed language,

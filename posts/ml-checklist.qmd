@@ -3,6 +3,7 @@ title: "Deploying Machine Learning Models: A Checklist"
 date: 2021-01-12
 aliases:
   - "/ml-checklist"
+categories: [blog]
 ---
 
 In [The Checklist Manifesto][checklist], Atul Gawande shows how using checklists can make everyone's

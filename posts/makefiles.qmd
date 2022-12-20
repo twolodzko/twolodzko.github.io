@@ -3,6 +3,7 @@ title:  "Makefiles for not-only programmers"
 date: 2020-11-02
 aliases:
   - "/makefiles"
+categories: [blog]
 ---
 
 Make is commonly used in software development for managing the compilation of the source code. Use cases of make however

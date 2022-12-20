@@ -3,6 +3,7 @@ title: "Lessons learned from implementing minimal Scheme four times"
 date: 2022-11-29
 aliases:
   - "/implementing-lisps"
+categories: [blog]
 ---
 
 We were in the middle of a global pandemic. Tormented by fear, locked in our homes, everyone was coping in their own way.

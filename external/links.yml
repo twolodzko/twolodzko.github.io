@@ -5,6 +5,7 @@
   image: https://i0.wp.com/neptune.ai/wp-content/uploads/2022/10/MLOps-shipping-4.jpg?resize=960%2C539&ssl=1
   description: |
     I discuss the MLOps architecture I've build with my team at Greensteam.
+  categories: [interview]
 
 - title: "Timothy Wolodzko - Staff Machine Learning Engineer @ Equinix"
   path: https://applyingml.com/mentors/timothy-wolodzko/
@@ -12,3 +13,46 @@
   image: https://applyingml.com/default-og-image.png
   description: |
     An interview where I share my thoughts on deploying machine learning and MLOps.
+  categories: [interview]
+
+- title: "4 Ways Machine Learning Teams Use CI/CD in Production"
+  path: https://neptune.ai/blog/ways-ml-teams-use-ci-cd-in-production
+  date: 2021-12-30
+  image: https://i0.wp.com/neptune.ai/wp-content/uploads/2022/10/GreenSteam-MLOPs-toolstack_1.png?ssl=1
+  description: |
+    Stephen Oladele from Neptune.ai wrote an article where my work was used in one of the case studies.
+  categories: [interview]
+
+- title: "A: Best way to check implementation of density, distribution function and random generation"
+  path: https://stats.stackexchange.com/a/272256/35989
+  date: 2017-04-06
+  categories: [q&a]
+
+- title: "A: Bayes regression: how is it done in comparison to standard regression?"
+  path: https://stats.stackexchange.com/a/252608/35989
+  date: 2016-12-20
+  image: https://i.stack.imgur.com/CJ9dW.jpg
+  categories: [q&a]
+
+- title: "A: Can you explain Parzen window (kernel) density estimation in layman's terms?"
+  path: https://stats.stackexchange.com/a/244023/35989
+  date: 2016-11-03
+  image: https://i.stack.imgur.com/JDEG5.png
+  categories: [q&a]
+
+- title: "A: What exactly is the alpha in the Dirichlet distribution?"
+  path: https://stats.stackexchange.com/a/244946/35989
+  date: 2016-11-08
+  image: https://i.stack.imgur.com/7ZiDs.png
+  categories: [q&a]
+
+- title: "A: How to decide which glm family to use?"
+  path: https://stats.stackexchange.com/a/303592/35989
+  date: 2017-09-17
+  categories: [q&a]
+
+- title: "A: Do Bayesian priors become irrelevant with large sample size?"
+  path: https://stats.stackexchange.com/a/201059/35989
+  date: 2016-03-10
+  image: https://i.stack.imgur.com/dBPgH.png
+  categories: [q&a]

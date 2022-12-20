@@ -3,6 +3,7 @@ title:  "When it is easier to ask for forgiveness than permission?"
 date: 2022-01-14
 aliases:
   - "/eafp-vs-lbyl"
+categories: [blog]
 ---
 
 There are [two programming styles][stackoverflow]: [look before you leap (LBYL)][lbyl] and [easier to ask for
