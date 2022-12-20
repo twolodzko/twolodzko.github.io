@@ -5,7 +5,7 @@ aliases:
   - "/pipelines"
 ---
 
-In mathematics, two functions $f$ and $$g$$ can be [composed] $f \circ g$, what is defined as
+In mathematics, two functions $f$ and $g$ can be [composed] $f \circ g$, what is defined as
 
 $$
 (f \circ g)(x) = f(g(x))

@@ -11,7 +11,7 @@ went re-implementing Scheme lisps. Creating minimal Scheme interpreters became m
 By "minimal" I mean bare-bones language but feature-rich enough that can run all the examples from the classic
 *[The Little Schemer]* book by Daniel P. Friedman and Matthias Felleisen.
 
-> *Do It, Do It Again, and Again, and Again ...*
+> *Do It, Do It Again, and Again, and Again ...*\
 > &emsp; — *The Little Schemer* by Friedmann and Felleisen
 
 I implemented it already in [Go], [OCaml], [Erlang], and [Racket] (itself a flavor of Scheme).
