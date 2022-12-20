@@ -1,0 +1,18 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/implementing-lisps.html",
+      "/posts/pipelines.html",
+      "/posts/dev-tools.html",
+      "/posts/eafp-vs-lbyl.html",
+      "/posts/makefile-programming.html",
+      "/posts/ds-bad-code.html",
+      "/posts/env.html",
+      "/posts/seven-wastes.html",
+      "/posts/bash.html",
+      "/posts/ml-checklist.html",
+      "/posts/makefiles.html"
+    ]
+  }
+]
