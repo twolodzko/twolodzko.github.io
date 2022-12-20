@@ -1,0 +1,118 @@
+---
+title: "I ❤️ Quarto"
+date: 2022-12-20
+categories: [blog]
+---
+
+I recently decided to switch my page from [Jekyll] (GitHub Pages default) to [Quatro]. Both support creating pages
+in [Markdown] with configs in YAML, to build static web pages from them. They are simple and quite similar, but
+I found Quarto easier to use, has great dev tools, and better documentation. Moreover, Quarto supports $\TeX$
+out-of-the-box, without [plug-ins and crazy syntax] like Jekyll.
+
+To create a blog template in Quatro you only need to run **> Quarto: Create Project** and pick "Blog Project" in VS Code,
+or use the command
+
+```shell
+quarto create-project myblog --type website:blog
+```
+
+This creates a template to fill in. It has the structure like below
+
+```shell
+├── index.qmd
+├── posts
+│   ├── _metadata.yml
+│   └── post.qmd
+├── _quarto.yml
+└── styles.css
+```
+
+The main configuration file is `_quatro.yml`, which can be as simple as below. Here you set the title of the page and the
+[theme], which can be further customized using `styles.css`. It can also contain [navbar] and other elements.
+
+```yaml
+project:
+  type: website
+
+website:
+  title: "Title goes here"
+
+format:
+  html:
+    theme: simplex
+    css: styles.css
+```
+
+The next important file is `index.qml` which is a QML (YAML/Markdown) template for the main page. For a [blog], it
+contains a [listing] or elements to be displayed, like a list of blog posts. It can be a literal list of elements to
+include, a directory (e.g. `contents: posts`), a pattern, or a list of patterns. It has many configurations to
+customize it.
+
+```yaml
+---
+listing:
+  - id: blog
+    contents: posts
+    sort: "date desc"
+    type: default
+    categories: true
+    sort-ui: false
+    filter-ui: false
+page-layout: full
+title-block-banner: false
+---
+```
+
+In my case, I decided to show a large list of blog posts mixed with links to other content stored in `external/links.yml`
+file, so the `contents` looked like the below.
+
+```yaml
+    contents:
+      - "posts/*.qmd"
+      - "external/links.yml"
+```
+
+Finally, the posts are just Markdown files with a metadata header. One nice feature is that you can use `aliases` to
+setup [redirects].
+
+```Markdown
+---
+title: "Title of the post"
+date: 2022-12-20
+aliases:
+  - "/rediect-from-here"
+categories: [tag]
+---
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+```
+
+When you are ready, run
+
+```shell
+quarto preview
+```
+
+it will open a live preview for the page, so you can edit it and instantly check the results.
+
+When you're ready, to publish it in [GitHub Pages], you need a create a repository, in **Settings / Pages** define it
+as a page, with `gh-pages` as the source branch, and run
+
+```shell
+quarto publish gh-pages
+```
+
+That's all!
+
+
+ [Jekyll]: https://jekyllrb.com/
+ [Quatro]: https://quarto.org
+ [Markdown]: https://www.markdownguide.org/
+ [plug-ins and crazy syntax]: https://varunagrawal.github.io/2018/03/27/latex-jekyll/
+ [theme]: https://quarto.org/docs/websites/website-blog.html#themes
+ [blog]: https://quarto.org/docs/websites/website-blog.html
+ [listing]: https://quarto.org/docs/websites/website-listings.html
+ [navbar]: https://quarto.org/docs/websites/website-navigation.html
+ [redirects]: https://quarto.org/docs/websites/website-navigation.html#redirects
+ [GitHub Pages]: https://pages.github.com/
