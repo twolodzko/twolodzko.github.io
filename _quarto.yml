@@ -6,10 +6,6 @@ website:
   navbar:
     right:
       - about.qmd
-      - icon: github
-        href: https://github.com/twolodzko
-      - icon: mastodon
-        href: https://bayes.club/@tymwol
   google-analytics: G-V9DH8RH1V5
 format:
   html:

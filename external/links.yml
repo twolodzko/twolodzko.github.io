@@ -23,6 +23,8 @@
     Stephen Oladele from Neptune.ai wrote an article where my work was used in one of the case studies.
   categories: [interview]
 
+# CrossValidated.com answers
+
 - title: "A: Best way to check implementation of density, distribution function and random generation"
   path: https://stats.stackexchange.com/a/272256/35989
   date: 2017-04-06
@@ -56,3 +58,31 @@
   date: 2016-03-10
   image: https://i.stack.imgur.com/dBPgH.png
   categories: [q&a]
+
+- title: "A: Is Bayesian Ridge Regression another name of Bayesian Linear Regression?"
+  path: https://stats.stackexchange.com/a/328345/35989
+  date: 2018-02-13
+  categories: [q&a]
+
+- title: "A: Size of bootstrap samples"
+  path: https://stats.stackexchange.com/a/246734/35989
+  date: Nov 2016-11-18
+  image: https://i.stack.imgur.com/5Nzqf.png
+  categories: [q&a]
+
+- title: "A: Fixed effect vs random effect when all possibilities are included in a mixed effects model"
+  path: https://stats.stackexchange.com/a/137837/35989
+  date: 2015-02-15
+  categories: [q&a]
+
+- title: "A: could someone please give a concrete example to illustrate the Dirichlet distribution prior for bag-of-words?"
+  path: https://stats.stackexchange.com/a/435444/35989
+  date: 2019-11-10
+  categories: [q&a]
+
+- title: "A: Why is the James-Stein estimator called a \"shrinkage\" estimator?"
+  path: https://stats.stackexchange.com/a/304316/35989
+  date: 2017-09-21
+  image: https://i.stack.imgur.com/FXtoT.png
+  categories: [q&a]
+
