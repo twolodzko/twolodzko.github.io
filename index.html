@@ -88,34 +88,6 @@ ul.task-list li input[type="checkbox"] {
       window['quarto-listing-loaded']();
     }
   })
-  
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-external .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-path','listing-date','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-path","listing-date","listing-image"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-external'] = new List('listing-external', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
   </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-V9DH8RH1V5"></script>
 
@@ -491,62 +463,6 @@ Make is commonly used in software development for managing the compilation of th
 <a href="./posts/makefiles.html">
 <div class="listing-date">
 Nov 2, 2020
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><div class="quarto-listing quarto-listing-container-default" id="listing-external">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1638745200000">
-<div class="thumbnail">
-<p><a href="https://applyingml.com/mentors/timothy-wolodzko/"> <img src="https://applyingml.com/default-og-image.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="https://applyingml.com/mentors/timothy-wolodzko/">
-<h3 class="no-anchor listing-title">
-Timothy Wolodzko - Staff Machine Learning Engineer @ Equinix
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="https://applyingml.com/mentors/timothy-wolodzko/">
-<div class="listing-date">
-Dec 6, 2021
-</div>
-<div class="metadata-value listing-path">
-https://applyingml.com/mentors/timothy-wolodzko/
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1617141600000">
-<div class="thumbnail">
-<p><a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study"> <img src="https://i0.wp.com/neptune.ai/wp-content/uploads/2022/10/MLOps-shipping-4.jpg?resize=960%2C539&amp;ssl=1" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study">
-<h3 class="no-anchor listing-title">
-MLOps at GreenSteam: Shipping Machine Learning [Case Study]
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study">
-<div class="listing-date">
-Mar 31, 2021
-</div>
-<div class="metadata-value listing-path">
-https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study
 </div>
 </a>
 </div>
