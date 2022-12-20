@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/quarto.html",
       "/posts/implementing-lisps.html",
       "/posts/pipelines.html",
       "/posts/dev-tools.html",
