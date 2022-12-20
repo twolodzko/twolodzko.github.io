@@ -160,4 +160,4 @@ of pain.
  [Racket's documentation]: https://docs.racket-lang.org/index.html
  [no namespaces]: https://stackoverflow.com/questions/4476108/namespaces-and-records-in-erlang
  [one brief blog post]: https://jackwarren.info/posts/guides/racket/racket-command-line/
- [Makefile]: https://twolodzko.github.io/makefile-programming
+ [Makefile]: https://twolodzko.github.io/posts/makefile-programming

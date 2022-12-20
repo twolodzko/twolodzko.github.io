@@ -125,9 +125,9 @@ The template for this setup can be found here: <https://github.com/twolodzko/bas
 
 
  [venv]: https://realpython.com/python-virtual-environments-a-primer/
- [Makefiles]: https://twolodzko.github.io/makefiles
- [Bash]: https://twolodzko.github.io/bash
- [environment variables]: https://twolodzko.github.io/env
+ [Makefiles]: https://twolodzko.github.io/posts/makefiles
+ [Bash]: https://twolodzko.github.io/posts/bash
+ [environment variables]: https://twolodzko.github.io/posts/env
  [trivial format]: https://smartmob-rfc.readthedocs.io/en/latest/2-dotenv.html
  [python-dotenv]: https://pypi.org/project/python-dotenv/
  [environs]: https://github.com/sloria/environs
