@@ -70,9 +70,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -144,9 +144,11 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(20)</span></div><div class="category" data-category="blog">blog <span class="quarto-category-count">(11)</span></div><div class="category" data-category="interview">interview <span class="quarto-category-count">(3)</span></div><div class="category" data-category="q&amp;a">q&amp;a <span class="quarto-category-count">(6)</span></div></div></div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 
 
@@ -156,7 +158,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-blog">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1669676400000" data-listing-file-modified-sort="1671536641344" data-listing-reading-time-sort="9.095">
+<div class="quarto-post image-right" data-index="0" data-categories="blog" data-listing-date-sort="1669676400000" data-listing-file-modified-sort="1671541020186" data-listing-reading-time-sort="9.095">
 <div class="thumbnail">
 <p><a href="./posts/implementing-lisps.html"> <img src="https://imgs.xkcd.com/comics/lisp_cycles.png" class="thumnail-image"> </a></p>
 </div>
@@ -168,6 +170,13 @@ Lessons learned from implementing minimal Scheme four times
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
+blog
+</div>
+</div>
+<a href="./posts/implementing-lisps.html">
 <div class="listing-description">
 We were in the middle of a global pandemic. Tormented by fear, locked in our homes, everyone was coping in their own way. Some people started baking bread, writing poetry…<em></em>
 </div>
@@ -181,7 +190,7 @@ Nov 29, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1654639200000" data-listing-file-modified-sort="1671537504360" data-listing-reading-time-sort="4.635">
+<div class="quarto-post image-right" data-index="1" data-categories="blog" data-listing-date-sort="1654639200000" data-listing-file-modified-sort="1671541005782" data-listing-reading-time-sort="4.635">
 <div class="thumbnail">
 <a href="./posts/pipelines.html">
 <div class="thumbnail-image">
@@ -197,6 +206,13 @@ Pipelines: The #1 data processing design pattern
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
+blog
+</div>
+</div>
+<a href="./posts/pipelines.html">
 <div class="listing-description">
 In mathematics, two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> can be composed <span class="math inline">\(f \circ g\)</span>, what is defined as
 </div>
@@ -210,7 +226,7 @@ Jun 8, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1648162800000" data-listing-file-modified-sort="1671531872617" data-listing-reading-time-sort="3.88">
+<div class="quarto-post image-right" data-index="2" data-categories="blog" data-listing-date-sort="1648162800000" data-listing-file-modified-sort="1671541032342" data-listing-reading-time-sort="3.88">
 <div class="thumbnail">
 <a href="./posts/dev-tools.html">
 <div class="thumbnail-image">
@@ -226,6 +242,13 @@ My favorite developer tools for Python
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
+blog
+</div>
+</div>
+<a href="./posts/dev-tools.html">
 <div class="listing-description">
 There are many dependency management tools for python: conda, poetry, pipenv, tox, etc. Each of them has its pros and cons, fans and opponents. After spending an awful lot of time researching them, resolving…
 </div>
@@ -239,7 +262,7 @@ Mar 25, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1642114800000" data-listing-file-modified-sort="1671531788065" data-listing-reading-time-sort="2.87">
+<div class="quarto-post image-right" data-index="3" data-categories="blog" data-listing-date-sort="1642114800000" data-listing-file-modified-sort="1671541026386" data-listing-reading-time-sort="2.87">
 <div class="thumbnail">
 <p><a href="./posts/eafp-vs-lbyl.html"> <img src="./images/eapf-vs-lbyl.png" class="thumnail-image"> </a></p>
 </div>
@@ -251,6 +274,13 @@ When it is easier to ask for forgiveness than permission?
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
+blog
+</div>
+</div>
+<a href="./posts/eafp-vs-lbyl.html">
 <div class="listing-description">
 There are two programming styles: look before you leap (LBYL) and easier to ask for forgiveness than permission (EAFP). There are pros and cons of both styles, EAFP in some cases may be more readable and…<code></code><code></code><code></code>
 </div>
@@ -264,7 +294,7 @@ Jan 14, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1641423600000" data-listing-file-modified-sort="1671531803758" data-listing-reading-time-sort="8.5">
+<div class="quarto-post image-right" data-index="4" data-categories="blog" data-listing-date-sort="1641423600000" data-listing-file-modified-sort="1671541016750" data-listing-reading-time-sort="8.5">
 <div class="thumbnail">
 <a href="./posts/makefile-programming.html">
 <div class="thumbnail-image">
@@ -280,6 +310,13 @@ Makefile Programming Language Tutorial
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
+blog
+</div>
+</div>
+<a href="./posts/makefile-programming.html">
 <div class="listing-description">
 Makefile language is a functional, dynamically typed language, and of course, it is Turing complete. It’s probably the most popular, unpopular programming language, widely adopted in many programming projects (especially ones using C as the main language). While it shares…
 </div>
@@ -293,7 +330,7 @@ Jan 6, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-listing-date-sort="1640818800000">
+<div class="quarto-post image-right" data-index="5" data-categories="interview" data-listing-date-sort="1640818800000">
 <div class="thumbnail">
 <p><a href="https://neptune.ai/blog/ways-ml-teams-use-ci-cd-in-production"> <img src="https://i0.wp.com/neptune.ai/wp-content/uploads/2022/10/GreenSteam-MLOPs-toolstack_1.png?ssl=1" class="thumnail-image"> </a></p>
 </div>
@@ -305,6 +342,13 @@ Jan 6, 2022
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('interview'); return false;">
+interview
+</div>
+</div>
+<a href="https://neptune.ai/blog/ways-ml-teams-use-ci-cd-in-production">
 <div class="listing-description">
 <p>Stephen Oladele from Neptune.ai wrote an article where my work was used in one of the case studies.</p>
 </div>
@@ -318,7 +362,7 @@ Dec 30, 2021
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-listing-date-sort="1638745200000">
+<div class="quarto-post image-right" data-index="6" data-categories="interview" data-listing-date-sort="1638745200000">
 <div class="thumbnail">
 <p><a href="https://applyingml.com/mentors/timothy-wolodzko/"> <img src="https://applyingml.com/default-og-image.png" class="thumnail-image"> </a></p>
 </div>
@@ -330,6 +374,13 @@ Timothy Wolodzko - Staff Machine Learning Engineer @ Equinix
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('interview'); return false;">
+interview
+</div>
+</div>
+<a href="https://applyingml.com/mentors/timothy-wolodzko/">
 <div class="listing-description">
 <p>An interview where I share my thoughts on deploying machine learning and MLOps.</p>
 </div>
@@ -343,7 +394,7 @@ Dec 6, 2021
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1637708400000" data-listing-file-modified-sort="1671531773773" data-listing-reading-time-sort="6.865">
+<div class="quarto-post image-right" data-index="7" data-categories="blog" data-listing-date-sort="1637708400000" data-listing-file-modified-sort="1671541029534" data-listing-reading-time-sort="6.865">
 <div class="thumbnail">
 <a href="./posts/ds-bad-code.html">
 <div class="thumbnail-image">
@@ -359,6 +410,13 @@ Data Scientists Write Bad Code or Maybe That’s Not the Problem?
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
+blog
+</div>
+</div>
+<a href="./posts/ds-bad-code.html">
 <div class="listing-description">
 Technologies and methodologies…
 </div>
@@ -372,7 +430,7 @@ Nov 24, 2021
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-listing-date-sort="1632780000000" data-listing-file-modified-sort="1671531870853" data-listing-reading-time-sort="4.375">
+<div class="quarto-post image-right" data-index="8" data-categories="blog" data-listing-date-sort="1632780000000" data-listing-file-modified-sort="1671541023158" data-listing-reading-time-sort="4.375">
 <div class="thumbnail">
 <a href="./posts/env.html">
 <div class="thumbnail-image">
@@ -388,6 +446,13 @@ Environment variables
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
+blog
+</div>
+</div>
+<a href="./posts/env.html">
 <div class="listing-description">
 Using environment variables for storing configuration is a de facto standard. It was one of the recommendations from Heroku’s Twelve-Factor App guide and has become widely adopted since then. We are all familiar with environment variables, but there are many, less…
 </div>
@@ -401,7 +466,7 @@ Sep 28, 2021
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-listing-date-sort="1623448800000" data-listing-file-modified-sort="1671531834143" data-listing-reading-time-sort="6.23">
+<div class="quarto-post image-right" data-index="9" data-categories="blog" data-listing-date-sort="1623448800000" data-listing-file-modified-sort="1671541001122" data-listing-reading-time-sort="6.23">
 <div class="thumbnail">
 <a href="./posts/seven-wastes.html">
 <div class="thumbnail-image">
@@ -417,6 +482,13 @@ Can Machine Learning be Lean?
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
+blog
+</div>
+</div>
+<a href="./posts/seven-wastes.html">
 <div class="listing-description">
 Lean was a way of improving manufacturing efficiency in Toyota. Lean software development and lean startup methodologies followed it. One of the key take-aways of lean is cutting off the unnecessary processes while leaving the ones that bring actual value. Could the ideas be…
 </div>
@@ -430,7 +502,7 @@ Jun 12, 2021
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="10" data-listing-date-sort="1617141600000">
+<div class="quarto-post image-right" data-index="10" data-categories="interview" data-listing-date-sort="1617141600000">
 <div class="thumbnail">
 <p><a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study"> <img src="https://i0.wp.com/neptune.ai/wp-content/uploads/2022/10/MLOps-shipping-4.jpg?resize=960%2C539&amp;ssl=1" class="thumnail-image"> </a></p>
 </div>
@@ -442,6 +514,13 @@ MLOps at GreenSteam: Shipping Machine Learning [Case Study]
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('interview'); return false;">
+interview
+</div>
+</div>
+<a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study">
 <div class="listing-description">
 <p>I discuss the MLOps architecture I’ve build with my team at Greensteam.</p>
 </div>
@@ -455,7 +534,7 @@ Mar 31, 2021
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="11" data-listing-date-sort="1614294000000" data-listing-file-modified-sort="1671531756804" data-listing-reading-time-sort="15.13">
+<div class="quarto-post image-right" data-index="11" data-categories="blog" data-listing-date-sort="1614294000000" data-listing-file-modified-sort="1671541035074" data-listing-reading-time-sort="15.13">
 <div class="thumbnail">
 <a href="./posts/bash.html">
 <div class="thumbnail-image">
@@ -471,6 +550,13 @@ Bash pocket guide
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
+blog
+</div>
+</div>
+<a href="./posts/bash.html">
 <div class="listing-description">
 Bash is like regular expressions: everyone uses it, nobody…
 </div>
@@ -484,7 +570,7 @@ Feb 26, 2021
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="12" data-listing-date-sort="1610406000000" data-listing-file-modified-sort="1671531674507" data-listing-reading-time-sort="9.975">
+<div class="quarto-post image-right" data-index="12" data-categories="blog" data-listing-date-sort="1610406000000" data-listing-file-modified-sort="1671541009674" data-listing-reading-time-sort="9.975">
 <div class="thumbnail">
 <a href="./posts/ml-checklist.html">
 <div class="thumbnail-image">
@@ -500,6 +586,13 @@ Deploying Machine Learning Models: A Checklist
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
+blog
+</div>
+</div>
+<a href="./posts/ml-checklist.html">
 <div class="listing-description">
 In The Checklist Manifesto, Atul Gawande shows how using checklists can make everyone’s work more efficient and less error-prone. If they are useful for aircraft pilots and surgeons, we could use…
 </div>
@@ -513,7 +606,7 @@ Jan 12, 2021
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-listing-date-sort="1604271600000" data-listing-file-modified-sort="1671531818091" data-listing-reading-time-sort="7.935">
+<div class="quarto-post image-right" data-index="13" data-categories="blog" data-listing-date-sort="1604271600000" data-listing-file-modified-sort="1671541013178" data-listing-reading-time-sort="7.935">
 <div class="thumbnail">
 <a href="./posts/makefiles.html">
 <div class="thumbnail-image">
@@ -529,6 +622,13 @@ Makefiles for not-only programmers
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
+blog
+</div>
+</div>
+<a href="./posts/makefiles.html">
 <div class="listing-description">
 Make is commonly used in software development for managing the compilation of the source code. Use cases of make however go far beyond…<em></em>
 </div>
@@ -538,6 +638,206 @@ Make is commonly used in software development for managing the compilation of th
 <a href="./posts/makefiles.html">
 <div class="listing-date">
 Nov 2, 2020
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="14" data-categories="q&amp;a" data-listing-date-sort="1505599200000">
+<div class="thumbnail">
+<a href="https://stats.stackexchange.com/a/303592/35989">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="https://stats.stackexchange.com/a/303592/35989"></a></p>
+</div>
+<div class="body">
+<a href="https://stats.stackexchange.com/a/303592/35989">
+<h3 class="no-anchor listing-title">
+A: How to decide which glm family to use?
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
+q&amp;a
+</div>
+</div>
+<a href="https://stats.stackexchange.com/a/303592/35989">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="https://stats.stackexchange.com/a/303592/35989">
+<div class="listing-date">
+Sep 17, 2017
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="15" data-categories="q&amp;a" data-listing-date-sort="1491429600000">
+<div class="thumbnail">
+<a href="https://stats.stackexchange.com/a/272256/35989">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="https://stats.stackexchange.com/a/272256/35989"></a></p>
+</div>
+<div class="body">
+<a href="https://stats.stackexchange.com/a/272256/35989">
+<h3 class="no-anchor listing-title">
+A: Best way to check implementation of density, distribution function and random generation
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
+q&amp;a
+</div>
+</div>
+<a href="https://stats.stackexchange.com/a/272256/35989">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="https://stats.stackexchange.com/a/272256/35989">
+<div class="listing-date">
+Apr 6, 2017
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="16" data-categories="q&amp;a" data-listing-date-sort="1482188400000">
+<div class="thumbnail">
+<p><a href="https://stats.stackexchange.com/a/252608/35989"> <img src="https://i.stack.imgur.com/CJ9dW.jpg" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="https://stats.stackexchange.com/a/252608/35989">
+<h3 class="no-anchor listing-title">
+A: Bayes regression: how is it done in comparison to standard regression?
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
+q&amp;a
+</div>
+</div>
+<a href="https://stats.stackexchange.com/a/252608/35989">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="https://stats.stackexchange.com/a/252608/35989">
+<div class="listing-date">
+Dec 20, 2016
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="17" data-categories="q&amp;a" data-listing-date-sort="1478127600000">
+<div class="thumbnail">
+<p><a href="https://stats.stackexchange.com/a/244023/35989"> <img src="https://i.stack.imgur.com/JDEG5.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="https://stats.stackexchange.com/a/244023/35989">
+<h3 class="no-anchor listing-title">
+A: Can you explain Parzen window (kernel) density estimation in layman’s terms?
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
+q&amp;a
+</div>
+</div>
+<a href="https://stats.stackexchange.com/a/244023/35989">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="https://stats.stackexchange.com/a/244023/35989">
+<div class="listing-date">
+Nov 3, 2016
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="18" data-categories="q&amp;a" data-listing-date-sort="NaN">
+<div class="thumbnail">
+<p><a href="2016-11-08"> <img src="https://i.stack.imgur.com/7ZiDs.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="2016-11-08">
+<h3 class="no-anchor listing-title">
+A: What exactly is the alpha in the Dirichlet distribution?
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
+q&amp;a
+</div>
+</div>
+<a href="2016-11-08">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="2016-11-08">
+<div class="listing-date">
+Invalid Date
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="19" data-categories="q&amp;a" data-listing-date-sort="1457564400000">
+<div class="thumbnail">
+<p><a href="https://stats.stackexchange.com/a/201059/35989"> <img src="https://i.stack.imgur.com/dBPgH.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="https://stats.stackexchange.com/a/201059/35989">
+<h3 class="no-anchor listing-title">
+A: Do Bayesian priors become irrelevant with large sample size?
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
+q&amp;a
+</div>
+</div>
+<a href="https://stats.stackexchange.com/a/201059/35989">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="https://stats.stackexchange.com/a/201059/35989">
+<div class="listing-date">
+Mar 10, 2016
 </div>
 </a>
 </div>
