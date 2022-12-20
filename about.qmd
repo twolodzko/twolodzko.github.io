@@ -1,0 +1,21 @@
+---
+title: "About"
+image: images/profile.png
+about:
+  template: jolla
+  links:
+    - icon: mastodon
+      text: Mastodon
+      href: https://bayes.club/@tymwol
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/twolodzko/
+    - icon: github
+      text: Github
+      href: https://github.com/twolodzko
+
+---
+
+My name is Tymoteusz Wołodźko. I am a machine learning engineer and developer turned to product role.
+I am allegric to hype and nerdish about statistics, machine learning, and programming.
+I am also an active user and elected moderator for the CrossValidated.com statistics and machine learning Q&A site.

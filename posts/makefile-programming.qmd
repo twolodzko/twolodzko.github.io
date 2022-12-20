@@ -1,0 +1,441 @@
+---
+title:  "Makefile Programming Language Tutorial"
+date: 2022-01-06
+---
+
+[Makefile][docs] language is a [functional][functional], dynamically typed language,
+and of course, it [is Turing complete][turing-complete]. It's probably the most popular,
+unpopular programming language, widely adopted in many programming projects
+(especially ones using C as the main language). While it shares many
+features with other functional languages, it has rather an unorthodox syntax.
+
+In the following tutorial, I would be assuming that you are using a Unix-like operating
+system. GNU Make is probably already preinstalled, so you don't need to do anything.
+
+The code examples can be found [here](https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/makefiles/).
+
+## Variables
+
+Makefiles have [two flavors of variables][flavors]. The *simple expanded* variables
+work like ordinary variables, we can assign values to them (`:=`), access, and modify
+their values. Let's take the following code as an example:
+
+```makefile
+GREET := Hi
+
+main:
+    echo $(GREET) World
+```
+
+Makefile does not have a REPL environment, so to run it we first need to save it into a file,
+we'll use variables.mk file for it. Next, we can run it using the `make` command:
+
+```shell
+$ make -f variables.mk
+echo Hi World
+Hi World
+```
+
+Alternatively, a variable can be passed to the program when calling it:
+
+```shell
+$ make -f variables.mk GREET=Hello
+echo Hello World
+Hello World
+```
+
+As you can see, the variable assignments are only used to define the default values.
+To set variables that could not be changed by the user, use the [`overwrite` keyword][overwrite].
+
+Another kind of variable is the *recursively expanded*, assigned with `=`.
+Those variables behave similar to pointers, because they can point to other variables
+and will change when the variables they refer to change. This is best illustrated
+with an example.
+
+```makefile
+GREET = $(MESSAGE)
+MESSAGE := Hi
+
+main:
+    @ echo $(GREET) World  # with @ the command is not printed
+```
+
+If we used instead
+
+
+```diff
+- GREET = $(MESSAGE)
++ GREET := $(MESSAGE)
+````
+
+and didn't provide the value for
+neither `GREET` nor `MESSAGE`, `GREET` would be null by default and print as an empty string,
+like below.
+
+```shell
+$ make -f variables.mk
+World
+```
+
+However with `GREET = $(MESSAGE)`, it expands to the value it points to:
+
+```shell
+$ make -f variables.mk
+Hi World
+$ make -f variables.mk GREET=Hola
+Hola World
+$ make -f variables.mk MESSAGE=Hello
+Hello World
+$ make -f variables.mk GREET=Hola MESSAGE=Hello
+Hola World
+```
+
+Variables are defined be a convention on the top of the Makefile.
+They cannot be modified within the functions, the code below *won't
+work*.
+
+```makefile
+invalid:
+	MESSAGE := Hello
+	@ echo $(MESSAGE) World
+```
+
+```shell
+$ make -f variables.mk invalid
+MESSAGE := Hello
+make: MESSAGE: No such file or directory
+make: *** [invalid] Error 1
+```
+
+What this means for us, is that we need to treat the data as
+immutable and embrace the functional programming style.
+
+## Lists
+
+As other LISPs, Makefile natively supports list data structures and has
+several [methods for interacting with lists][text-functions]:
+
+ * `$(words $(LIST))` returns size of the `LIST`,
+ * `$(firstword $(LIST))` returns first element of the `LIST`,
+ * `$(word $(N), $(LIST))` returns `N`th element of the `LIST`,
+ * `$(wordlist $(START), $(END), $(LIST))` returns elements from `START` to `END` (inclusive),
+ * `variable += value` adds `value` to `variable`, treating `variable` as a list.
+
+To do `(cons cat cdr)` as in Scheme, in Makefile we just need to construct it is a regular
+string `"$(CAT) $(CDR)"`.
+
+Lists are passed as strings with elements separated by spaces, `LIST="1 2 3 4"` is a
+list of four elements. Unlike other LISPs, Makefile does not have native support
+for lists of lists or other data structures, so implementing them is left as an
+exercise for the user.
+
+Makefile has `foreach` and `filter` methods for working with lists that
+may be known to users of other functional programming languages
+(`foreach` corresponds to `map`). To implement the function that
+reduces the list, we need to use [recursion](#recursion).
+
+## Functions
+
+Functions (or *targets* as they are called) in Makefile are defined by writing
+their name followed by `:`, where the code starts from the next line indented
+with [tab][tabs] (sorry space users). The syntax might feel familiar to Python,
+Haskell, or OCaml programmers.
+
+```makefile
+GREET := Hello
+
+hello:
+    @ echo "$(GREET) World!"
+
+date:
+    @ echo $(shell date)
+```
+
+By default, Makefile assumes [the first function][main] in the file to be the
+main entry point (like the `main` function in Go).
+
+```shell
+$ make -f functions.mk
+Hello World!
+$ make -f functions.mk date
+Tue 4 Jan 20:47:28 CET 2022
+```
+
+We can of course call functions from other functions. For example, we
+could define another function that would invoke the two functions above.
+
+```makefile
+message:
+    @ $(MAKE) -f functions.mk hello GREET=Hi
+    @ echo "It's" "$(shell $(MAKE) -f functions.mk date)"
+```
+
+To call the other functions, we used the `$(MAKE)` command. If directory contains
+only one Makefile, `$(MAKE)` alone can be used, but when there are
+multiple Makefiles available, we need to name the specific file. In the first
+line of the function, we called make alone, but in the second line its output
+was passed as an argument to another function, so we needed to call it with
+`$(shell command)` (see [below](#interacting-with-other-programming-languages)).
+
+The example above shows also how Makefile code can be grouped into *packages*
+(files) and imported. The `-f` syntax helps to distinguish the source of the
+function like Go (e.g. `fmt.Println`) or Python (e.g. `datetime.datetime`)
+do using the dot instead.
+
+Remember that each line of the function is [executed in its own subshell][execution]
+so they don't share their states. This can be changed using `.ONESHELL` target.
+
+## Chained functions
+
+Makefiles support chained execution of the functions, where a function can
+define its dependencies that will be called before executing it.
+
+```makefile
+numbers: one two three
+
+one:
+    @ echo One
+
+two:
+    @ echo Two
+
+three:
+    @ echo Three
+```
+
+Since the functions don't share any state, the only way to pass
+data between them is through writing and reading files.
+
+## Conditionals
+
+Makefile has four [conditional statements][conditionals]: `ifeq` (two values are equal),
+`ifneq` (two values are not equal), `ifdef` (value is defined), and `ifndef` (value is not defined).
+The two latter methods, check if the variable was defined rather than if its value was set. If you
+want to check for an empty value, use
+
+```makefile
+ifeq ($(VARIABLE), )
+# do things
+endif
+```
+
+The [conditional statements][conditionals] can be chained
+
+> conditional-directive-one
+> text-if-one-is-true
+> `else` conditional-directive-two
+> text-if-two-is-true
+> `else`
+> text-if-one-and-two-are-false
+> `endif`
+
+The statements can sometimes be tricky. For example, calling
+`make -f conditionals.mk invalid` won't work
+
+```makefile
+VARIABLE := 1
+
+cond:
+ifeq ($(VARIABLE), 1)
+    echo 1
+else
+    echo 0
+endif
+
+invalid:
+ifeq ($(shell $(MAKE) -f conditionals.mk cond), 1)
+    echo "it's 1"
+else
+    echo "it's not 1"
+endif
+```
+
+because Makefile has a rather specific order of executing and expanding stuff.
+In fact, the Makefile with `invalid` rule won't work at all, because Makefile
+won't be able to parse script that recursively calls `make` in the conditional
+statement. Instead, use something like the below:
+
+```makefile
+impl:
+ifeq ($(CONDITION), 1)
+    echo "it's 1"
+else
+    echo "it's not 1"
+endif
+
+valid:
+    $(MAKE) -f conditionals.mk impl CONDITION="$(shell $(MAKE) -f conditionals.mk cond)"
+```
+
+By doing this, we first call `cond` and pass the result to the `CONDITION` variable
+that is evaluated in the `ifeq` condition.
+
+Since Makefile does not come with other comparison operators than checking for
+equality and inequality, they need to be implemented by the user using [Bash `test` command][bash-test]
+(or something else).
+
+```makefile
+less = $(shell test "$(1)" \< "$(2)"; echo $$?)
+
+isless:
+ifeq ($(call less, $(A), $(B)), 0)
+    @ echo "$(A) < $(B)"
+else
+    @ echo "$(A) >= $(B)"
+endif
+```
+
+Conditionals can be used also outside functions, when defining variables.
+
+## Recursion
+
+Makefile has a very simple syntax. Same as LISP, it doesn't have for loops and instead
+we need to use [recursion][recursion]. Consider the simple recursive function that sums elements
+of a `LIST`:
+
+```makefile
+TOTAL := 0
+HEAD := $(firstword $(LIST))
+TAIL := $(wordlist 2, $(words $(LIST)), $(LIST))
+
+sum:
+ifeq ($(LIST), )
+    @ echo $(TOTAL)
+else
+    $(MAKE) -f sum.mk LIST="$(TAIL)" TOTAL=$(shell expr $(TOTAL) + $(HEAD))
+endif
+```
+
+As you can see, the function uses the [*accumulator* pattern][accumulator],
+common in functional programming languages. It iterates over `LIST`, chopping
+off elements from the beginning of the array and adding them to `TOTAL` variable
+that is printed at the end.
+
+When using recursion, it may be a good idea to add `MAKEFLAGS += --no-print-directory`
+to the script. It will silence the Make messages informing about every new call
+to `make`.
+
+## Unit testing
+
+While Makefile does not come out of a box with unit testing utilities, it can
+be easily implemented by the user. An example is shown below.
+
+```makefile
+testme:
+    @ echo $(shell expr 2 + 2)
+
+assert:
+ifeq ($(RESULT), $(EXPECTED))
+    $(info "OK!")
+else
+    $(error "Test failed")
+endif
+
+test-testme:
+    $(MAKE) -f assert.mk assert RESULT="$(shell $(MAKE) -f assert.mk testme)" EXPECTED=4
+```
+
+## Metaprogramming with macros
+
+While Makefile's metaprogramming utilities are not as impressive as with some LISPs,
+they still can be quite helpful. Makefile supports [macros][macros] in two forms.
+We saw one form of macros in the section on [conditionals](#conditionals) when
+defining the `less` macro that was called using `$(call macro,args...)`. You might
+have noticed that in fact `less` is a named [lambda function][anonymous-function].
+
+The second kind of macros is declared using the `define` block and called the same
+way as variables. The second kind of macros is snippets of code that get pasted
+to the code at the execution time.
+
+```makefile
+define date
+    $(shell date)
+endef
+
+sum = $(shell expr $(1) + $(2))
+
+main:
+    @ echo "Today is" "$(date)"
+    @ echo "2 + 2 =" $(call sum,2,2)
+```
+
+## Interacting with other programming languages
+
+Makefiles can interact with any program that can be called from the command
+line. To do this, just use the `$(shell command)` that executes the
+`command` in Shell. This can be used for expanding [conditionals](#conditionals)
+or for arithmetics using `expr`, etc.
+
+## Examples
+
+To give a slightly more complicated example, below I show the implementation of
+[Quicksort][quicksort] algorithm in Makefile. The code uses variables,
+calling internal functions with `$(MAKE)`, conditionals, and recursion.
+
+```makefile
+MAKEFLAGS += --no-print-directory
+HEAD := $(firstword $(LIST))
+TAIL := $(wordlist 2, $(words $(LIST)), $(LIST))
+
+lt = $(shell test $(1) \< $(2); echo $$?)
+
+sort:
+	@ $(MAKE) impl LIST="$(TAIL)" PIVOT="$(HEAD)" LEFT= RIGHT=
+
+impl:
+ifeq ($(PIVOT), )
+	@ echo
+else ifeq ($(LIST), )
+	@ echo $(shell $(MAKE) LIST="$(LEFT)") $(PIVOT) $(shell $(MAKE) LIST="$(RIGHT)")
+else ifeq ($(call lt, $(HEAD), $(PIVOT)), 0)
+	@ $(MAKE) impl LIST="$(TAIL)" LEFT="$(LEFT) $(HEAD)" PIVOT="$(PIVOT)" RIGHT="$(RIGHT)"
+else
+	@ $(MAKE) impl LIST="$(TAIL)" LEFT="$(LEFT)" PIVOT="$(PIVOT)" RIGHT="$(HEAD) $(RIGHT)"
+endif
+```
+
+Another example shows tail-recursive implementation of Fibonacci sequence generator.
+Unfortunately, to my best knowledge Makefile does not support [tail call optimization][tco]
+as many functional programming languages do, so it would be rather slow. The example also
+shows limitation of integer type numbers, as it will overflow when using `NUMBER` over 91.
+
+```makefile
+MAKEFLAGS += --no-print-directory
+NUMBER:=0
+CURRENT:=0
+NEXT:=1
+
+fibo:
+ifeq ($(NUMBER), 0)
+	echo $(CURRENT)
+else
+	$(MAKE) NUMBER=$(shell expr $(NUMBER) - 1) CURRENT=$(NEXT) NEXT=$(shell expr $(CURRENT) + $(NEXT))
+endif
+```
+
+For other examples, here you can find [tic-tac-toe game implemented in Make][ttt],
+and here someone implemented [integer arithmetics][make-arith] in pure Makefile
+(no `expr` or Bash).
+
+
+ [book]: https://www.oreilly.com/library/view/managing-projects-with/0596006101/
+ [docs]: https://www.gnu.org/software/make/manual/make.html
+ [functional]: https://okmij.org/ftp/Computation/#Makefile-functional
+ [flavors]: https://www.gnu.org/software/make/manual/make.html#Flavors
+ [tabs]: https://stackoverflow.com/questions/2131213/can-you-make-valid-makefiles-without-tab-characters
+ [conditionals]: https://www.gnu.org/software/make/manual/make.html#Conditional-Syntax
+ [bash-empty]: https://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash/16753536#16753536
+ [overwrite]: https://www.gnu.org/software/make/manual/html_node/Override-Directive.html#Override-Directive
+ [accumulator]: https://www.quora.com/How-do-accumulators-work-in-OCaml
+ [text-functions]: https://www.gnu.org/software/make/manual/make.html#Text-Functions
+ [bash-test]: https://linuxhint.com/bash-test-command/
+ [macros]: https://www.oreilly.com/library/view/managing-projects-with/0596006101/ch03.html
+ [execution]: https://www.gnu.org/software/make/manual/html_node/Execution.html
+ [quicksort]: https://en.wikipedia.org/wiki/Quicksort
+ [recursion]: https://www.gnu.org/software/make/manual/html_node/Recursion.html
+ [turing-complete]: https://stackoverflow.com/questions/3480950/are-makefiles-turing-complete/3480982#3480982
+ [tco]: https://stackoverflow.com/questions/310974/what-is-tail-call-optimization
+ [main]: https://stackoverflow.com/questions/2057689/how-does-make-app-know-default-target-to-build-if-no-target-is-specified
+ [anonymous-function]: https://en.wikipedia.org/wiki/Anonymous_function
+ [ttt]: https://github.com/twolodzko/MakeTicTacToe
+ [make-arith]: https://www.cmcrossroads.com/article/learning-gnu-make-functions-arithmetic

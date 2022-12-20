@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2021-11-24">
+
+<title>Tim’s page - Data Scientists Write Bad Code or Maybe That’s Not the Problem?</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-V9DH8RH1V5"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
+</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Tim’s page</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/twolodzko"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://bayes.club/@tymwol"><i class="bi bi-mastodon" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Data Scientists Write Bad Code or Maybe That’s Not the Problem?</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 24, 2021</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<p>Technologies and methodologies that worked for software engineering don’t necessarily do for data science. At the same time, we hear software engineers complaining about the quality of the data science code and <a href="https://www.youtube.com/watch?v=7jiPeIFXb6UT">the tooling used</a>. But maybe the two disciplines are less similar than they may appear? I recently started wondering how they differ. <a href="https://veekaybee.github.io/2021/11/07/typed-pipe/">Vicki Boykis’</a> post on the two models of programmer’s brain finally inspired me to write my thoughts down. Let me put on my data science hat and play the Devil’s advocate. I’d argue that there are reasons why data science is different from programming.</p>
+<p>The primary difference between software engineering and data science is the reason for writing the code. In data science, the code serves only as a means for solving another problem. Our work focuses on exploring the data, drawing conclusions, generating new research questions, running experiments. Training a machine learning model is also an experiment, where we try to learn if the model would help make better predictions. Jupyter notebooks can be seen more as a laboratory journal than a production code. Sometimes the job is to write code, but I would argue that this is a different type of work.</p>
+<section id="prototyping-vs-production" class="level1">
+<h1>Prototyping vs production</h1>
+<p>As <a href="https://veekaybee.github.io/2021/11/07/typed-pipe/">noticed by Vicki</a> after Felienne Hermans, programmer’s work happens in two distinct modes: <em>prototyping</em> and <em>production</em>. Data science work seems to be more about the prototyping mode. For example, this applies to programming languages that</p>
+<blockquote class="blockquote">
+<p>can either be easy for prototyping or easy for production. You usually can’t be both. Now, some will argue that there are languages that fit both purposes, and it’s true, there are cases of prototyping languages in production and production languages used for prototypes, but by trying to fit one in another, we lose something of the properties of both.</p>
+</blockquote>
+<p>The distinction is not new. Extreme Programming calls the prototyping code <a href="http://www.extremeprogramming.org/rules/spike.html">spike</a> (not Spark) solutions and has different rules for them compared to the production code.</p>
+<blockquote class="blockquote">
+<p>A spike solution is a very simple program to explore potential solutions. Build the spike to only addresses the problem under examination and ignore all other concerns. Most spikes are not good enough to keep, so expect to throw it away. The goal is reducing the risk of a technical problem or increase the reliability of a user story’s estimate.</p>
+</blockquote>
+<p>Spike solutions are about moving fast to verify a hypothesis. Writing production-quality code for a spike would be a waste. That is also <a href="https://martinfowler.com/articles/productize-data-sci-notebooks.html">how we treat</a> the Jupyter notebooks. We want to move fast to conduct an experiment, where we expect most of the experiments to fail. While you should throw away the spike solution after you’re done, that is often not the case with notebooks. Maybe our experiments aren’t like spikes?</p>
+</section>
+<section id="how-does-it-work" class="level1">
+<h1>How does it work?</h1>
+<p>Jupyter notebooks may look like a wild west to seasoned software engineers, but they are not, or at least don’t have to be like that. <a href="https://www.goodreads.com/book/show/4268826-growing-object-oriented-software-guided-by-tests">Test-driven development</a> is one of the programming best practices. TDD advises to write a unit test before implementing the functionality, so you can observe how the test fails, then write the minimal implementation, see how the test passes, and finally improve it when needed. Working in Jupyter notebooks is an example of <a href="https://web.archive.org/web/20210920203741/https://practical.li/clojure/repl-driven-devlopment.html">REPL-driven development</a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. We write the code in a notebook cell and run it to observe the result below. It gives instant feedback, the same as running a unit test in TDD does. <a href="https://podcasts.apple.com/pl/podcast/thoughtworks-technology-podcast/id881136697?i=1000542363263">As noticed by Saleem Siddiqui</a>, the biggest difference is that after working interactively, we are left without tests that could be used for continuous integration<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+</section>
+<section id="why-do-we-prefer-working-interactively" class="level1">
+<h1>Why do we prefer working interactively?</h1>
+<p>In data science work, there are many unknowns. The problems are much less structured as compared to programming. Our solution depends not only on the code but also on the data and the surprises it brings.</p>
+<p>In software engineering, we usually can (and should) split the work into small chunks. We develop and test each chunk independently (unit tests). In data science, the results depend not only on the code. To test the solution, <a href="https://podcasts.apple.com/pl/podcast/thoughtworks-technology-podcast/id881136697?i=1000542363263">we need to run it with the actual data</a> and look at the results. Here we use notebooks.</p>
+<p>To verify the result, we usually need to run the code end-to-end: download the data, preprocess it, train the model, produce validation metrics and plots, etc. It can be time-consuming. The notebooks allow to pause the process, make changes, and move forward, rather than re-running everything. The output of each executed cell serves as early feedback or debugging information. It is efficient.</p>
+<p>In programming, we are concerned about <a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/ch01.html">reliability, scalability, maintainability</a>, security, etc. Neither of those bothers us when we need to run the research code once, for a particular dataset. On another hand, building shared libraries, automated reports, data pipelines, etc are programming tasks that need software engineering rigor (production mode).</p>
+<p>Moreover, some things make much of the data science code easier to write than in general programming. First of all, the scope is narrower. We frequently can (and should) apply the few familiar <a href="https://www.goodreads.com/book/show/55275019-machine-learning-design-patterns">design patterns</a> to most of the problems (e.g.&nbsp;<a href="https://mahmoudyusof.github.io/general/scikit-learn-pipelines/">pipelines</a>, <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.base">transformer and classifier/regressor</a>, the functional and sequential APIs in deep learning frameworks, etc). Also, the code to be written is often relatively simple, for example, feature scaling is just the basic arithmetics, filtering is a simple rule inside a loop, a deep learning model can be glued together in Keras from the predefined building blocks, etc. Even the TDD gurus like <a href="https://stackoverflow.com/questions/153234/how-deep-are-your-unit-tests/153565#153565">Kent Beck</a> agree that there is <a href="https://softwareengineering.stackexchange.com/questions/244705/what-kind-of-code-would-kent-beck-avoid-unit-testing">no need to test the trivial code</a>. If those things break, this is usually instantly obvious. In many cases, we do live in a rather safe programming environment.</p>
+</section>
+<section id="so-its-fine" class="level1">
+<h1>So it’s fine?</h1>
+<p>So maybe there is nothing wrong with the data science code being fast and dirty? Not exactly. Imagine a medical research lab, where the lab technicians would need to build the equipment by themselves each time before doing the actual research. Their results would be hard to reproduce by other labs and more prone to errors. But this is a common anti-pattern in data science! To be able to focus on exploratory work, we need high-quality “laboratory equipment.”</p>
+<p>When do you <em>need</em> to care about the quality? In programming, if you find yourself repeating the same code, you should abstract it to a separate function (the <a href="https://www.martinfowler.com/bliki/BeckDesignRules.html">DRY rule</a>). If it repeats between notebooks, move it to shared libraries. As our lab equipment, it should follow all the design standards. In preprocessing, the repeated operations can be translated into pipelines saving the standardized results to feature stores. Building a high-quality implementation of a machine learning model would spare <a href="https://fullstackdeeplearning.com/spring2021/lecture-7/">painful debugging</a> in the future. Finally, any code that gets deployed should be treated as any other production code. The same applies to any <a href="https://podcasts.apple.com/pl/podcast/mlops-community/id1505372978?i=1000541213916">high-stakes reports</a>. All such cases are closer to regular software engineering (the production mode!). Not surprisingly, these tasks are commonly delegated to data engineers or machine learning engineers, to “clean up” and “productionize” the code. Maybe, after all, research does need different tools, mindset, and skills?</p>
+</section>
+<section id="conclusions" class="level1">
+<h1>Conclusions</h1>
+<p>I remember getting so preoccupied with writing good code for the research that while I ended the day with a nice pull request, I was not able to run it yet. I missed the main point of writing it.</p>
+<p>We de facto seem to be working differently when doing research and writing production code. Maybe instead of fighting with “bad code” and “bad programming habits”, we should acknowledge the fact and focus on the deeper reasons behind it. As with spikes in extreme programming, it might help to move faster on the unmapped territories. Using a notebook is a compromise, where we value flexibility over rigor. Depending on circumstances, it may or may not be worth it.</p>
+<p>“Data scientists write bad code because they lack skills” ignores many subtleties and does nothing to answer the “why” question. Trying to make data scientists be like software engineers misses the point of why we work as we do. Now, putting on my software engineer’s hat, I wonder what could be done to make the process more efficient?</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>REPL stands for the <a href="https://mikelevins.github.io/posts/2020-12-18-repl-driven">read-eval-print loop</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>To make notebook self-testable, once can replace each of the lines like <code>print(features.shape)</code> with assert statements <code>assert features.shape == expected_shape</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
