@@ -494,7 +494,7 @@
     "href": "posts/pipelines.html",
     "title": "Pipelines: The #1 data processing design pattern",
     "section": "",
-    "text": "In mathematics, two functions \\(f\\) and \\[g\\] can be composed \\(f \\circ g\\), what is defined as\n\\[\n(f \\circ g)(x) = f(g(x))\n\\]\nIn the same way, functions in programming can be composed into pipelines."
+    "text": "In mathematics, two functions \\(f\\) and \\(g\\) can be composed \\(f \\circ g\\), what is defined as\n\\[\n(f \\circ g)(x) = f(g(x))\n\\]\nIn the same way, functions in programming can be composed into pipelines."
   },
   {
     "objectID": "posts/pipelines.html#unix-pipes",
