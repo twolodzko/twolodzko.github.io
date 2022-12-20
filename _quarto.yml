@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Tim's page"
+  title: "Timothy Wolodzko"
   navbar:
     right:
       - about.qmd
@@ -13,8 +13,5 @@ website:
   google-analytics: G-V9DH8RH1V5
 format:
   html:
-    theme: flatly
+    theme: simplex
     css: styles.css
-
-
-
