@@ -1,6 +1,8 @@
 ---
 title:  "When it is easier to ask for forgiveness than permission?"
 date: 2022-01-14
+aliases:
+  - "/eafp-vs-lbyl"
 ---
 
 There are [two programming styles][stackoverflow]: [look before you leap (LBYL)][lbyl] and [easier to ask for
@@ -96,7 +98,7 @@ for f in [lbyl, eafp]:
     avg_run_times[f.__name__] = times
 ```
 
-As we can see below, for code that always fails (100% error rate), there's a big overhead for EAFP. 
+As we can see below, for code that always fails (100% error rate), there's a big overhead for EAFP.
 The overhead for EAFP drops with exceptions happening more rarely.
 
 ![For error rate 100% EAFP has average runtime of ~35ms, at 10% it drops to ~17ms, and with <=1% it goes below 15ms. For LBYL the error rate is fairly flat around ~14ms.](../images/eapf-vs-lbyl.png)

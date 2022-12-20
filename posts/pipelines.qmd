@@ -1,6 +1,8 @@
 ---
 title: "Pipelines: The #1 data processing design pattern"
 date: 2022-06-08
+aliases:
+  - "/pipelines"
 ---
 
 In mathematics, two functions $f$ and $$g$$ can be [composed] $f \circ g$, what is defined as
