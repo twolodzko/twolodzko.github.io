@@ -198,12 +198,12 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 
 
 
-<p>Bash is like regular expressions: everyone uses it, nobody knows it well. Every time I need to write Bash, I find myself googling a lot. The main purpose for writing this guide is to gather in a single place the things I google most often.</p>
-<p>People usually don’t like Bash. I agree, it is not pretty and has many strange quirks. But Bash is useful if you are running a Unix machine (Docker anyone?). While in most cases you could replace Bash with your favorite programming language, using few lines of Bash could lead to a much simpler code. For me, Bash is useful for automating repeated tasks like “download this, do something to those files, call this script, …”. Bash would be almost always available on the machine, so it is portable (no problems with dependencies!). It is also simple enough that others would easily understand what your code is doing. Bash is a tool for those fast-and-dirty tasks we often need to do on day to day basis.</p>
+<p>Bash is like regular expressions: everyone uses it, but nobody knows it well. Every time I need to write Bash, I find myself googling a lot. The main purpose for writing this guide is to gather in a single place the things I google most often.</p>
+<p>People usually don’t like Bash. I agree, it is not pretty and has many strange quirks. But Bash is useful if you are running a Unix machine (Docker anyone?). While in most cases you could replace Bash with your favorite programming language, using a few lines of Bash could lead to a much simpler code. For me, Bash is useful for automating repeated tasks like “download this, do something to those files, call this script, …”. Bash would be almost always available on the machine, so it is portable (no problems with dependencies!). It is also simple enough that others would easily understand what your code is doing. Bash is a tool for those fast-and-dirty tasks we often need to do on day to day basis.</p>
 <p>If you are looking for more references on Bash, I recommend the <a href="https://www.oreilly.com/library/view/bash-pocket-reference/9781449388669/"><em>Bash Pocket Reference</em></a> book by Arnold Robbins and the <a href="https://wizardzines.com/zines/bite-size-bash/"><em>Bite Size Bash</em></a> cheatsheet from the <a href="https://wizardzines.com/comics/">⭐ wizard zines ⭐</a> series by Julia Evans (<a href="https://twitter.com/b0rk"><span class="citation" data-cites="b0rk">@b0rk</span></a>). If you need more advanced features than described below, then maybe you need some other tool than Bash for solving your problem?</p>
 <section id="what-is-binsh" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-binsh">What is <code>/bin/sh</code>?</h2>
-<p>People often wonder if <code>/bin/sh</code> and <code>/bin/bash</code> is the same and <a href="https://stackoverflow.com/questions/5725296/difference-between-sh-and-bash">the answer is <em>no</em></a>. <code>/bin/sh</code> is just a symbolic link to <code>Bash</code>, or <code>Dash</code>, etc. To check what is your default shell use <code>echo "$SHELL"</code>. To change your default shell, use the <a href="https://www.tecmint.com/change-a-users-default-shell-in-linux/"><code>chsh</code> utility</a>. Because the shells may differ in details of the implementation, make sure to start bash scripts with the <a href="https://github.com/koalaman/shellcheck/wiki/SC2148">shebang</a>:</p>
+<p>People often wonder if <code>/bin/sh</code> and <code>/bin/bash</code> is the same and <a href="https://stackoverflow.com/questions/5725296/difference-between-sh-and-bash">the answer is <em>no</em></a>. <code>/bin/sh</code> is just a symbolic link to <code>Bash</code>, <code>Dash</code>, etc. To check what is your default shell use <code>echo "$SHELL"</code>. To change your default shell, use the <a href="https://www.tecmint.com/change-a-users-default-shell-in-linux/"><code>chsh</code> utility</a>. Because the shells may differ in details of the implementation, make sure to start bash scripts with the <a href="https://github.com/koalaman/shellcheck/wiki/SC2148">shebang</a>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Bash <a href="https://stackoverflow.com/questions/4814006/can-i-assume-bash-is-installed">should, but does not need to</a>, be installed on all machines, so this is a safe choice. If unsure, use <code>#!/bin/sh</code>, but in such case, you need to remember that the shell you’ll be using would not guarantee to provide all the functionalities of Bash, only the basic ones defined by <a href="https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html">POSIX</a> standard.</p>
 </section>
@@ -256,11 +256,11 @@ $ PI=3
 sh: 5: PI: is read only
 $ unset PI
 sh: 6: unset: PI: is read only</code></pre>
-<p>Additionally, you can use <code>export</code> to <a href="https://superuser.com/questions/153371/what-does-export-do-in-bash">make the variable available also to the child processes</a>. There is a nice <a href="https://www.cyberciti.biz/faq/set-environment-variable-linux/">guide on Bash variables</a> that goes into more details.</p>
+<p>Additionally, you can use <code>export</code> to <a href="https://superuser.com/questions/153371/what-does-export-do-in-bash">make the variable available also to the child processes</a>. There is a nice <a href="https://www.cyberciti.biz/faq/set-environment-variable-linux/">guide on Bash variables</a> that goes into more detail.</p>
 </section>
 <section id="operations-on-the-variables" class="level2">
 <h2 class="anchored" data-anchor-id="operations-on-the-variables">Operations on the variables</h2>
-<p>Bash does not check if the variable exists when asking for its value, so <code>echo $xsSXSaa</code> would print an empty string, even if you never defined the <code>xsSXSaa</code> variable. Instead, it has a <a href="https://www.cyberciti.biz/tips/bash-shell-parameter-substitution-2.html">very advanced syntax</a> for interacting with variables. If the variable does not have an assigned value, you can use <code>${variable:-default}</code> to return the <code>default</code> value instead, or <code>${variable:=default}</code> to <em>assign</em> and return the value. In some cases it may be useful to fail with error message if the variable is not set <code>${variable?message}</code>. Other expressions are summarized in the table below taken from <a href="https://stackoverflow.com/a/16753536/3986320">this StackOverflow answer</a>.</p>
+<p>Bash does not check if the variable exists when asking for its value, so <code>echo $xsSXSaa</code> would print an empty string, even if you never defined the <code>xsSXSaa</code> variable. Instead, it has a <a href="https://www.cyberciti.biz/tips/bash-shell-parameter-substitution-2.html">very advanced syntax</a> for interacting with variables. If the variable does not have an assigned value, you can use <code>${variable:-default}</code> to return the <code>default</code> value instead, or <code>${variable:=default}</code> to <em>assign</em> and return the value. In some cases it may be useful to fail with an error message if the variable is not set <code>${variable?message}</code>. Other expressions are summarized in the table below taken from <a href="https://stackoverflow.com/a/16753536/3986320">this StackOverflow answer</a>.</p>
 <pre><code>+-----------------+----------------------+-----------------+---------------+
 |   Expression    |  FOO="world"         |     FOO=""      |   unset FOO   |
 |   in script:    |  (Set and Not Null)  |  (Set But Null) |    (Unset)    |
@@ -276,10 +276,10 @@ sh: 6: unset: PI: is read only</code></pre>
 +-----------------+----------------------+-----------------+---------------+</code></pre>
 <p>Additionally, Bash offers syntax for operating strings stored in the variables (everything is a string for Bash):</p>
 <ul>
-<li>to remove pattern from the beginning of the string: <code>${var#pattern}</code>, <code>${var##pattern}</code>,</li>
-<li>to remove pattern from the back of the string: <code>${var%pattern}</code>, <code>${var%%pattern}</code>,</li>
-<li>to substitute a pattern: <code>${var/pattern/replacement/}</code>, or all it’s occurences <code>${var//pattern/replacement/}</code>,</li>
-<li>to access substring <code>${var:offset}</code>, <code>${var:offset:length}</code></li>
+<li>remove pattern from the beginning of the string: <code>${var#pattern}</code>, <code>${var##pattern}</code>,</li>
+<li>remove pattern from the back of the string: <code>${var%pattern}</code>, <code>${var%%pattern}</code>,</li>
+<li>substitute a pattern: <code>${var/pattern/replacement/}</code>, or all it’s occurrences <code>${var//pattern/replacement/}</code>,</li>
+<li>access substring <code>${var:offset}</code>, <code>${var:offset:length}</code></li>
 <li>convert first <code>${var^}</code>, or all <code>${var^^}</code> characters to uppercase,</li>
 <li>convert first <code>${var,}</code>, or all <code>${var,,}</code> characters to lowercase.</li>
 </ul>
@@ -307,7 +307,7 @@ $ echo {5..1..-2}
 5 3 1
 $ echo {a..z..3}
 a d g j m p s v y</code></pre>
-<p>When using multiple curly brackets to create a string, it will create <em>all the combinations</em> of the possible strings. This can be used together with other commands, for example to create or remove multiple files.</p>
+<p>When using multiple curly brackets to create a string, it will create <em>all the combinations</em> of the possible strings. This can be used together with other commands, for example, to create or remove multiple files.</p>
 <pre class="shell"><code>$ touch file_{1..3}{a..c}.{txt,md}
 $ ls file*
 file_1a.md   file_1b.md   file_1c.md   file_2a.md   file_2b.md   file_2c.md   file_3a.md   file_3b.md   file_3c.md
@@ -327,7 +327,7 @@ file_1a.txt  file_1b.txt  file_1c.txt  file_2a.txt  file_2b.txt  file_2c.txt  fi
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="ex">cond2</span> <span class="kw">;</span> <span class="cf">then</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">...</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>I will use evaluating basic mathematical expression to illustrate an <code>if</code> statement.</p>
+<p>I will use evaluating a basic mathematical expression to illustrate an <code>if</code> statement.</p>
 <pre class="shell"><code>$ if [ "$(( 2 + 2 ))" -eq 4 ]; then
 &gt;   echo "wow! math works!"
 &gt; fi
@@ -359,14 +359,14 @@ three</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> <span class="st">"</span><span class="va">$(</span><span class="fu">ls</span><span class="va">)</span><span class="st">"</span><span class="kw">;</span> <span class="cf">do</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"</span><span class="va">$f</span><span class="st">"</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For iterating until brake condition is met, use <code>while</code> loop. The popular use case is <a href="https://stackoverflow.com/a/10929511/3986320">iterating over lines of a file</a>.</p>
+<p>For iterating until the brake condition is met, use <code>while</code> loop. The popular use case is <a href="https://stackoverflow.com/a/10929511/3986320">iterating over lines of a file</a>.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">IFS</span><span class="op">=</span> <span class="bu">read</span> <span class="at">-r</span> <span class="va">line</span><span class="kw">;</span> <span class="cf">do</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"Text read from file: </span><span class="va">$line</span><span class="st">"</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span> <span class="op">&lt;</span> my_filename.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="evaluating-expressions" class="level2">
 <h2 class="anchored" data-anchor-id="evaluating-expressions">Evaluating expressions</h2>
-<p>To evaluate an expression you can use <code>`...`</code> or <code>$(...)</code>, but using <code>$(...)</code> <a href="https://mywiki.wooledge.org/BashFAQ/082">is recommended</a>. While the quotes in the example below might look awkward, this is a <a href="https://unix.stackexchange.com/questions/118433/quoting-within-command-substitution-in-bash">valid approach in Bash</a>, since variables need to be quoted and the whole expression also should.</p>
+<p>To evaluate an expression you can use <code>`...`</code> or <code>$(...)</code>, but using <code>$(...)</code> <a href="https://mywiki.wooledge.org/BashFAQ/082">is recommended</a>. While the quotes in the example below might look awkward, this is a <a href="https://unix.stackexchange.com/questions/118433/quoting-within-command-substitution-in-bash">valid approach in Bash</a>, since variables need to be quoted and the whole the expression also should.</p>
 <pre class="shell"><code>cmd='date'
 echo "$("$cmd")"
 Tue 23 Feb 14:56:12 CET 2021</code></pre>
@@ -398,13 +398,13 @@ $ tail 1 2 3
 <pre class="shell"><code>$ count () { echo "$#"; }
 $ count a b c
 3</code></pre>
-<p>Remember to use semicolon <code>;</code> when writing multiple commands in single line, this also applies to <code>if ...; then</code>, <code>for ...; do</code>, and if closing the curly braces in the same line <code>...; }</code>.</p>
+<p>Remember to use the semicolon <code>;</code> when writing multiple commands in a single line, this also applies to <code>if ...; then</code>, <code>for ...; do</code>, and if closing the curly braces in the same line <code>...; }</code>.</p>
 <p>Functions can also use <code>read</code> command to access files, or <a href="https://stackoverflow.com/questions/18544359/how-to-read-user-input-into-a-variable-in-bash">collect input from the user</a>.</p>
-<p>Functions in Bash do not return anything but the <a href="https://en.wikipedia.org/wiki/Exit_status">exit status</a>. To provide an exit code use <code>exit 0</code> for success, or any non-zero status, like <code>exit 1</code> for error. The exit status of the most recently executed command is available through the <code>$?</code> variable. To communicate with the outside world, they use side effects like printing to <a href="https://www.howtogeek.com/435903/what-are-stdin-stdout-and-stderr-on-linux/">stdout</a>, or saving files.</p>
+<p>Functions in Bash do not return anything but the <a href="https://en.wikipedia.org/wiki/Exit_status">exit status</a>. To provide an exit code using <code>exit 0</code> for success, or any non-zero status, like <code>exit 1</code> for error. The exit status of the most recently executed command is available through the <code>$?</code> variable. To communicate with the outside world, they use side effects like printing to <a href="https://www.howtogeek.com/435903/what-are-stdin-stdout-and-stderr-on-linux/">stdout</a>, or saving files.</p>
 </section>
 <section id="scripts" class="level2">
 <h2 class="anchored" data-anchor-id="scripts">Scripts</h2>
-<p>Bash code often comes not as functions, but as scripts. The scripts behave like functions, so if you create the <code>hello.sh</code> script, you can call it by invoking its name <code>./hello.sh</code>, you can also provide positional arguments like <code>./hello.sh -h</code>. When the function is saved in a directory that was <a href="https://linuxize.com/post/how-to-add-directory-to-path-in-linux/">added to the <code>$PATH</code></a>, for example, <code>/usr/bin/</code>, you can call it by just invoking its filename. Example of a trivial script is given below.</p>
+<p>Bash code often comes not as functions, but as scripts. The scripts behave like functions, so if you create the <code>hello.sh</code> script, you can call it by invoking its name <code>./hello.sh</code>, you can also provide positional arguments like <code>./hello.sh -h</code>. When the function is saved in a directory that was <a href="https://linuxize.com/post/how-to-add-directory-to-path-in-linux/">added to the <code>$PATH</code></a>, for example, <code>/usr/bin/</code>, you can call it by just invoking its filename. An example of a trivial script is given below.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">[[</span> <span class="st">"</span><span class="va">$1</span><span class="st">"</span> <span class="ot">==</span> <span class="st">"-h"</span> <span class="kw">||</span> <span class="st">"</span><span class="va">$1</span><span class="st">"</span> <span class="ot">==</span> <span class="st">"--help"</span> <span class="kw">]];</span> <span class="cf">then</span></span>
@@ -439,7 +439,7 @@ Hello Tim!</code></pre>
 <section id="redirecting-output-and-raising-errors" class="level2">
 <h2 class="anchored" data-anchor-id="redirecting-output-and-raising-errors">Redirecting output and raising errors</h2>
 <p>While functions and scripts do not return any values, only the exit statuses, they can print to <a href="https://stackoverflow.com/questions/3385201/confused-about-stdin-stdout-and-stderr">two channels <em>stdout</em> and <em>stderr</em></a>. The first one is used for regular printing, you see it in the console. The second one is <em>standard error</em>, we use it for throwing errors.</p>
-<p>You can <a href="https://www.gnu.org/software/bash/manual/html_node/Redirections.html">redirect</a> the output of a command using <code>&gt;</code>, or <code>1&gt;</code> for example, <code>ls &gt; files.txt</code> will redirect the output of the <code>ls</code> function to the <code>files.txt</code> file. When redirecting to file, <code>&gt;</code> will overwrite the target file, to append it use <code>&gt;&gt;</code> instead. Use <code>2&gt;</code> if you want to redirect <em>stderr</em>. You can use two redirects <code>./script.sh 1&gt; output.txt 2&gt; errors.log</code>, or use <code>&amp;&gt;</code> to redirect both to the same target. If you want to suppress the output, just redirect it to <code>/dev/null</code>, for example,</p>
+<p>You can <a href="https://www.gnu.org/software/bash/manual/html_node/Redirections.html">redirect</a> the output of a command using <code>&gt;</code>, or <code>1&gt;</code> for example, <code>ls &gt; files.txt</code> will redirect the output of the <code>ls</code> function to the <code>files.txt</code> file. When redirecting to a file, <code>&gt;</code> will overwrite the target file, to append it use <code>&gt;&gt;</code> instead. Use <code>2&gt;</code> if you want to redirect <em>stderr</em>. You can use two redirects <code>./script.sh 1&gt; output.txt 2&gt; errors.log</code>, or use <code>&amp;&gt;</code> to redirect both to the same target. If you want to suppress the output, just redirect it to <code>/dev/null</code>, for example,</p>
 <pre class="shell"><code>$ find / -name "foo" 2&gt; /dev/null</code></pre>
 <p>will suppress all the “Permission denied” errors. To redirect the <em>stdout</em> to both the console and a file, use the <a href="https://linuxize.com/post/linux-tee-command/"><code>tee</code> command</a>.</p>
 <p>In some cases, you may want to <a href="https://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean">redirect <em>stderr</em> to <em>stdout</em></a>, this can be done using <code>2&gt;&amp;1</code>, or the other way around <code>1&gt;&amp;2</code>. This can be used to <a href="https://stackoverflow.com/questions/30078281/raise-error-in-a-bash-script">raise an error</a>.</p>
@@ -455,7 +455,7 @@ $ wc -l &lt;&lt;&lt; "$(printf "first\nsecond\nthird\n")"
 <h2 class="anchored" data-anchor-id="chaining-and-piping">Chaining and piping</h2>
 <p>Multiple commands can be written in a single line when we combine them with <code>&amp;&amp;</code>, for example, <code>sudo apt update &amp;&amp; sudo apt upgrade</code>. In such a case, they will be invoked sequentially, and the chain will stop in case one of them throws an error.</p>
 <p>You can also pipe the output of one command as an input to another command. For example, <code>ls | grep "foo"</code> will redirect the list of files returned by <code>ls</code> and use <code>grep</code> to filter out all the names containing the “foo” phrase. For piping to <code>sudo</code>, you need to use the <a href="https://linuxize.com/post/linux-tee-command/"><code>tee</code> command</a>.</p>
-<p>To give a <a href="https://stackoverflow.com/questions/1358540/how-can-i-count-all-the-lines-of-code-in-a-directory-recursively">more advanced example</a> of piping we can use <code>find</code> to list all the Python files, use <code>xargs</code> to pass those file names to <code>cat</code> to print their contents, and use <code>wc -l</code> to count all the lines.</p>
+<p>To give a <a href="https://stackoverflow.com/questions/1358540/how-can-i-count-all-the-lines-of-code-in-a-directory-recursively">more advanced example</a> of piping, we can use <code>find</code> to list all the Python files, use <code>xargs</code> to pass those file names to <code>cat</code> to print their contents, and use <code>wc -l</code> to count all the lines.</p>
 <pre class="shell"><code>$ ( find ./ -name '*.py' -print0 | xargs -0 cat ) | wc -l</code></pre>
 </section>
 <section id="parallel-processes" class="level2">
@@ -468,13 +468,13 @@ $ wc -l &lt;&lt;&lt; "$(printf "first\nsecond\nthird\n")"
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="dt">{</span><span class="dv">1</span><span class="dt">..</span><span class="dv">100</span><span class="dt">}</span><span class="kw">;</span> <span class="cf">do</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">(</span> <span class="ex">./my_script</span> <span class="kw">&amp;</span> <span class="kw">)</span></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="kw">;</span> <span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>To display a list of active jobs use the <code>jobs</code> command. <code>fg [job_spec]</code> moves job to foreground, Ctrl+Z or <code>bg [job_spec]</code> to background, <code>disown [job_spec]</code> terminates it. To prevent the processes from dying with the shell being closed, you can use the “no hangup” <code>nohup</code> command.</p>
-<p>Those commands are build-in and do not have <code>man</code> pages, so use <code>fg --help</code> or <code>help fg</code> for details. To list all the build-in commands use <code>help</code> alone.</p>
+<p>To display a list of active jobs use the <code>jobs</code> command. <code>fg [job_spec]</code> moves the job to the foreground, Ctrl+Z or <code>bg [job_spec]</code> to the background, <code>disown [job_spec]</code> terminates it. To prevent the processes from dying with the shell being closed, you can use the “no hangup” <code>nohup</code> command.</p>
+<p>Those commands are build-in and do not have <code>man</code> pages, so use <code>fg --help</code> or <code>help fg</code> for details. To list all the built-in commands use <code>help</code> alone.</p>
 </section>
 <section id="debugging-and-testing" class="level2">
 <h2 class="anchored" data-anchor-id="debugging-and-testing">Debugging and testing</h2>
 <p>To run a Bash script in <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_03.html">debug mode</a> use <code>bash -x script.sh</code>. The debug mode can also be activated for chosen lines in a script by encapsulating them in <code>set -x</code> and <code>set +x</code></p>
-<p>Bash by default does not fail, but continues running (to read more on the <code>EOF</code> trick, check <a href="https://stackoverflow.com/questions/2500436/how-does-cat-eof-work-in-bash">this thread</a>).</p>
+<p>Bash by default does not fail but continues running (to read more on the <code>EOF</code> trick, check <a href="https://stackoverflow.com/questions/2500436/how-does-cat-eof-work-in-bash">this thread</a>).</p>
 <pre class="shell"><code>$ cat &lt;&lt; EOF &gt; test.sh
 &gt; #!/bin/bash
 &gt; foo
@@ -488,7 +488,7 @@ Done!</code></pre>
 <p>To turn this behavior off, you <a href="https://twitter.com/b0rk/status/1314345978963648524">can add</a> the following line in the beginning of your script:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>notice that using it <a href="https://mywiki.wooledge.org/BashPitfalls#set_-euo_pipefail">has some pitfalls</a>, so don’t use it blindly.</p>
-<p>To discover common bugs and code smells in Bash scripts, you can use the <a href="https://github.com/koalaman/shellcheck">open-source <code>shellcheck</code> tool</a>. It conducts static analysis of the script and provides many helpful hints for solving the issues.</p>
+<p>To discover common bugs and code smells in Bash scripts, you can use the <a href="https://github.com/koalaman/shellcheck">open-source <code>shellcheck</code> tool</a>. It conducts a static analysis of the script and provides many helpful hints for solving the issues.</p>
 <p>If you want to add unit tests to your code, there is a <a href="https://torokmark.github.io/assert.sh/">useful <code>assert.sh</code> script</a>.</p>
 
 
