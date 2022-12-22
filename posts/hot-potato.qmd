@@ -9,7 +9,7 @@ categories: [blog]
 [Erlang] is a peculiar language. It is a dynamically typed, functional language, with all the usual features like
 the preference for [recursion] over loops, pattern matching, etc. Unlike other languages, it treats all kinds of problems
 as [message passing] and truly embraces the concept of concurrency and multiprocessing. As we'll see below, many problems
-are solved in Erlang by spawning a new process and communicating with it. Another of Erlang's oddities is that
+are solved in Erlang by spawning new processes and communicating with them. Another of Erlang's oddities is that
 [*everything* in unmutable], I mean it.
 
 As in any other programming language, in Erlang, you could define a variable `X`[^1] and use it to create another one `Y`.
