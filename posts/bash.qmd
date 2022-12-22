@@ -6,13 +6,13 @@ aliases:
 categories: [blog]
 ---
 
-Bash is like regular expressions: everyone uses it, nobody knows it well. Every time I need to write Bash, I find
+Bash is like regular expressions: everyone uses it, but nobody knows it well. Every time I need to write Bash, I find
 myself googling a lot. The main purpose for writing this guide is to gather in a single
 place the things I google most often.
 
 People usually don't like Bash. I agree, it is not pretty and has many strange quirks. But Bash is useful if you
 are running a Unix machine (Docker anyone?). While in most cases you could replace Bash with your favorite programming
-language, using few lines of Bash could lead to a much simpler code. For me, Bash is useful for
+language, using a few lines of Bash could lead to a much simpler code. For me, Bash is useful for
 automating repeated tasks like "download this, do something to those files, call this script, ...". Bash would be almost
 always available on the machine, so it is portable (no problems with dependencies!). It is also simple enough that
 others would easily understand what your code is doing. Bash is a tool for those fast-and-dirty tasks we often need
@@ -27,7 +27,7 @@ problem?
 ## What is `/bin/sh`?
 
 People often wonder if `/bin/sh` and `/bin/bash` is the same and [the answer is *no*](https://stackoverflow.com/questions/5725296/difference-between-sh-and-bash).
-`/bin/sh` is just a symbolic link to `Bash`, or `Dash`, etc. To check what is your default shell use `echo "$SHELL"`.
+`/bin/sh` is just a symbolic link to `Bash`, `Dash`, etc. To check what is your default shell use `echo "$SHELL"`.
 To change your default shell, use the [`chsh` utility](https://www.tecmint.com/change-a-users-default-shell-in-linux/).
 Because the shells may differ in details of the implementation, make sure to start bash scripts with the
 [shebang](https://github.com/koalaman/shellcheck/wiki/SC2148):
@@ -121,7 +121,7 @@ sh: 6: unset: PI: is read only
 
 Additionally, you can use `export` to [make the variable available also to the child processes](https://superuser.com/questions/153371/what-does-export-do-in-bash).
 There is a nice [guide on Bash variables](https://www.cyberciti.biz/faq/set-environment-variable-linux/)
-that goes into more details.
+that goes into more detail.
 
 ## Operations on the variables
 
@@ -129,7 +129,7 @@ Bash does not check if the variable exists when asking for its value, so `echo $
 even if you never defined the `xsSXSaa` variable. Instead, it has a [very advanced syntax](https://www.cyberciti.biz/tips/bash-shell-parameter-substitution-2.html)
 for interacting with variables. If the variable does not have an assigned value, you can use
 `${variable:-default}` to return the `default` value instead, or `${variable:=default}` to *assign*
-and return the value. In some cases it may be useful to fail with error message if the variable is not set `${variable?message}`.
+and return the value. In some cases it may be useful to fail with an error message if the variable is not set `${variable?message}`.
 Other expressions are summarized in the table below taken from [this StackOverflow answer](https://stackoverflow.com/a/16753536/3986320).
 
 ```
@@ -150,10 +150,10 @@ Other expressions are summarized in the table below taken from [this StackOverfl
 
 Additionally, Bash offers syntax for operating strings stored in the variables (everything is a string for Bash):
 
- * to remove pattern from the beginning of the string: `${var#pattern}`, `${var##pattern}`,
- * to remove pattern from the back of the string: `${var%pattern}`, `${var%%pattern}`,
- * to substitute a pattern: `${var/pattern/replacement/}`, or all it's occurences `${var//pattern/replacement/}`,
- * to access substring `${var:offset}`, `${var:offset:length}`
+ * remove pattern from the beginning of the string: `${var#pattern}`, `${var##pattern}`,
+ * remove pattern from the back of the string: `${var%pattern}`, `${var%%pattern}`,
+ * substitute a pattern: `${var/pattern/replacement/}`, or all it's occurrences `${var//pattern/replacement/}`,
+ * access substring `${var:offset}`, `${var:offset:length}`
  * convert first `${var^}`, or all `${var^^}` characters to uppercase,
  * convert first `${var,}`, or all `${var,,}` characters to lowercase.
 
@@ -193,7 +193,7 @@ a d g j m p s v y
 ```
 
 When using multiple curly brackets to create a string, it will create *all the combinations* of the possible strings.
-This can be used together with other commands, for example to create or remove multiple files.
+This can be used together with other commands, for example, to create or remove multiple files.
 
 ```shell
 $ touch file_{1..3}{a..c}.{txt,md}
@@ -233,7 +233,7 @@ elif cond2 ; then
 fi
 ```
 
-I will use evaluating basic mathematical expression to illustrate an `if` statement.
+I will use evaluating a basic mathematical expression to illustrate an `if` statement.
 
 ```shell
 $ if [ "$(( 2 + 2 ))" -eq 4 ]; then
@@ -285,7 +285,7 @@ for f in "$(ls)"; do
 done
 ```
 
-For iterating until brake condition is met, use `while` loop. The popular use case is [iterating over lines of a file](https://stackoverflow.com/a/10929511/3986320).
+For iterating until the brake condition is met, use `while` loop. The popular use case is [iterating over lines of a file](https://stackoverflow.com/a/10929511/3986320).
 
 ```bash
 while IFS= read -r line; do
@@ -297,7 +297,7 @@ done < my_filename.txt
 
 To evaluate an expression you can use ``` `...` ``` or `$(...)`, but using `$(...)` [is recommended](https://mywiki.wooledge.org/BashFAQ/082).
 While the quotes in the example below might look awkward, this is a [valid approach in Bash](https://unix.stackexchange.com/questions/118433/quoting-within-command-substitution-in-bash), since variables need to be quoted and the whole
-expression also should.
+the expression also should.
 
 ```shell
 cmd='date'
@@ -350,13 +350,13 @@ $ count a b c
 3
 ```
 
-Remember to use semicolon `;` when writing multiple commands in single line, this also applies to `if ...; then`,
+Remember to use the semicolon `;` when writing multiple commands in a single line, this also applies to `if ...; then`,
 `for ...; do`, and if closing the curly braces in the same line `...; }`.
 
 Functions can also use `read` command to access files, or [collect input from the user](https://stackoverflow.com/questions/18544359/how-to-read-user-input-into-a-variable-in-bash).
 
 Functions in Bash do not return anything but the [exit
-status](https://en.wikipedia.org/wiki/Exit_status). To provide an exit code use `exit 0` for success,
+status](https://en.wikipedia.org/wiki/Exit_status). To provide an exit code using `exit 0` for success,
 or any non-zero status, like `exit 1` for error. The exit status of the most recently executed command is available
 through the `$?` variable. To communicate with the outside world, they use side effects like printing to
 [stdout](https://www.howtogeek.com/435903/what-are-stdin-stdout-and-stderr-on-linux/), or saving files.
@@ -366,7 +366,7 @@ through the `$?` variable. To communicate with the outside world, they use side 
 Bash code often comes not as functions, but as scripts. The scripts behave like functions, so if you create the
 `hello.sh` script, you can call it by invoking its name `./hello.sh`, you can also provide positional arguments like
 `./hello.sh -h`. When the function is saved in a directory that was [added to the `$PATH`](https://linuxize.com/post/how-to-add-directory-to-path-in-linux/),
-for example, `/usr/bin/`, you can call it by just invoking its filename. Example of a trivial script is given below.
+for example, `/usr/bin/`, you can call it by just invoking its filename. An example of a trivial script is given below.
 
 ```bash
 #!/bin/bash
@@ -421,7 +421,7 @@ for regular printing, you see it in the console. The second one is *standard err
 
 You can [redirect](https://www.gnu.org/software/bash/manual/html_node/Redirections.html) the output of a command using
 `>`, or `1>` for example, `ls > files.txt` will redirect the output of the `ls` function to the `files.txt` file. When
-redirecting to file, `>` will overwrite the target file, to append it use `>>` instead. Use `2>` if you want to
+redirecting to a file, `>` will overwrite the target file, to append it use `>>` instead. Use `2>` if you want to
 redirect *stderr*. You can use two redirects `./script.sh 1> output.txt 2> errors.log`, or use `&>` to redirect
 both to the same target. If you want to suppress the output, just redirect it to `/dev/null`, for example,
 
@@ -461,7 +461,7 @@ the list of files returned by `ls` and use `grep` to filter out all the names co
 to `sudo`, you need to use the [`tee` command](https://linuxize.com/post/linux-tee-command/).
 
 To give a [more advanced example](https://stackoverflow.com/questions/1358540/how-can-i-count-all-the-lines-of-code-in-a-directory-recursively)
-of piping we can use `find` to list all the Python files, use `xargs` to pass those file names to `cat` to print their
+of piping, we can use `find` to list all the Python files, use `xargs` to pass those file names to `cat` to print their
 contents, and use `wc -l` to count all the lines.
 
 ```shell
@@ -487,13 +487,13 @@ for i in {1..100}; do
 ; done
 ```
 
-To display a list of active jobs use the `jobs` command.  `fg [job_spec]` moves job to foreground, Ctrl+Z or
-`bg [job_spec]` to background, `disown [job_spec]` terminates it. To prevent the processes from dying with the shell
+To display a list of active jobs use the `jobs` command.  `fg [job_spec]` moves the job to the foreground, Ctrl+Z or
+`bg [job_spec]` to the background, `disown [job_spec]` terminates it. To prevent the processes from dying with the shell
 being closed, you can use the "no hangup" `nohup` command.
 
 
 Those commands are build-in and do not have `man` pages, so use `fg --help` or `help fg` for details. To list all
-the build-in commands use `help` alone.
+the built-in commands use `help` alone.
 
 ## Debugging and testing
 
@@ -501,7 +501,7 @@ To run a Bash script in [debug mode](https://tldp.org/LDP/Bash-Beginners-Guide/h
 `bash -x script.sh`. The debug mode can also be activated for chosen lines in a script by encapsulating them in
 `set -x` and `set +x`
 
-Bash by default does not fail, but continues running (to read more on the `EOF` trick, check
+Bash by default does not fail but continues running (to read more on the `EOF` trick, check
 [this thread](https://stackoverflow.com/questions/2500436/how-does-cat-eof-work-in-bash)).
 
 ```shell
@@ -528,6 +528,6 @@ notice that using it [has some pitfalls](https://mywiki.wooledge.org/BashPitfall
 use it blindly.
 
 To discover common bugs and code smells in Bash scripts, you can use the [open-source `shellcheck` tool](https://github.com/koalaman/shellcheck).
-It conducts static analysis of the script and provides many helpful hints for solving the issues.
+It conducts a static analysis of the script and provides many helpful hints for solving the issues.
 
 If you want to add unit tests to your code, there is a [useful `assert.sh` script](https://torokmark.github.io/assert.sh/).
