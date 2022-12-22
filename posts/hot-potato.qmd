@@ -86,7 +86,7 @@ Having it, we can `spawn` a process running the `loop` that I declared in a [`po
 <0.87.0>
 ```
 
-It started with the `empty` state, we can verify this by sending the message `{SenderPid, get}` to our process `self()`
+It started with the `empty` state, we can verify this by sending the message `{SenderPid, get}` to the process
 identified by the `Pid`. I use `flush().` here to extract the messages received by the calling process.
 
 ```erlang
