@@ -1,0 +1,128 @@
+---
+title: "Hot potato state in Erlang"
+date: 2022-12-22
+aliases:
+  - "/hot-potato"
+categories: [blog]
+---
+
+[Erlang] is a peculiar language. It is a dynamically typed, functional language, with all the usual features like
+the preference for [recursion] over loops, pattern matching, etc. Unlike other languages, it treats all kinds of problems
+as [message passing] and truly embraces the concept of concurrency and multiprocessing. As we'll see below, many problems
+are solved in Erlang by spawning a new process and communicating with it. Another of Erlang's oddities is that
+[*everything* in unmutable], I mean it.
+
+As in any other programming language, in Erlang, you could define a variable `X`[^1] and use it to create another one `Y`.
+
+```erlang
+1> X = 1.
+1
+2> X.
+1
+3> Y = X + 1.
+2
+```
+
+But, let's say, that you want to increment `X` by one.
+
+```erlang
+4> X = X + 1.
+** exception error: no match of right hand side value 2
+```
+
+Sorry, you can't. You need instead to create `X1 = X + 1.`, but this is not a sustainable way of storing the state in the
+long run. What if you need to preserve a state that changes over time? One way could be to use recursion and pass the
+value along. A trivial example would be a function that counts `From` to `To` while printing the results.
+At each step, the function checks the `Value =:= To`[^2] condition and if the counting is not done, increments the
+`From` value in the wildcard `_`[^3] case.
+
+```erlang
+count(From, To) ->
+    io:format("~w~n", [From]),
+    case From of
+        Value when Value =:= To ->
+            ok;
+        _ ->
+            count(From + 1, To)
+    end.
+```
+
+Notice that the `From` variable is ephemeral here, it only exists within a function call. When calling `count`[^4]
+recursively, each time we are creating a new variable. But passing everything as arguments of functions does not scale.
+What if we do want something stateful? That's where in Erlang you use what I call the [hot potato] approach. If you
+don't know the game, here you are:
+
+> Hot potato is a party game that involves players gathering in a circle and tossing a small object such as a beanbag
+> or even a real potato to each other while music plays. The player who is holding the object when the music stops
+> is eliminated.
+
+Same as with using a recursive function, if we want to [preserve the state in Erlang], we would be passing it along
+like a hot potato. The difference would be that the hot potato would be tossed around in an infinite loop in a separate
+process. Again, we would have a recursive function that passes the `State` along. The function would be able to
+`receive` messages from other processes, where the messages inform it to `set` the state to the new value, `get` to
+answer the sender with the value of the current state, and the `bye` message that stops the infinite loop.
+To send a message `Message` to a `Receiver` in Erlang, we use the `Receiver ! Message` syntax.
+
+```erlang
+loop(State) ->
+    receive
+        {From, set, Newstate} ->
+            From ! ok,
+            loop(Newstate);
+        {From, get} ->
+            From ! {ok, State},
+            loop(State);
+        {From, bye} ->
+            From ! ok
+    end.
+```
+
+Having it, we can `spawn` a process running the `loop` that I declared in a [`potato` module].
+
+```erlang
+1> c(potato).
+{ok,potato}
+2> Pid = spawn(fun() -> potato:loop(empty) end).
+<0.87.0>
+```
+
+It started with the `empty` state, we can verify this by sending the message `{SenderPid, get}` to our process `self()`
+identified by the `Pid`. I use `flush().` here to extract the messages received by the calling process.
+
+```erlang
+3> Pid ! {self(), get}.
+{<0.80.0>,get}
+4> flush().
+Shell got {ok,empty}
+ok
+```
+
+We can also send the `{SenderPid, set, Value}` message to change the state.
+
+```erlang
+5> Pid ! {self(), set, hello}.
+{<0.80.0>,set,hello}
+6> Pid ! {self(), get}.
+{<0.80.0>,get}
+7> flush().
+Shell got ok
+Shell got {ok,hello}
+ok
+```
+
+*Voilà!* We have a mutable state living in an infinite loop of an external process holding it.
+
+
+ [^1]: Variables in Erlang need to have uppercase names.
+ [^2]: `=:=`, yes, [don't ask].
+ [^3]: `_` is a placeholder for whatever, it is also used for denoting unused variables like `_Var`.
+ [^4]: The names of the functions need to be in lowercase.
+
+ [Erlang]: https://www.erlang.org
+ [message passing]: https://www.erlang.org/blog/message-passing/
+ [recursion]: https://learnyousomeerlang.com/recursion
+ [*everything* in unmutable]: https://learnyousomeerlang.com/starting-out-for-real#invariable-variables
+ [hot potato]: https://en.wikipedia.org/wiki/Hot_potato
+ [preserve the state in Erlang]: https://learnyousomeerlang.com/more-on-multiprocessing#state-your-state
+ [don't ask]: https://stackoverflow.com/questions/9790815/what-is-the-difference-between-and-in-erlang-when-used-with-terms-in-gene
+ [`potato` module]: https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/potato.erl

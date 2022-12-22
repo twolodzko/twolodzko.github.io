@@ -1,6 +1,6 @@
 .PHONY: publish
 publish:
-	bash -c 'quarto publish --no-prompt gh-pages'
+	bash -c 'quarto publish --no-prompt --no-browser gh-pages'
 	rm -rf _site
 
 .PHONY: preview

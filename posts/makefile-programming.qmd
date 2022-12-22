@@ -51,7 +51,7 @@ As you can see, the variable assignments are only used to define the default val
 To set variables that could not be changed by the user, use the [`overwrite` keyword][overwrite].
 
 Another kind of variable is the *recursively expanded*, assigned with `=`.
-Those variables behave similar to pointers, because they can point to other variables
+Those variables behave similarly to pointers because they can point to other variables
 and will change when the variables they refer to change. This is best illustrated
 with an example.
 
@@ -93,7 +93,7 @@ $ make -f variables.mk GREET=Hola MESSAGE=Hello
 Hola World
 ```
 
-Variables are defined be a convention on the top of the Makefile.
+Variables are defined by a convention on the top of the Makefile.
 They cannot be modified within the functions, the code below *won't
 work*.
 
@@ -115,11 +115,11 @@ immutable and embrace the functional programming style.
 
 ## Lists
 
-As other LISPs, Makefile natively supports list data structures and has
+Like other lisps, Makefile natively supports list data structures and has
 several [methods for interacting with lists][text-functions]:
 
- * `$(words $(LIST))` returns size of the `LIST`,
- * `$(firstword $(LIST))` returns first element of the `LIST`,
+ * `$(words $(LIST))` returns the size of the `LIST`,
+ * `$(firstword $(LIST))` returns the first element of the `LIST`,
  * `$(word $(N), $(LIST))` returns `N`th element of the `LIST`,
  * `$(wordlist $(START), $(END), $(LIST))` returns elements from `START` to `END` (inclusive),
  * `variable += value` adds `value` to `variable`, treating `variable` as a list.
@@ -128,7 +128,7 @@ To do `(cons cat cdr)` as in Scheme, in Makefile we just need to construct it is
 string `"$(CAT) $(CDR)"`.
 
 Lists are passed as strings with elements separated by spaces, `LIST="1 2 3 4"` is a
-list of four elements. Unlike other LISPs, Makefile does not have native support
+list of four elements. Unlike other lisps, Makefile does not have native support
 for lists of lists or other data structures, so implementing them is left as an
 exercise for the user.
 
@@ -183,7 +183,7 @@ was passed as an argument to another function, so we needed to call it with
 The example above shows also how Makefile code can be grouped into *packages*
 (files) and imported. The `-f` syntax helps to distinguish the source of the
 function like Go (e.g. `fmt.Println`) or Python (e.g. `datetime.datetime`)
-do using the dot instead.
+do use the dot instead.
 
 Remember that each line of the function is [executed in its own subshell][execution]
 so they don't share their states. This can be changed using `.ONESHELL` target.
@@ -255,7 +255,7 @@ endif
 
 because Makefile has a rather specific order of executing and expanding stuff.
 In fact, the Makefile with `invalid` rule won't work at all, because Makefile
-won't be able to parse script that recursively calls `make` in the conditional
+won't be able to parse a script that recursively calls `make` in the conditional
 statement. Instead, use something like the below:
 
 ```makefile
@@ -288,11 +288,11 @@ else
 endif
 ```
 
-Conditionals can be used also outside functions, when defining variables.
+Conditionals can be used also outside functions when defining variables.
 
 ## Recursion
 
-Makefile has a very simple syntax. Same as LISP, it doesn't have for loops and instead
+Makefile has a very simple syntax. Same as lisp, it doesn't have for loops and instead
 we need to use [recursion][recursion]. Consider the simple recursive function that sums elements
 of a `LIST`:
 
@@ -340,14 +340,14 @@ test-testme:
 
 ## Metaprogramming with macros
 
-While Makefile's metaprogramming utilities are not as impressive as with some LISPs,
+While Makefile's metaprogramming utilities are not as impressive as with some lisps,
 they still can be quite helpful. Makefile supports [macros][macros] in two forms.
 We saw one form of macros in the section on [conditionals](#conditionals) when
 defining the `less` macro that was called using `$(call macro,args...)`. You might
 have noticed that in fact `less` is a named [lambda function][anonymous-function].
 
-The second kind of macros is declared using the `define` block and called the same
-way as variables. The second kind of macros is snippets of code that get pasted
+The second kind of macro is declared using the `define` block and called the same
+way as variables. The second kind of macro is snippets of code that get pasted
 to the code at the execution time.
 
 ```makefile
@@ -397,10 +397,10 @@ else
 endif
 ```
 
-Another example shows tail-recursive implementation of Fibonacci sequence generator.
+Another example shows a tail-recursive implementation of the Fibonacci sequence generator.
 Unfortunately, to my best knowledge Makefile does not support [tail call optimization][tco]
 as many functional programming languages do, so it would be rather slow. The example also
-shows limitation of integer type numbers, as it will overflow when using `NUMBER` over 91.
+shows a limitation of integer type numbers, as it will overflow when using `NUMBER` over 91.
 
 ```makefile
 MAKEFLAGS += --no-print-directory
