@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/hot-potato.html",
       "/posts/quarto.html",
       "/posts/implementing-lisps.html",
       "/posts/pipelines.html",

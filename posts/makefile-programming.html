@@ -217,7 +217,7 @@ Hi World</code></pre>
 echo Hello World
 Hello World</code></pre>
 <p>As you can see, the variable assignments are only used to define the default values. To set variables that could not be changed by the user, use the <a href="https://www.gnu.org/software/make/manual/html_node/Override-Directive.html#Override-Directive"><code>overwrite</code> keyword</a>.</p>
-<p>Another kind of variable is the <em>recursively expanded</em>, assigned with <code>=</code>. Those variables behave similar to pointers, because they can point to other variables and will change when the variables they refer to change. This is best illustrated with an example.</p>
+<p>Another kind of variable is the <em>recursively expanded</em>, assigned with <code>=</code>. Those variables behave similarly to pointers because they can point to other variables and will change when the variables they refer to change. This is best illustrated with an example.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode makefile code-with-copy"><code class="sourceCode makefile"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">GREET </span><span class="ch">=</span><span class="st"> </span><span class="ch">$(</span><span class="dt">MESSAGE</span><span class="ch">)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">MESSAGE </span><span class="ch">:=</span><span class="st"> Hi</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -238,7 +238,7 @@ $ make -f variables.mk MESSAGE=Hello
 Hello World
 $ make -f variables.mk GREET=Hola MESSAGE=Hello
 Hola World</code></pre>
-<p>Variables are defined be a convention on the top of the Makefile. They cannot be modified within the functions, the code below <em>won’t work</em>.</p>
+<p>Variables are defined by a convention on the top of the Makefile. They cannot be modified within the functions, the code below <em>won’t work</em>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode makefile code-with-copy"><code class="sourceCode makefile"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">invalid:</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    MESSAGE := Hello</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="ch">@</span><span class="fu"> echo </span><span class="ch">$(</span><span class="dt">MESSAGE</span><span class="ch">)</span><span class="fu"> World</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -250,16 +250,16 @@ make: *** [invalid] Error 1</code></pre>
 </section>
 <section id="lists" class="level2">
 <h2 class="anchored" data-anchor-id="lists">Lists</h2>
-<p>As other LISPs, Makefile natively supports list data structures and has several <a href="https://www.gnu.org/software/make/manual/make.html#Text-Functions">methods for interacting with lists</a>:</p>
+<p>Like other lisps, Makefile natively supports list data structures and has several <a href="https://www.gnu.org/software/make/manual/make.html#Text-Functions">methods for interacting with lists</a>:</p>
 <ul>
-<li><code>$(words $(LIST))</code> returns size of the <code>LIST</code>,</li>
-<li><code>$(firstword $(LIST))</code> returns first element of the <code>LIST</code>,</li>
+<li><code>$(words $(LIST))</code> returns the size of the <code>LIST</code>,</li>
+<li><code>$(firstword $(LIST))</code> returns the first element of the <code>LIST</code>,</li>
 <li><code>$(word $(N), $(LIST))</code> returns <code>N</code>th element of the <code>LIST</code>,</li>
 <li><code>$(wordlist $(START), $(END), $(LIST))</code> returns elements from <code>START</code> to <code>END</code> (inclusive),</li>
 <li><code>variable += value</code> adds <code>value</code> to <code>variable</code>, treating <code>variable</code> as a list.</li>
 </ul>
 <p>To do <code>(cons cat cdr)</code> as in Scheme, in Makefile we just need to construct it is a regular string <code>"$(CAT) $(CDR)"</code>.</p>
-<p>Lists are passed as strings with elements separated by spaces, <code>LIST="1 2 3 4"</code> is a list of four elements. Unlike other LISPs, Makefile does not have native support for lists of lists or other data structures, so implementing them is left as an exercise for the user.</p>
+<p>Lists are passed as strings with elements separated by spaces, <code>LIST="1 2 3 4"</code> is a list of four elements. Unlike other lisps, Makefile does not have native support for lists of lists or other data structures, so implementing them is left as an exercise for the user.</p>
 <p>Makefile has <code>foreach</code> and <code>filter</code> methods for working with lists that may be known to users of other functional programming languages (<code>foreach</code> corresponds to <code>map</code>). To implement the function that reduces the list, we need to use <a href="#recursion">recursion</a>.</p>
 </section>
 <section id="functions" class="level2">
@@ -282,7 +282,7 @@ Tue 4 Jan 20:47:28 CET 2022</code></pre>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="ch">@</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span><span class="fu"> -f functions.mk hello GREET=Hi</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="ch">@</span><span class="fu"> echo </span><span class="st">"It's"</span><span class="fu"> </span><span class="st">"</span><span class="ch">$(</span><span class="kw">shell</span><span class="st"> </span><span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span><span class="st"> -f functions.mk date</span><span class="ch">)</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To call the other functions, we used the <code>$(MAKE)</code> command. If directory contains only one Makefile, <code>$(MAKE)</code> alone can be used, but when there are multiple Makefiles available, we need to name the specific file. In the first line of the function, we called make alone, but in the second line its output was passed as an argument to another function, so we needed to call it with <code>$(shell command)</code> (see <a href="#interacting-with-other-programming-languages">below</a>).</p>
-<p>The example above shows also how Makefile code can be grouped into <em>packages</em> (files) and imported. The <code>-f</code> syntax helps to distinguish the source of the function like Go (e.g.&nbsp;<code>fmt.Println</code>) or Python (e.g.&nbsp;<code>datetime.datetime</code>) do using the dot instead.</p>
+<p>The example above shows also how Makefile code can be grouped into <em>packages</em> (files) and imported. The <code>-f</code> syntax helps to distinguish the source of the function like Go (e.g.&nbsp;<code>fmt.Println</code>) or Python (e.g.&nbsp;<code>datetime.datetime</code>) do use the dot instead.</p>
 <p>Remember that each line of the function is <a href="https://www.gnu.org/software/make/manual/html_node/Execution.html">executed in its own subshell</a> so they don’t share their states. This can be changed using <code>.ONESHELL</code> target.</p>
 </section>
 <section id="chained-functions" class="level2">
@@ -326,7 +326,7 @@ Tue 4 Jan 20:47:28 CET 2022</code></pre>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    echo <span class="st">"it's not 1"</span></span>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="cf">endif</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>because Makefile has a rather specific order of executing and expanding stuff. In fact, the Makefile with <code>invalid</code> rule won’t work at all, because Makefile won’t be able to parse script that recursively calls <code>make</code> in the conditional statement. Instead, use something like the below:</p>
+<p>because Makefile has a rather specific order of executing and expanding stuff. In fact, the Makefile with <code>invalid</code> rule won’t work at all, because Makefile won’t be able to parse a script that recursively calls <code>make</code> in the conditional statement. Instead, use something like the below:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode makefile code-with-copy"><code class="sourceCode makefile"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dv">impl:</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">ifeq</span> (<span class="ch">$(</span><span class="dt">CONDITION</span><span class="ch">)</span>, 1)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    echo <span class="st">"it's 1"</span></span>
@@ -346,11 +346,11 @@ Tue 4 Jan 20:47:28 CET 2022</code></pre>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="ch">@</span><span class="fu"> echo </span><span class="st">"</span><span class="ch">$(</span><span class="dt">A</span><span class="ch">)</span><span class="st"> &gt;= </span><span class="ch">$(</span><span class="dt">B</span><span class="ch">)</span><span class="st">"</span></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="cf">endif</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Conditionals can be used also outside functions, when defining variables.</p>
+<p>Conditionals can be used also outside functions when defining variables.</p>
 </section>
 <section id="recursion" class="level2">
 <h2 class="anchored" data-anchor-id="recursion">Recursion</h2>
-<p>Makefile has a very simple syntax. Same as LISP, it doesn’t have for loops and instead we need to use <a href="https://www.gnu.org/software/make/manual/html_node/Recursion.html">recursion</a>. Consider the simple recursive function that sums elements of a <code>LIST</code>:</p>
+<p>Makefile has a very simple syntax. Same as lisp, it doesn’t have for loops and instead we need to use <a href="https://www.gnu.org/software/make/manual/html_node/Recursion.html">recursion</a>. Consider the simple recursive function that sums elements of a <code>LIST</code>:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode makefile code-with-copy"><code class="sourceCode makefile"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dt">TOTAL </span><span class="ch">:=</span><span class="st"> 0</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dt">HEAD </span><span class="ch">:=</span><span class="st"> </span><span class="ch">$(</span><span class="kw">firstword</span><span class="st"> </span><span class="ch">$(</span><span class="dt">LIST</span><span class="ch">))</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="dt">TAIL </span><span class="ch">:=</span><span class="st"> </span><span class="ch">$(</span><span class="kw">wordlist</span><span class="st"> 2</span><span class="kw">,</span><span class="st"> </span><span class="ch">$(</span><span class="kw">words</span><span class="st"> </span><span class="ch">$(</span><span class="dt">LIST</span><span class="ch">))</span><span class="kw">,</span><span class="st"> </span><span class="ch">$(</span><span class="dt">LIST</span><span class="ch">))</span></span>
@@ -382,8 +382,8 @@ Tue 4 Jan 20:47:28 CET 2022</code></pre>
 </section>
 <section id="metaprogramming-with-macros" class="level2">
 <h2 class="anchored" data-anchor-id="metaprogramming-with-macros">Metaprogramming with macros</h2>
-<p>While Makefile’s metaprogramming utilities are not as impressive as with some LISPs, they still can be quite helpful. Makefile supports <a href="https://www.oreilly.com/library/view/managing-projects-with/0596006101/ch03.html">macros</a> in two forms. We saw one form of macros in the section on <a href="#conditionals">conditionals</a> when defining the <code>less</code> macro that was called using <code>$(call macro,args...)</code>. You might have noticed that in fact <code>less</code> is a named <a href="https://en.wikipedia.org/wiki/Anonymous_function">lambda function</a>.</p>
-<p>The second kind of macros is declared using the <code>define</code> block and called the same way as variables. The second kind of macros is snippets of code that get pasted to the code at the execution time.</p>
+<p>While Makefile’s metaprogramming utilities are not as impressive as with some lisps, they still can be quite helpful. Makefile supports <a href="https://www.oreilly.com/library/view/managing-projects-with/0596006101/ch03.html">macros</a> in two forms. We saw one form of macros in the section on <a href="#conditionals">conditionals</a> when defining the <code>less</code> macro that was called using <code>$(call macro,args...)</code>. You might have noticed that in fact <code>less</code> is a named <a href="https://en.wikipedia.org/wiki/Anonymous_function">lambda function</a>.</p>
+<p>The second kind of macro is declared using the <code>define</code> block and called the same way as variables. The second kind of macro is snippets of code that get pasted to the code at the execution time.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode makefile code-with-copy"><code class="sourceCode makefile"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">define</span> date</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="ch">$(</span><span class="kw">shell</span><span class="st"> date</span><span class="ch">)</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">endef</span></span>
@@ -420,7 +420,7 @@ Tue 4 Jan 20:47:28 CET 2022</code></pre>
 <span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
 <span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    <span class="ch">@</span><span class="fu"> </span><span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span><span class="fu"> impl LIST=</span><span class="st">"</span><span class="ch">$(</span><span class="dt">TAIL</span><span class="ch">)</span><span class="st">"</span><span class="fu"> LEFT=</span><span class="st">"</span><span class="ch">$(</span><span class="dt">LEFT</span><span class="ch">)</span><span class="st">"</span><span class="fu"> PIVOT=</span><span class="st">"</span><span class="ch">$(</span><span class="dt">PIVOT</span><span class="ch">)</span><span class="st">"</span><span class="fu"> RIGHT=</span><span class="st">"</span><span class="ch">$(</span><span class="dt">HEAD</span><span class="ch">)</span><span class="st"> </span><span class="ch">$(</span><span class="dt">RIGHT</span><span class="ch">)</span><span class="st">"</span></span>
 <span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="cf">endif</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Another example shows tail-recursive implementation of Fibonacci sequence generator. Unfortunately, to my best knowledge Makefile does not support <a href="https://stackoverflow.com/questions/310974/what-is-tail-call-optimization">tail call optimization</a> as many functional programming languages do, so it would be rather slow. The example also shows limitation of integer type numbers, as it will overflow when using <code>NUMBER</code> over 91.</p>
+<p>Another example shows a tail-recursive implementation of the Fibonacci sequence generator. Unfortunately, to my best knowledge Makefile does not support <a href="https://stackoverflow.com/questions/310974/what-is-tail-call-optimization">tail call optimization</a> as many functional programming languages do, so it would be rather slow. The example also shows a limitation of integer type numbers, as it will overflow when using <code>NUMBER</code> over 91.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode makefile code-with-copy"><code class="sourceCode makefile"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dt">MAKEFLAGS </span><span class="ch">+=</span><span class="st"> --no-print-directory</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="dt">NUMBER</span><span class="ch">:=</span><span class="st">0</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="dt">CURRENT</span><span class="ch">:=</span><span class="st">0</span></span>
