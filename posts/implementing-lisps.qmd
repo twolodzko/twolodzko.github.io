@@ -17,12 +17,45 @@ By "minimal" I mean bare-bones language but feature-rich enough that can run all
 
 I implemented it already in [Go], [OCaml], [Erlang], and [Racket] (itself a flavor of Scheme).
 My main purpose was to learn new programming languages and learn more about programming language theory (in practice).
-To verify my code, as an integration test I used the examples from *[The Little Schemer]* and accompanying unit tests
+To verify my code, as an integration test, I used the examples from *[The Little Schemer]* and accompanying unit tests
 from the [repository by *bmitc*]. I was also benchmarking my code against MIT Scheme.
 
 ![Lisp cycles XKCD #297: "Those are your father's parentheses. Elegant weapons for a more... civilized age."](https://imgs.xkcd.com/comics/lisp_cycles.png)
 
 (source <https://xkcd.com/297/>)
+
+# Why implementing a lisp interpreter is such a great kata?
+
+Implementing lisp interpreters is my favorite programming kata. It is a non-trivial problem, but small enough to
+finish it in a limited time. It is also a chance to touch most of the functionalities of the programming language
+you use for the problem:
+
+ * You need to build a simple parser. This is an interesting programming exercise by itself. It also lets you
+   familiarize yourself with strings.
+ * Lisp uses [cons linked lists] for all purposes. Some languages support linked lists natively (OCaml, Racket),
+   some don't, and in some, it is particularly hard ([Rust][too-many]). This is how you'll score a point in a
+   leetcode-style whiteboard interview when they'll ask to implement a linked list.
+ * It is a chance to learn about types in the programming language you use. Some languages have advanced type
+   systems (e.g. OCaml, Rust), but some don't support custom types (e.g. erlang, Lua), so you need to simulate
+   them.
+ * To store the variables, you need an environment. There is a global environment, but also local ones
+   (see [closures] and [scopes]). For this, you'd likely need tree-like data structures, references, and hash maps.
+ * For [lambdas], you'll need to learn more about anonymous functions.
+ * Lisps extensively use recursion, so the implementation needs to be [tail-call optimized], otherwise you'll quickly
+   see [stack overflow errors]. The best way to unit-test it is to use a tail-call optimized implementation of
+   Fibonacci sequence generator and evaluate it for a large value of the argument (>100).
+
+   ```scheme
+   (define impl (lambda (it second first)
+      (if (= it 0) first
+         (impl (- it 1) (+ first second) second))))
+
+   (define fibo (lambda (n) (impl n 1 0)))
+   ```
+ * To build REPL, you'll need to learn how to interact with standard input and output.
+ * When using REPL, it doesn't panic on each error, but rather prints the error message. If you want this behavior,
+   you need to explore how errors are handled in the programming language you use.
+ * Finally, you would learn to build a command-line interface.
 
 # Prologue
 
@@ -101,7 +134,7 @@ so I just went by trial and error to figure out how to do it. The hardest part w
 
 (source <https://xkcd.com/1425/>)
 
-# So what are the pros and cons of those langauges?
+# So what are the pros and cons of those languages?
 
 * **Go** is elegant in its simplicity and has great documentation and developer tools. It has a simple but strict static
    type system, so implementing dynamic types was quite tedious. The big upside is that Go has a large and active
@@ -160,3 +193,10 @@ of pain.
  [no namespaces]: https://stackoverflow.com/questions/4476108/namespaces-and-records-in-erlang
  [one brief blog post]: https://jackwarren.info/posts/guides/racket/racket-command-line/
  [Makefile]: https://twolodzko.github.io/makefile-programming
+ [closures]: https://en.wikipedia.org/wiki/Closure_(computer_programming)
+ [scopes]: https://en.wikipedia.org/wiki/Scope_(computer_science)
+ [lambdas]: https://en.wikipedia.org/wiki/Anonymous_function
+ [tail-call optimized]: https://stackoverflow.com/questions/310974/what-is-tail-call-optimization
+ [stack overflow errors]: https://en.wikipedia.org/wiki/Stack_overflow
+ [cons linked lists]: https://en.wikipedia.org/wiki/Cons
+ [too-many]: https://rust-unofficial.github.io/too-many-lists/
