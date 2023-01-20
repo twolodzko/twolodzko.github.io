@@ -21,6 +21,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -140,7 +203,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <p><em>Do It, Do It Again, and Again, and Again …</em><br>
   — <em>The Little Schemer</em> by Friedmann and Felleisen</p>
 </blockquote>
-<p>I implemented it already in <a href="https://github.com/twolodzko/gosch">Go</a>, <a href="https://github.com/twolodzko/loco">OCaml</a>, <a href="https://github.com/twolodzko/schemero">Erlang</a>, and <a href="https://github.com/twolodzko/schsch">Racket</a> (itself a flavor of Scheme). My main purpose was to learn new programming languages and learn more about programming language theory (in practice). To verify my code, as an integration test I used the examples from <em><a href="https://www.goodreads.com/book/show/548914.The_Little_Schemer">The Little Schemer</a></em> and accompanying unit tests from the <a href="https://github.com/bmitc/the-little-schemer">repository by <em>bmitc</em></a>. I was also benchmarking my code against MIT Scheme.</p>
+<p>I implemented it already in <a href="https://github.com/twolodzko/gosch">Go</a>, <a href="https://github.com/twolodzko/loco">OCaml</a>, <a href="https://github.com/twolodzko/schemero">Erlang</a>, and <a href="https://github.com/twolodzko/schsch">Racket</a> (itself a flavor of Scheme). My main purpose was to learn new programming languages and learn more about programming language theory (in practice). To verify my code, as an integration test, I used the examples from <em><a href="https://www.goodreads.com/book/show/548914.The_Little_Schemer">The Little Schemer</a></em> and accompanying unit tests from the <a href="https://github.com/bmitc/the-little-schemer">repository by <em>bmitc</em></a>. I was also benchmarking my code against MIT Scheme.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://imgs.xkcd.com/comics/lisp_cycles.png" class="img-fluid figure-img"></p>
@@ -148,6 +211,26 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 </figure>
 </div>
 <p>(source <a href="https://xkcd.com/297/" class="uri">https://xkcd.com/297/</a>)</p>
+<section id="why-implementing-a-lisp-interpreter-is-such-a-great-kata" class="level1">
+<h1>Why implementing a lisp interpreter is such a great kata?</h1>
+<p>Implementing lisp interpreters is my favorite programming kata. It is a non-trivial problem, but small enough to finish it in a limited time. It is also a chance to touch most of the functionalities of the programming language you use for the problem:</p>
+<ul>
+<li><p>You need to build a simple parser. This is an interesting programming exercise by itself. It also lets you familiarize yourself with strings.</p></li>
+<li><p>Lisp uses <a href="https://en.wikipedia.org/wiki/Cons">cons linked lists</a> for all purposes. Some languages support linked lists natively (OCaml, Racket), some don’t, and in some, it is particularly hard (<a href="https://rust-unofficial.github.io/too-many-lists/">Rust</a>). This is how you’ll score a point in a leetcode-style whiteboard interview when they’ll ask to implement a linked list.</p></li>
+<li><p>It is a chance to learn about types in the programming language you use. Some languages have advanced type systems (e.g.&nbsp;OCaml, Rust), but some don’t support custom types (e.g.&nbsp;erlang, Lua), so you need to simulate them.</p></li>
+<li><p>To store the variables, you need an environment. There is a global environment, but also local ones created by <a href="https://en.wikipedia.org/wiki/Closure_(computer_programming)">closures</a> and the <a href="https://en.wikipedia.org/wiki/Scope_(computer_science)">scopes</a>. For this, you likely need a tree-like data structure, references, and hash maps.</p></li>
+<li><p>For <a href="https://en.wikipedia.org/wiki/Anonymous_function">lambdas</a>, you’ll need to learn more about anonymous functions.</p></li>
+<li><p>Lisps extensively use recursion, so the implementation needs to be <a href="https://stackoverflow.com/questions/310974/what-is-tail-call-optimization">tail-call optimized</a>, otherwise you’ll quickly see <a href="https://en.wikipedia.org/wiki/Stack_overflow">stack overflow errors</a>. The best way to unit-test it is to use a tail-call optimized implementation of Fibonacci sequence generator and evaluate it for a large value of the argument (&gt;100).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode scheme code-with-copy"><code class="sourceCode scheme"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="ex">define</span><span class="fu"> impl </span>(<span class="kw">lambda</span> (it second first)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>   (<span class="kw">if</span> (<span class="op">=</span> it <span class="dv">0</span>) first</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      (impl (<span class="op">-</span> it <span class="dv">1</span>) (<span class="op">+</span> first second) second))))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>(<span class="ex">define</span><span class="fu"> fibo </span>(<span class="kw">lambda</span> (n) (impl n <span class="dv">1</span> <span class="dv">0</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>To build REPL, you’ll need to learn how to interact with standard input and output.</p></li>
+<li><p>When using REPL, it doesn’t panic on each error, but rather prints the error message. If you want this behavior, you need to explore how errors are handled in the programming language you use.</p></li>
+<li><p>Finally, you would build a command-line interface for the language. This is a chance to explore how it is done in the programming language you are using.</p></li>
+</ul>
+</section>
 <section id="prologue" class="level1">
 <h1>Prologue</h1>
 <p>I don’t have a computer science background, and one day I decided to learn more about programming language theory. I started reading <a href="https://www.goodreads.com/book/show/703102.Compilers">the dragon book</a>, though I never finished it. I needed something more practical and hands-on, and this is how I discovered the <em><a href="https://www.goodreads.com/book/show/21857827-build-your-own-lisp">Build Your Own Lisp</a></em> book. It was nice, but it had code examples in C and focused too much on C for me. Hopefully, I also found the great <em><a href="https://www.goodreads.com/book/show/32681092-writing-an-interpreter-in-go">Writing An Interpreter In Go</a></em> book that used Go language to illustrate building an interpreter for a (non-lisp) programming language. Another great inspiration and source of help were the <a href="https://github.com/kanaka/mal">make a lisp repository</a> with an end-to-end tutorial and learning materials for freaks like me. Around the same time, I was reading the classic programming books: <em><a href="https://www.goodreads.com/book/show/548914.The_Little_Schemer">The Little Schemer</a></em> and <em><a href="https://www.goodreads.com/book/show/43713.Structure_and_Interpretation_of_Computer_Programs">Structure and Interpretation of Computer Programs</a></em>, which used Scheme, so I was curious to write my Scheme, to get a better “behind the scenes” understanding. Among other resources, <em><a href="https://www.scheme.com/tspl4/">The Scheme Programming Language</a></em> reference book by R. Kent Dybvig was helpful as well.</p>
@@ -175,8 +258,8 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 </div>
 <p>(source <a href="https://xkcd.com/1425/" class="uri">https://xkcd.com/1425/</a>)</p>
 </section>
-<section id="so-what-are-the-pros-and-cons-of-those-langauges" class="level1">
-<h1>So what are the pros and cons of those langauges?</h1>
+<section id="so-what-are-the-pros-and-cons-of-those-languages" class="level1">
+<h1>So what are the pros and cons of those languages?</h1>
 <ul>
 <li><strong>Go</strong> is elegant in its simplicity and has great documentation and developer tools. It has a simple but strict static type system, so implementing dynamic types was quite tedious. The big upside is that Go has a large and active community, so it’s easy to find online an answer to any <em>“how to…”</em> question, or get it answered on <a href="http://www.stackoverflow.com">StackOverflow.com</a> (not necessarily the case for the other languages).</li>
 <li><strong>OCaml</strong> was a real pleasure to use, though it would be even better if it had better documentation.</li>
