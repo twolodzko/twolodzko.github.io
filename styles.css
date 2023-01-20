@@ -11,3 +11,7 @@
 .quarto-listing-category :hover {
     color: black
 }
+
+del {
+    text-decoration-thickness: 1.5pt;
+}
