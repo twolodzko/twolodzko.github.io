@@ -24,7 +24,7 @@ from the [repository by *bmitc*]. I was also benchmarking my code against MIT Sc
 
 (source <https://xkcd.com/297/>)
 
-# Why implementing a lisp interpreter is such a great kata?
+# Why implementing a lisp is such a great kata?
 
 Implementing lisp interpreters is my favorite programming kata. It is a non-trivial problem, but small enough to
 finish it in a limited time. It is also a chance to touch most of the functionalities of the programming language
