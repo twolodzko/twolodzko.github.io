@@ -1,5 +1,5 @@
 ---
-title: "Lessons learned from implementing minimal Scheme four times"
+title: "Lessons learned from implementing minimal Scheme ~~four~~ six times"
 date: 2022-11-29
 aliases:
   - "/implementing-lisps"
@@ -101,14 +101,6 @@ so I just went by trial and error to figure out how to do it. The hardest part w
 
 (source <https://xkcd.com/1425/>)
 
-# *But you know what the funniest thing is? It's the little differences.*
-
-You can append values to slices in Go, but you prepend them to lists
-in functional languages (lisps, OCaml, Haskell, Erlang, etc). They also prefer other naming conventions: in Go and Erlang
-you convert from one type *to* another (`strconv.Atoi` and `strings:to_float`), in OCaml you create a new type *of*
-another (`int_of_string`), and Scheme uses arrows (`string->number`). Scheme uses kebab-case, OCaml and Erlang snake_case,
-while Go camelCase for private functions and PascalCase for public functions.
-
 # So what are the pros and cons of those langauges?
 
 * **Go** is elegant in its simplicity and has great documentation and developer tools. It has a simple but strict static
@@ -129,12 +121,14 @@ while Go camelCase for private functions and PascalCase for public functions.
 
 It was a great learning experience. Now, I'm struggling between resting from lisp and the compulsion to repeat it in
 another language. It could be a chance to learn better how Haskell handles side effects. On another hand, I already did
-it in functional languages. Cool kids those days learn Rust, so who knows? Lua also sounds intriguing.[^1]
+it in functional languages. Cool kids those days learn Rust[^1], so who knows? Lua also sounds intriguing.[^2]
 Finally, I didn't touch JavaScript for years and there is this TypeScript thing, right? Or maybe Crystal?
 Some masochistic part of me thinks of doing it in AWK or a [Makefile], but not sure if this would be the pleasant kind
 of pain.
 
- [^1]: I did it: <https://github.com/twolodzko/luali>
+ [^1]: I did it: <https://github.com/twolodzko/rusch>
+ [^2]: I also did it: <https://github.com/twolodzko/luali>
+
 
  [The Little Schemer]: https://www.goodreads.com/book/show/548914.The_Little_Schemer
  [Go]: https://github.com/twolodzko/gosch
