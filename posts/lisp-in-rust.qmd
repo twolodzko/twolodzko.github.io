@@ -124,7 +124,9 @@ struct EnvContainer<T> {
 ```
 
 To avoid circular dependencies between the modules, I defined it as a generic `Env<T>`, using it in the code as
-`Env<Sexpr>`. It is a nice example of how Rust encourages to use of its standard library that provides a lot of useful
+`Env<Sexpr>`.
+
+It is a nice example of how Rust encourages to use of its standard library provides a lot of useful
 constructs that can work together. `Option<Rc<RefCell<EnvContainer<T>>>>` means that we use the [`Option`] [monad]
 (yes, Rust ❤️ monads) because we want a nullable type (the root environment does not inherit from anything),
 `Rc` allows for re-using the contained values, `RefCell` for mutable borrowing, and on the bottom, it's the
@@ -169,7 +171,7 @@ Here came a surprise. While the lisp data resides in linked lists, we would usua
 accessing the lists' `head` and `tail` (recursively if needed). This is how most of the functional programming would do
 it, but [not Rust]. The idiomatic way in Rust seems to be using the [`Iter`] iterator. It's a trait that we need to
 implement by providing the `.next()` method and it would give us for free a number of other methods like `map`, `filter`,
-`collect`, etc. But it was not only about "nicer" code, rather simplified the code a lot by giving me access to many
+`collect`, etc. But it was not only about "nicer" code, but rather simplified the code a lot by giving me access to many
 utilities from the standard library (told you so).
 
 In Rust's iterator, `.next()` returns `Option::Some(element)` result when the element exists and `Option::None` when
