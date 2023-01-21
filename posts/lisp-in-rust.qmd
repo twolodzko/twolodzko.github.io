@@ -1,0 +1,219 @@
+---
+title: "Learning Rust by implementing the lisp interpreter"
+date: 2023-01-21
+categories: [blog]
+---
+
+Rust is not the greatest language for implementing a lisp interpreter. First, lisp uses the [cons linked lists]
+for everything, while implementing linked lists is [notoriously hard] in Rust. Second, Rust [does not have a garbage
+collector], while lisp uses it, so we need to implement some kind of memory management mechanism by ourselves.
+On the good side, Rust's pattern matching and strong type system are quite helpful for the problem.
+
+When I started I didn't have *any* experience with Rust. I've read the *[Programming Rust: Fast, Safe Systems Development]*
+book by  Jim Blandy, Jason Orendorff, and Leonora F . S. Tindall and it was quite helpful. I've also skimmed through
+*[The Rust Programming Language]* by Steve Klabnik and Carol Nichols and used it as a reference. I also found the
+[official documentation] very useful.
+
+## First step: parser
+
+Implementing the parser went quite smoothly. I decided to have the `Reader` trait for reading individual characters from
+different sources (strings for unit tests, files, stdin) and would be used by the `read_sexpr` function that would
+use it to read [S-expressions].
+
+```rust
+pub trait Reader {
+    fn peek(&mut self) -> Result<char, ReadError>;
+    fn next(&mut self) -> Result<char, ReadError>;
+}
+```
+
+To implement the parser, I used [`match`] for pattern matching and it worked very nicely, the same as in functional
+programming languages.
+
+## Getting stuck for the first time: linked list
+
+After implementing the parser for the atomic types, finally I was to add support for the lists. I tried and failed.
+I searched all the internet and saw re-occurring advice: *"don't"*. They gave all the good arguments, but I *needed*
+them for my lisp. Then, I found a [book that focuses *only* on implementing linked lists in Rust][notoriously hard] (!?)
+showing six different implementations. I borrowed from it the one from [chapter four] because I needed an immutable
+list, that supports `head` (`car`) and `tail` (`cdr`) operations and makes them efficient. This finally worked.
+
+Since Rust does not allow itself to share a value in different places, the linked list implementation used [`Rc`]
+a smart pointer that allows for read-only re-using of a variable by using a [reference counter]. It serves as a
+very simple garbage collector.
+
+## Pleasant surprise: traits and `#[derive()]`
+
+# TODO !!!!
+
+## Types
+
+While working on the parser and defining the types for my lisp, it was a chance to learn about Rust's type system.
+Here I was positively surprised by [`enum`] type that fitted great for the purpose. It supports all the possible kinds
+of data as variants (no data, atomic types, structs, tuples, call it).
+
+```rust
+#[derive(Clone)]
+pub enum Sexpr {
+    True,
+    False,
+    Symbol(String),
+    Integer(i64),
+    Float(f64),
+    String(String),
+    Quote(Box<Sexpr>),
+    List(List<Sexpr>),
+    // [...]
+}
+```
+
+The tricky part is that Rust needs to know about the size of the memory needed for the data at compilation time, so
+recursive types like `Quote` or `List` that can contain other `Sexpr`'s need to be packed in a [`Box`], a smart pointer
+provided in the standard library to wrap around values for exactly such purposes.
+
+## Second step: the environments
+
+Environments are similar to linked lists in the sense that [closures] are linked to the enclosing environments. When you
+call
+
+```scheme
+(let ((x 1))
+   (+ x y))
+```
+
+it would read `x` from the local environment created by `let` and since `y` is not available there, it would seek for
+it in the environment enclosing the call, all the way down till it hits the root environment. The difference is that
+each environment is a mapping ([`HashMap`]) and that we need read and write access. `Rc`, which I used in lists, do
+not allow for writing, so additionally I used [`RefCell`] that allows for mutable [borrowing] of the values. There are
+several other similar constructs (e.g. [`Mutex`]), but I needed my interpreter to run single-threaded, so the simple
+`RefCell` sounded good enough and would likely be more efficient. The final implementation was defined in terms of a
+recursive data structure:
+
+```rust
+#[derive(Debug, PartialEq, Clone)]
+pub struct Env<T>(Option<Rc<RefCell<EnvContainer<T>>>>);
+
+#[derive(Debug, PartialEq)]
+struct EnvContainer<T> {
+    local: HashMap<String, T>,
+    parent: Env<T>,
+}
+```
+
+To avoid circular dependencies between the modules, I defined it as a generic `Env<T>`, using it in the code as
+`Env<Sexpr>`. It is a nice example of how Rust encourages to use of its standard library that provides a lot of useful
+constructs that can work together. `Option<Rc<RefCell<EnvContainer<T>>>>` means that we use the [`Option`] [monad]
+(yes, Rust ❤️ monads) because we want a nullable type (the root environment does not inherit from anything),
+`Rc` allows for re-using the contained values, `RefCell` for mutable borrowing, and on the bottom, it's the
+`EnvContainer<T>` that contains the `HashMap` with the local variable bindings and the link to the enclosing environment.
+Maybe it doesn't look pretty, but all the constructs that made it work were provided to us in the standard library,
+how cool is that? My impression of using Rust so far is that it's mostly about being able to make use of the standard
+library, to a much larger degree than in the case of any other programming language I know.
+
+## Third step: the evaluator
+
+The evaluator didn't appear hard at first. I started with something like
+
+```rust
+match sexpr {
+    Sexpr::Symbol(ref name) => return env.get(name).ok_or(Error::NotFound(name.clone())),
+    Sexpr::Quote(ref quoted) => return Ok(*quoted.clone()),
+    Sexpr::List(ref list) => return eval_list(list, &mut env),
+    _ => return Ok(sexpr.clone())
+}
+```
+
+Notice a few things: I used here the [`Result`] monad (yes, again) for handling errors, it also makes use of the
+operations provided in the standard library like `.ok_or(err)` that translates the `Option::Some` result to `Resul::Ok` and
+`Option::None` to `Result::Err` for the given `err` error message. That's a nice use of monads. For `Sexpr::Quote` we
+needed to unbox the `quoted` value by `*quoted`. In several places, I also needed to `.clone()` the values (recall, Rust
+does not allow us to directly re-use them).
+
+It seemed to work, but only till I learned that Rust [is not tail-call optimized][*is not* tail-call optimized], so
+recursion used everywhere in Scheme started resulting in stack overflow errors soon. I needed to implement the
+tail-call optimization for my language by myself. Hopefully, it's less fancy than it sounds (check the [source code],
+or [this link] if you're curious).
+
+## Fourth Step: the Scheme procedures
+
+For it to be a programming language I needed not only the data types but also the (minimal) set of basic procedures.
+Here came a surprise. While the lisp data resides in linked lists, we would usually iterate through it by
+accessing the lists `head` and `tail` (recursively if needed). This is how most of the functional programming would do
+it, but [not Rust]. The idiomatic way in Rust seems to be using the [`Iter`] iterator. It's a trait that we need to
+implement by providing the `.next()` method and it would provide us for free a number of other methods like `map`, `filter`, `collect`, etc. But it was not only about "nicer" code, rather simplified the code a lot by giving me access to many
+utilities provided in the standard library (told you so).
+
+In Rust's iterator, `.next()` returns `Option::Some(element)` result when the element exists and `Option::None` when
+we already iterated through all the available elements. The pattern that repeated many times when implementing
+Scheme procedures was `sexprs.iter().map(|elem| eval(elem, env))`, where `sexprs` is the list of S-expressions
+`List<Sexpr>`. This means that `.next()` in such a case would return `Option<Result<Sexpr, Error<Sexpr>>>`, the `Option`
+nested in `Result`. Unpacking both was clumsy. Moreover, I wanted the iterator to stop on error. This lead me to implement
+my own iterator that stops on an error and saves it, otherwise returning the `Option<Sexpr>` results. It defines the
+`.next()` method from the `Iter` trait as below.
+
+```rust
+fn next(&mut self) -> Option<Self::Item> {
+    match self.iter.next()? {
+        Ok(result) => Some(result),
+        err => {
+            self.err = Some(err);
+            None
+        }
+    }
+}
+```
+
+Thanks to this, I was able to write procedures like [`list`] in terms of iterators, using just a few lines of code.
+In the example below, we create an iterator that would go through all the `args` while evaluating them, then we
+[`collect`] the results to a lisp list `List<Sexpr>` (thanks to the fact that I already implemented the `FromIterator`
+trait for `List<T>`). In the end, I only need to check if an error was raised by looking if `iter.err()` is not empty,
+raise it, or return the result.
+
+```rust
+fn list(args: &Args, env: &mut Env) -> FuncResult {
+    let iter = &mut eval_iter(args, env);
+    let list: List<Sexpr> = iter.collect();
+    match iter.err() {
+        Some(Err(msg)) => Err(msg),
+        _ => Ok(Sexpr::List(list)),
+    }
+}
+```
+
+## Getting stuck again: reading lines from a file (?!)
+
+# TODO
+
+## Pleasant finish: command line interface and REPL
+
+# TODO
+
+
+
+ [cons linked lists]: https://en.wikipedia.org/wiki/Cons
+ [notoriously hard]: https://rust-unofficial.github.io/too-many-lists/index.html
+ [does not have a garbage collector]: https://stackoverflow.com/questions/32677420/what-does-rust-have-instead-of-a-garbage-collector
+ [Programming Rust: Fast, Safe Systems Development]: https://www.oreilly.com/library/view/programming-rust-2nd/9781492052586/
+ [The Rust Programming Language]: https://doc.rust-lang.org/stable/book/
+ [official documentation]: https://doc.rust-lang.org/std/index.html
+ [S-expressions]: https://en.wikipedia.org/wiki/S-expression
+ [`match`]: https://doc.rust-lang.org/book/ch06-02-match.html
+ [not Rust]: https://dev.to/seanchen1991/the-story-of-tail-call-optimizations-in-rust-35hf
+ [chapter four]: https://rust-unofficial.github.io/too-many-lists/third-final.html
+ [`enum`]: https://doc.rust-lang.org/book/ch06-01-defining-an-enum.html
+ [`Box`]: https://doc.rust-lang.org/std/boxed/struct.Box.html
+ [`Rc`]: https://doc.rust-lang.org/std/rc/struct.Rc.html
+ [reference counter]: https://en.wikipedia.org/wiki/Reference_counting
+ [closures]: https://en.wikipedia.org/wiki/Closure_(computer_programming)
+ [`HashMap`]: https://doc.rust-lang.org/std/collections/struct.HashMap.html
+ [`RefCell`]: https://doc.rust-lang.org/std/cell/struct.RefCell.html
+ [borrowing]: https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html
+ [`Mutex`]: https://doc.rust-lang.org/std/sync/struct.Mutex.html
+ [`Option`]: https://doc.rust-lang.org/std/option/
+ [monad]: https://en.wikipedia.org/wiki/Monad_(functional_programming)
+ [`Result`]: https://doc.rust-lang.org/std/result/
+ [this link]: https://github.com/kanaka/mal/blob/master/process/guide.md#step5
+ [source code]: https://github.com/twolodzko/rusch/blob/main/src/eval.rs
+ [`Iter`]: https://doc.rust-lang.org/std/iter/
+ [`list`]: https://www.scheme.com/tspl4/objects.html#./objects:s43
+ [`collect`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect
