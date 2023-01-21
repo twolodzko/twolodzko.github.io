@@ -195,7 +195,7 @@ fn next(&mut self) -> Option<Self::Item> {
 }
 ```
 
-Returning `None` signalizes that it was the final iteration. If you wonder what is the small `?` in the second line,
+Returning `None` signalizes that it was the final iteration. If you wonder what is the small `?` in the third line,
 it's another cool feature of Rust! It's a syntax that tells it to unpack the value contained in [`Option`] or [`Result`]
 and propagate the `None` value or error, so you don't need to write the boilerplate by yourself. How cool is that?
 
