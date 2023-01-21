@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/lisp-in-rust.html",
       "/posts/hot-potato.html",
       "/posts/quarto.html",
       "/posts/implementing-lisps.html",
