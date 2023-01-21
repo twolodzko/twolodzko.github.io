@@ -199,7 +199,7 @@ Returning `None` signalizes that it was the final iteration. If you wonder what 
 it's another cool feature of Rust! It's a syntax that tells it to unpack the value contained in [`Option`] or [`Result`]
 and propagate the `None` value or error, so you don't need to write the boilerplate by yourself. How cool is that?
 
-It helped me to write procedures like [`list`] using iterators, with just a few lines of code.
+This helped me to write procedures like [`list`] using iterators, with just a few lines of code.
 The example below shows an iterator that would go through all the `args` while evaluating them, then
 [`collect`]'s the results to a lisp list `List<Sexpr>` (thanks to the fact that I already implemented the `FromIterator`
 trait for `List<T>`). In the end, I only need to check if an error was raised by looking if `iter.err()` is not empty,
