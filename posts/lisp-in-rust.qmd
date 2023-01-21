@@ -4,15 +4,17 @@ date: 2023-01-21
 categories: [blog]
 ---
 
-Rust is not the greatest language for implementing a lisp interpreter. First, lisp uses the [cons linked lists]
-for everything, while implementing linked lists is [notoriously hard] in Rust. Second, Rust [does not have a garbage
-collector], while lisp uses it, so we need to implement some kind of memory management mechanism by ourselves.
+Rust is not the greatest language for implementing lisp interpreter. First, lisp uses the [cons linked lists]
+for everything, while implementing them is [notoriously hard] in Rust. Second, Rust [does not have a garbage
+collector], while lisp does, so we need to implement some kind of memory management mechanism by ourselves.
 On the good side, Rust's pattern matching and strong type system are quite helpful for the problem.
 
 When I started I didn't have *any* experience with Rust. I've read the *[Programming Rust: Fast, Safe Systems Development]*
 book by  Jim Blandy, Jason Orendorff, and Leonora F . S. Tindall and it was quite helpful. I've also skimmed through
 *[The Rust Programming Language]* by Steve Klabnik and Carol Nichols and used it as a reference. I also found the
 [official documentation] very useful.
+
+!["Dad, no!  Mom!  Dad's learning to program again!" https://laserdisc.party/@andy/109712218341157640](../images/dads-learning-to-program.png)
 
 ## First step: parser
 
@@ -33,23 +35,19 @@ programming languages.
 ## Getting stuck for the first time: linked list
 
 After implementing the parser for the atomic types, finally I was to add support for the lists. I tried and failed.
-I searched all the internet and saw re-occurring advice: *"don't"*. They gave all the good arguments, but I *needed*
-them for my lisp. Then, I found a [book that focuses *only* on implementing linked lists in Rust][notoriously hard] (!?)
-showing six different implementations. I borrowed from it the one from [chapter four] because I needed an immutable
-list, that supports `head` (`car`) and `tail` (`cdr`) operations and makes them efficient. This finally worked.
+I searched all the internet and saw the re-occurring advice: *"don't"*. They gave all the good arguments, but I *needed*
+the lists for my lisp. Then, I found a [book that focuses *only* on implementing linked lists in Rust][notoriously hard]
+showing six (wat!?) different implementations. I borrowed from it the one from the [chapter four] because I needed an
+immutable list, that supports `head` (`car`) and `tail` (`cdr`) operations and makes them efficient. This finally worked.
 
-Since Rust does not allow itself to share a value in different places, the linked list implementation used [`Rc`]
+Since Rust does not allow for sharing a value in different places, the linked list implementation used [`Rc`]
 a smart pointer that allows for read-only re-using of a variable by using a [reference counter]. It serves as a
 very simple garbage collector.
-
-## Pleasant surprise: traits and `#[derive()]`
-
-# TODO !!!!
 
 ## Types
 
 While working on the parser and defining the types for my lisp, it was a chance to learn about Rust's type system.
-Here I was positively surprised by [`enum`] type that fitted great for the purpose. It supports all the possible kinds
+Here I was positively surprised by the [`enum`] type that fitted great for the purpose. It supports all the possible kinds
 of data as variants (no data, atomic types, structs, tuples, call it).
 
 ```rust
@@ -69,7 +67,32 @@ pub enum Sexpr {
 
 The tricky part is that Rust needs to know about the size of the memory needed for the data at compilation time, so
 recursive types like `Quote` or `List` that can contain other `Sexpr`'s need to be packed in a [`Box`], a smart pointer
-provided in the standard library to wrap around values for exactly such purposes.
+provided in the standard library to wrap around values for exactly such purposes. The memory footprint of `Box` is the
+size of the pointer.
+
+## Pleasant surprise: traits and `#[derive()]`
+
+For my variables, I didn't only want to store them. I also needed to do things like copying, printing or comparing them.
+Does this mean that I needed to implement all those things? No, Rust is smart enough to do it, I only needed to
+add `#[derive()]`'s to it. For example, to be able to compare if two lists are the same, I just needed to derive the
+`PartialEq` trait, to be able to copy them, the `Clone` trait and `Debug` trait was needed for pretty printing for
+debugging and unit testing. If all the elements of the list follow those traits, and the list follows the traits,
+it is enough for it to work without any additional code.
+
+```rust
+#[derive(PartialEq, Debug, Clone)]
+pub struct List<T> {
+    head: MaybePair<T>,
+}
+```
+
+There are also traits that I implemented myself, like `Display` to print the values, `Iter` to iterate over the lists,
+`From<T>` to convert from the type `T` into the type that implemented it, etc.
+
+In fact, `#[derive()]` has saved my implementation. Initially, I implemented `List::clone` by myself in a very inefficient
+way by doing a deep copy. It was completely unnecessary and when I noticed my mistake, I removed the implementation and
+replaced it with one line: `#[derive(Clone)]`. Without it, `clone` was working in $O(n)$ time, after it $O(1)$[^1].
+Before, the code was *extremely slow*, and after, very fast.
 
 ## Second step: the environments
 
@@ -83,11 +106,11 @@ call
 
 it would read `x` from the local environment created by `let` and since `y` is not available there, it would seek for
 it in the environment enclosing the call, all the way down till it hits the root environment. The difference is that
-each environment is a mapping ([`HashMap`]) and that we need read and write access. `Rc`, which I used in lists, do
-not allow for writing, so additionally I used [`RefCell`] that allows for mutable [borrowing] of the values. There are
-several other similar constructs (e.g. [`Mutex`]), but I needed my interpreter to run single-threaded, so the simple
-`RefCell` sounded good enough and would likely be more efficient. The final implementation was defined in terms of a
-recursive data structure:
+they are tree-like structures (multiple environments can have the same parent), and each environment is a mapping
+([`HashMap`]) and we need read and write access. `Rc`, which I used in lists, does not allow for writing, so additionally
+I used [`RefCell`] that allows for mutable [borrowing] of the values. There are several other similar constructs
+(e.g. [`Mutex`]), but I needed my interpreter to run single-threaded, so the simple `RefCell` sounded good enough and
+would likely be more efficient. The final implementation was defined in terms of a recursive data structure:
 
 ```rust
 #[derive(Debug, PartialEq, Clone)]
@@ -110,49 +133,56 @@ Maybe it doesn't look pretty, but all the constructs that made it work were prov
 how cool is that? My impression of using Rust so far is that it's mostly about being able to make use of the standard
 library, to a much larger degree than in the case of any other programming language I know.
 
+The example also highlights the major difference between Go and Rust. Till recently, Go didn't have generics and what it
+has now is rather limited. On another hand, Rust uses generics *a lot*. Even for a rather simple problem I was solving,
+using generics a few times helped me to improve and simplify the code.
+
 ## Third step: the evaluator
 
-The evaluator didn't appear hard at first. I started with something like
+The evaluator didn't seem hard to write. I started with something like below.
 
 ```rust
 match sexpr {
-    Sexpr::Symbol(ref name) => return env.get(name).ok_or(Error::NotFound(name.clone())),
+    Sexpr::Symbol(ref name) => {
+        return env.get(name).ok_or(Error::NotFound(name.clone()))
+    },
     Sexpr::Quote(ref quoted) => return Ok(*quoted.clone()),
     Sexpr::List(ref list) => return eval_list(list, &mut env),
     _ => return Ok(sexpr.clone())
 }
 ```
 
-Notice a few things: I used here the [`Result`] monad (yes, again) for handling errors, it also makes use of the
-operations provided in the standard library like `.ok_or(err)` that translates the `Option::Some` result to `Resul::Ok` and
-`Option::None` to `Result::Err` for the given `err` error message. That's a nice use of monads. For `Sexpr::Quote` we
+Notice a few things: I used here the [`Result`] monad (yes, again) for handling errors. It also makes use of the
+operations provided in the standard library like `.ok_or(err)` that translate the `Option::Some` result to `Resul::Ok` and
+`Option::None` to `Result::Err` for the given `err` error message. That's a nice use of monads. For `Quote` we
 needed to unbox the `quoted` value by `*quoted`. In several places, I also needed to `.clone()` the values (recall, Rust
-does not allow us to directly re-use them).
+does not allow us to re-use them).
 
-It seemed to work, but only till I learned that Rust [is not tail-call optimized][*is not* tail-call optimized], so
-recursion used everywhere in Scheme started resulting in stack overflow errors soon. I needed to implement the
-tail-call optimization for my language by myself. Hopefully, it's less fancy than it sounds (check the [source code],
-or [this link] if you're curious).
+It seemed to work, but only till I learned that Rust [is not tail-call optimized]. The recursion that is used everywhere
+in Scheme resulted in many stack overflow errors. I needed to implement the tail-call optimization for my interpreter.
+Hopefully, it's less fancy than it sounds (check the [source code], or [this link] if you're curious).
 
 ## Fourth Step: the Scheme procedures
 
 For it to be a programming language I needed not only the data types but also the (minimal) set of basic procedures.
 Here came a surprise. While the lisp data resides in linked lists, we would usually iterate through it by
-accessing the lists `head` and `tail` (recursively if needed). This is how most of the functional programming would do
+accessing the lists' `head` and `tail` (recursively if needed). This is how most of the functional programming would do
 it, but [not Rust]. The idiomatic way in Rust seems to be using the [`Iter`] iterator. It's a trait that we need to
-implement by providing the `.next()` method and it would provide us for free a number of other methods like `map`, `filter`, `collect`, etc. But it was not only about "nicer" code, rather simplified the code a lot by giving me access to many
-utilities provided in the standard library (told you so).
+implement by providing the `.next()` method and it would give us for free a number of other methods like `map`, `filter`,
+`collect`, etc. But it was not only about "nicer" code, rather simplified the code a lot by giving me access to many
+utilities from the standard library (told you so).
 
 In Rust's iterator, `.next()` returns `Option::Some(element)` result when the element exists and `Option::None` when
-we already iterated through all the available elements. The pattern that repeated many times when implementing
+we already iterated through all the available elements. The pattern that I repeated many times when implementing
 Scheme procedures was `sexprs.iter().map(|elem| eval(elem, env))`, where `sexprs` is the list of S-expressions
 `List<Sexpr>`. This means that `.next()` in such a case would return `Option<Result<Sexpr, Error<Sexpr>>>`, the `Option`
 nested in `Result`. Unpacking both was clumsy. Moreover, I wanted the iterator to stop on error. This lead me to implement
-my own iterator that stops on an error and saves it, otherwise returning the `Option<Sexpr>` results. It defines the
-`.next()` method from the `Iter` trait as below.
+my iterator that stops on an error and saves the error message, otherwise returning the `Option<Sexpr>` results. It
+defines the `.next()` method from the `Iter` trait as below.
 
 ```rust
 fn next(&mut self) -> Option<Self::Item> {
+    debug_assert!(self.err.is_none());
     match self.iter.next()? {
         Ok(result) => Some(result),
         err => {
@@ -163,9 +193,13 @@ fn next(&mut self) -> Option<Self::Item> {
 }
 ```
 
-Thanks to this, I was able to write procedures like [`list`] in terms of iterators, using just a few lines of code.
-In the example below, we create an iterator that would go through all the `args` while evaluating them, then we
-[`collect`] the results to a lisp list `List<Sexpr>` (thanks to the fact that I already implemented the `FromIterator`
+Returning `None` signalizes that it was the final iteration. If you wonder what is the small `?` in the second line,
+it's another cool feature of Rust! It's a syntax that tells it to unpack the value contained in [`Option`] or [`Result`]
+and propagate the `None` value or error, so you don't need to write the boilerplate by yourself. How cool is that?
+
+It helped me to write procedures like [`list`] using iterators, with just a few lines of code.
+The example below shows an iterator that would go through all the `args` while evaluating them, then
+[`collect`]'s the results to a lisp list `List<Sexpr>` (thanks to the fact that I already implemented the `FromIterator`
 trait for `List<T>`). In the end, I only need to check if an error was raised by looking if `iter.err()` is not empty,
 raise it, or return the result.
 
@@ -182,13 +216,60 @@ fn list(args: &Args, env: &mut Env) -> FuncResult {
 
 ## Getting stuck again: reading lines from a file (?!)
 
-# TODO
+All the unit tests passed. It was finally time for an integration test. This meant that now I needed not only to evaluate
+single-line code inputs but be able to evaluate whole files. The next step was to build a REPL. I assumed that doing
+both would be simple: I would read a line from a file or standard input and pass it to `StringReader` that I already
+implemented for reading from strings. The file could be processed like this line-by-line, for REPL it'd mean prompting
+the user for new lines. Easy peasy, I thought. But no, it wasn't. If I read a line it is saved to a temporary variable,
+Rust does not allow to preserve a state that would depend on such a temporary variable, because it'd be dropped, so
+it won't be available anymore. I was struggling a bit, trying to add [lifetimes], etc but with no luck. [The solution]
+was to clone all the characters from the string and preserve the state using the cloned characters. Sounds easy when
+you know it. Now the reader when asked for a new character returns it from the cache, but when the cache is empty it
+fills it with the new line.
 
-## Pleasant finish: command line interface and REPL
+```rust
+fn next(&mut self) -> Result<char, ReadError> {
+    loop {
+        match self.iter.next() {
+            Err(ReadError::EndOfInput) => {
+                self.iter = FileReader::next_line(&mut self.lines)?
+            },
+            result => return result,
+        }
+    }
+}
+```
 
-# TODO
+## Conclusion
+
+And [here it is]! As with my [other implementations](implementing-lisps.html), I tested the code by running the examples
+from *The Little Schemer* book. I also ran benchmarks and the Rust interpreter is faster than the one written in Go and
+slightly slower than the OCaml one (the fastest). Not bad.
+
+It was a great learning experience. I started with book knowledge of Rust and ended up with hands-on experience with
+most of the core Rust concepts. It was hard. When writing a minimal list interpreter for the first time (in Go),
+the biggest problem was that I needed to learn a lot about the Scheme language and its internals. In Rust, I was
+struggling with the language. The learning curve *is* steep. It is built on many concepts that are not present
+in other languages (e.g. [borrowing]). It is also deceitfully similar to many functional programming languages while
+being a much lower-level language. Programming in Rust is like using Haskell, with its types and strictness, but without
+recursion, and where you need to manage all the memory by yourself.
+
+![Noah finds an animal on his Ark that is a penguin with an elephant's head (described as Rust). He angrily asks a penguin (described as C++) and an elephant (described as Haskell) “What the hell is this?”.](../images/haskell-cpp-rust.jpeg)
+
+Did I like it? Kind of. It has many great features. On another hand, to use it, you need to learn a lot about the
+language. With other programming languages, I use documentation to check some specific topics. In Rust, I had many tabs
+with the documentation for the standard library open constantly (*"was it `ok_or`, or maybe `ok_or_else`, or maybe
+`unwrap_or`..?"*). It's also very verbose (I needed 1.4k lines of code vs 500 in OCaml or 600 in Lua).
+
+On another hand, Rust's compiler nitpicks a lot but also gives very informative messages and hints. There is also the
+[Clippy] linter that told me exactly what and where should I change to have more idiomatic Rust code and how to
+simplify it. Rust is also a (memory) safety freak, so it won't let you create something that doesn't work. It lets you do
+it correctly or never. I *can* understand why people like it.
+
+It was fun!
 
 
+ [^1]: Clone all the elements in the list vs clone the reference in the head of the list.
 
  [cons linked lists]: https://en.wikipedia.org/wiki/Cons
  [notoriously hard]: https://rust-unofficial.github.io/too-many-lists/index.html
@@ -217,3 +298,8 @@ fn list(args: &Args, env: &mut Env) -> FuncResult {
  [`Iter`]: https://doc.rust-lang.org/std/iter/
  [`list`]: https://www.scheme.com/tspl4/objects.html#./objects:s43
  [`collect`]: https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect
+ [lifetimes]: https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html
+ [The solution]: https://stackoverflow.com/questions/75138787/make-iterator-of-nested-iteratorsrus
+ [is not tail-call optimized]: https://dev.to/seanchen1991/the-story-of-tail-call-optimizations-in-rust-35hf
+ [here it is]: https://github.com/twolodzko/rusch
+ [Clippy]: https://github.com/rust-lang/rust-clippy
