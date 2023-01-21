@@ -16,7 +16,7 @@ book by  Jim Blandy, Jason Orendorff, and Leonora F . S. Tindall and it was quit
 
 !["Dad, no!  Mom!  Dad's learning to program again!" https://laserdisc.party/@andy/109712218341157640](../images/dads-learning-to-program.png)
 
-## First step: parser
+## First step: the parser
 
 Implementing the parser went quite smoothly. I decided to have the `Reader` trait for reading individual characters from
 different sources (strings for unit tests, files, stdin) and would be used by the `read_sexpr` function that would
@@ -70,7 +70,7 @@ recursive types like `Quote` or `List` that can contain other `Sexpr`'s need to 
 provided in the standard library to wrap around values for exactly such purposes. The memory footprint of `Box` is the
 size of the pointer.
 
-## Pleasant surprise: traits and `#[derive()]`
+## Pleasant surprise: the traits and `#[derive()]`
 
 For my variables, I didn't only want to store them. I also needed to do things like copying, printing or comparing them.
 Does this mean that I needed to implement all those things? No, Rust is smart enough to do it, I only needed to
