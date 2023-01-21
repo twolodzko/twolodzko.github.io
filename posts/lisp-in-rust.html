@@ -207,8 +207,8 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <p></p><figcaption class="figure-caption">“Dad, no! Mom! Dad’s learning to program again!” https://laserdisc.party/<span class="citation" data-cites="andy/109712218341157640">@andy/109712218341157640</span></figcaption><p></p>
 </figure>
 </div>
-<section id="first-step-parser" class="level2">
-<h2 class="anchored" data-anchor-id="first-step-parser">First step: parser</h2>
+<section id="first-step-the-parser" class="level2">
+<h2 class="anchored" data-anchor-id="first-step-the-parser">First step: the parser</h2>
 <p>Implementing the parser went quite smoothly. I decided to have the <code>Reader</code> trait for reading individual characters from different sources (strings for unit tests, files, stdin) and would be used by the <code>read_sexpr</code> function that would use it to read <a href="https://en.wikipedia.org/wiki/S-expression">S-expressions</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">trait</span> Reader <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fn</span> peek(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">Result</span><span class="op">&lt;</span><span class="dt">char</span><span class="op">,</span> ReadError<span class="op">&gt;;</span></span>
@@ -238,8 +238,8 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The tricky part is that Rust needs to know about the size of the memory needed for the data at compilation time, so recursive types like <code>Quote</code> or <code>List</code> that can contain other <code>Sexpr</code>’s need to be packed in a <a href="https://doc.rust-lang.org/std/boxed/struct.Box.html"><code>Box</code></a>, a smart pointer provided in the standard library to wrap around values for exactly such purposes. The memory footprint of <code>Box</code> is the size of the pointer.</p>
 </section>
-<section id="pleasant-surprise-traits-and-derive" class="level2">
-<h2 class="anchored" data-anchor-id="pleasant-surprise-traits-and-derive">Pleasant surprise: traits and <code>#[derive()]</code></h2>
+<section id="pleasant-surprise-the-traits-and-derive" class="level2">
+<h2 class="anchored" data-anchor-id="pleasant-surprise-the-traits-and-derive">Pleasant surprise: the traits and <code>#[derive()]</code></h2>
 <p>For my variables, I didn’t only want to store them. I also needed to do things like copying, printing or comparing them. Does this mean that I needed to implement all those things? No, Rust is smart enough to do it, I only needed to add <code>#[derive()]</code>’s to it. For example, to be able to compare if two lists are the same, I just needed to derive the <code>PartialEq</code> trait, to be able to copy them, the <code>Clone</code> trait and <code>Debug</code> trait was needed for pretty printing for debugging and unit testing. If all the elements of the list follow those traits, and the list follows the traits, it is enough for it to work without any additional code.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="at">#[</span>derive<span class="at">(</span><span class="bu">PartialEq</span><span class="op">,</span> <span class="bu">Debug</span><span class="op">,</span> <span class="bu">Clone</span><span class="at">)]</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">struct</span> List<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
