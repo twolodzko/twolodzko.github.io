@@ -250,7 +250,7 @@ from *The Little Schemer* book. I also ran benchmarks and the Rust interpreter i
 slightly slower than the OCaml one (the fastest). Not bad.
 
 It was a great learning experience. I started with book knowledge of Rust and ended up with hands-on experience with
-most of the core Rust concepts. It was hard. When writing a minimal list interpreter for the first time (in Go),
+most of the core Rust concepts. It was hard. When writing a minimal lisp interpreter for the first time (in Go),
 the biggest problem was that I needed to learn a lot about the Scheme language and its internals. In Rust, I was
 struggling with the language. The learning curve *is* steep. It is built on many concepts that are not present
 in other languages (e.g. [borrowing]). It is also deceitfully similar to many functional programming languages while
