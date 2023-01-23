@@ -145,12 +145,12 @@ The evaluator didn't seem hard to write. I started with something like below.
 
 ```rust
 match sexpr {
-    Sexpr::Symbol(ref name) => {
-        return env.get(name).ok_or(Error::NotFound(name.clone()))
+    Sexpr::Symbol(name) => {
+        return env.get(&name).ok_or(Error::NotFound(name))
     },
     Sexpr::Quote(ref quoted) => return Ok(*quoted.clone()),
     Sexpr::List(ref list) => return eval_list(list, &mut env),
-    _ => return Ok(sexpr.clone())
+    _ => return Ok(sexpr)
 }
 ```
 
