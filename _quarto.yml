@@ -10,6 +10,7 @@ website:
     tracking-id: G-V9DH8RH1V5
     storage: none
     anonymize-ip: true
+    version: 3
 format:
   html:
     theme: simplex
