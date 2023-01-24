@@ -6,7 +6,9 @@ website:
   navbar:
     right:
       - about.qmd
-  google-analytics: G-V9DH8RH1V5
+  google-analytics:
+    tracking-id: G-V9DH8RH1V5
+    anonymize-ip: true
 format:
   html:
     theme: simplex
