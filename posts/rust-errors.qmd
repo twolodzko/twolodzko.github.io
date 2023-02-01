@@ -86,7 +86,7 @@ because both `fizz` and `buzz` have the same return types.
 
 ## Haskell does not have `?`
 
-Haskell would not allow for such an early return. But let's not jump ahead. First of all, Haskell leaves to the user
+Haskell would not allow for such an early return. But let's not jump ahead. First of all, Haskell leaves it to the user
 how to handle the errors, without suggesting solutions. As Rust, it has the `Maybe` type for nullable values, but it
 does not have `Result`. Instead, it has the [`Either` type] with `Left` and `Right` fields.
 Don't know like you, but I feel that sooner or later I'll forget which value was "Left" and which was "Right".
