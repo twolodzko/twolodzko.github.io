@@ -1,5 +1,5 @@
 ---
-title: "Imitating Rusts error propagation in Haskell"
+title: "Imitating Rust's error propagation in Haskell"
 date: 2023-02-01
 categories: [blog]
 ---
