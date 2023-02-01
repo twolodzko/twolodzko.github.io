@@ -1,0 +1,156 @@
+---
+title: "Imitating Rusts error propagation in Haskell"
+date: 2023-02-01
+categories: [blog]
+---
+
+Some programming languages treat errors as values that are returned, as opposed to stopping the program and
+showing the error message right away. The problem with stopping the execution and possibly catching the errors
+to handle them leads to similar kinds of problems as with `goto` statements [mentioned by Dijkstra
+in his famous paper].
+
+One of the examples of languages that handle errors as values [is Go], instantly recognizable for the notorious
+
+```go
+if err != nil {
+    return err
+}
+```
+
+code blocks that can be found everywhere in Go code. A similar approach is taken [by Rust] and [Haskell] (see [also here]).
+The difference is that the two latter languages have a richer type system and use dedicated types for such cases.
+Rust uses the [`Result`] [monad]. The type can take two possible values, `Ok` and `Err`, for the result of the happy
+path and the exception.
+
+```rust
+enum Result<T, E> {
+   Ok(T),
+   Err(E),
+}
+```
+
+If every function returns the `Ok` or the `Err` exception, this means that all the downstream computations need
+to handle both values. This could easily turn into a mess, hence Rust has many ways of handling such returns. One of the
+great utilities is the [`?` syntax]. Imagine that you have the `thing` thing of the `Result` type, then `thing?` will
+extract the `value` from `Ok(value)` and in case of `Err(msg)` will instantly return the `Err(msg)`. Let me illustrate
+this with an example.
+
+## Not a FizzBuzz
+
+I'll write a program that takes a number as input and does the following:
+
+ 1. If the number is divisible by 3, throw the "fizz" error, otherwise, add 3 to the number and pass the result to the
+    next step.
+ 2. If the number is divisible by 5, throw the "buzz" error, otherwise, add 5 to the number and return it.
+
+It's not exactly the FizzBuzz, but will suffice as an example. In Rust, we could write the two functions
+
+```rust
+fn fizz(num: i32) -> Result<i32, String> {
+    if num % 3 == 0 {
+        return Err(String::from("fizz"));
+    }
+    Ok(num + 3)
+}
+
+fn buzz(num: i32) -> Result<i32, String> {
+    if num % 5 == 0 {
+        return Err(String::from("buzz"));
+    }
+    Ok(num + 5)
+}
+```
+
+and then call both of them with
+
+```rust
+fn notfizzbuzz(num: i32) -> Result<i32, String> {
+    match fizz(num) {
+        Ok(val) => buzz(val),
+        Err(msg) => Err(msg),
+    }
+}
+```
+
+As you can see, it's not the prettiest and would get even worse if we needed to use such blocks repeatedly in different
+places. Instead, we could use `fizz(num)?`, to simplify the code.
+
+```rust
+fn notfizzbuzz(num: i32) -> Result<i32, String> {
+    buzz(fizz(num)?)
+}
+```
+
+This will return the `Err` if `fizz(num)` raised such and otherwise pass the value from `Ok(val)` to `buzz`. It works
+because both `fizz` and `buzz` have the same return types.
+
+## Haskell does not have `?`
+
+Haskell would not allow for such an early return. But let's not jump ahead. First of all, Haskell leaves to the user
+how to handle the errors, without suggesting solutions. As Rust, it has the `Maybe` type for nullable values, but it
+does not have `Result`. Instead, it has the [`Either` type] with `Left` and `Right` fields.
+Don't know like you, but I feel that sooner or later I'll forget which value was "Left" and which was "Right".
+Hopefully, nothing prohibits us from creating our type like below.
+
+```haskell
+data Result t
+  = Ok t
+  | Err String
+```
+
+Now we can write the same two functions in Haskell
+
+```haskell
+fizz :: Integral t => t -> Result t
+fizz num | num `mod` 3 == 0 = Err "fizz"
+fizz num = Ok $ num + 3
+
+buzz :: Integral t => t -> Result t
+buzz num | num `mod` 5 == 0 = Err "buzz"
+buzz num = Ok $ num + 5
+```
+
+and write the same clumsy
+
+```haskell
+notfizzbuzz :: Integral t => t -> Result t
+notfizzbuzz num =
+  case fizz num of
+    Ok val -> buzz num
+    Err msg -> Err msg
+```
+
+Haskell does not have `?`, or maybe I should say that my Haskell-fu is weak, and maybe there is something, but I
+didn't find it. Hopefully, we can implement it ourselves! Instead of having `?` as a special syntax, we could define it
+as an operator `?>` that takes a value of `Result t` type as the left-hand side argument and function `f` that maps
+the value of type `t` to the `Result t`, i.e. `(t -> Result t)`, as the right-hand size argument, and returns `Result t`.
+Again, the types match, so we can easily pass the values.
+
+```haskell
+(?>) :: Result t -> (t -> Result t) -> Result t
+(?>) (Ok x) f = f x
+(?>) (Err msg) _ = Err msg
+```
+
+Now, like in Rust, `notfizzbuzz` becomes a one-liner:
+
+```haskell
+notfuzzbuzz :: Integral t => t -> Result t
+notfuzzbuzz num = fizz num ?> buzz
+```
+
+It can be used for chaining functions, but that's great since this is how we would write them in Haskell.
+Early return at any point of the function is not possible, but it will work the same for the Haskell-like code as above.
+This is how we can have `?` in Haskell or any other functional language 🎉.
+
+
+ [mentioned by Dijkstra in his famous paper]: http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html
+ [is Go]: https://go.dev/blog/error-handling-and-go
+ [by Rust]: https://doc.rust-lang.org/stable/book/ch09-02-recoverable-errors-with-result.html
+ [Haskell]: https://wiki.haskell.org/Handling_errors_in_Haskell
+ [also here]: https://book.realworldhaskell.org/read/error-handling.html
+ [`Result`]: https://doc.rust-lang.org/std/result/
+ [monad]: https://en.wikipedia.org/wiki/Monad_(functional_programming)
+ [`?` syntax]: https://stackoverflow.com/questions/42917566/what-is-this-question-mark-operator-about
+ [`Either` type]: https://hackage.haskell.org/package/base-4.17.0.0/docs/Data-Either.html
+

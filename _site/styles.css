@@ -1,0 +1,17 @@
+/* css styles */
+
+.quarto-listing-category-title {
+    color: rgb(150, 150, 150)
+}
+
+.quarto-listing-category {
+    color: rgb(150, 150, 150)
+}
+
+.quarto-listing-category :hover {
+    color: black
+}
+
+del {
+    text-decoration-thickness: 1.5pt;
+}
