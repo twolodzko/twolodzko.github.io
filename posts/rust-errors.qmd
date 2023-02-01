@@ -19,7 +19,7 @@ if err != nil {
 
 code blocks that can be found everywhere in Go code. A similar approach is taken [by Rust] and [Haskell] (see [also here]).
 The difference is that the two latter languages have a richer type system and use dedicated types for such cases.
-Rust uses the [`Result`] [monad]. The type can take two possible values, `Ok` and `Err`, for the result of the happy
+Rust uses the [`Result`] type. The type can take two possible values, `Ok` and `Err`, for the result of the happy
 path and the exception.
 
 ```rust
@@ -88,9 +88,8 @@ because both `fizz` and `buzz` have the same return types.
 
 Haskell would not allow for such an early return. But let's not jump ahead. First of all, Haskell leaves it to the user
 how to handle the errors, without suggesting solutions. As Rust, it has the `Maybe` type for nullable values, but it
-does not have `Result`. Instead, it has the [`Either` type] with `Left` and `Right` fields.
-Don't know like you, but I feel that sooner or later I'll forget which value was "Left" and which was "Right".
-Hopefully, nothing prohibits us from creating our type like below.
+does not have `Result`. Instead, it has the [`Either` type] with `Left` and `Right` fields. But instead of using it,
+I'll create my custom type.
 
 ```haskell
 data Result t
@@ -141,7 +140,20 @@ notfuzzbuzz num = fizz num ?> buzz
 
 It can be used for chaining functions, but that's great since this is how we would write them in Haskell.
 Early return at any point of the function is not possible, but it will work the same for the Haskell-like code as above.
-This is how we can have `?` in Haskell or any other functional language 🎉.
+This is how we can have `?` in Haskell or any other functional language.
+
+## This is just `Either`
+
+That said, my custom `Result` type with `?>` behaves like the [`Either` monad] used [together with `>>=`]. In fact,
+[`>>=` for `Either`] is defined as
+
+```haskell
+instance Monad (Either e) where
+    Left  l >>= _ = Left l
+    Right r >>= k = k r
+```
+
+You may notice that `Left` here has the same definition as `Err` and `Right` as `Ok`.
 
 
  [mentioned by Dijkstra in his famous paper]: http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html
@@ -150,7 +162,10 @@ This is how we can have `?` in Haskell or any other functional language 🎉.
  [Haskell]: https://wiki.haskell.org/Handling_errors_in_Haskell
  [also here]: https://book.realworldhaskell.org/read/error-handling.html
  [`Result`]: https://doc.rust-lang.org/std/result/
- [monad]: https://en.wikipedia.org/wiki/Monad_(functional_programming)
  [`?` syntax]: https://stackoverflow.com/questions/42917566/what-is-this-question-mark-operator-about
  [`Either` type]: https://hackage.haskell.org/package/base-4.17.0.0/docs/Data-Either.html
+ [`Either` monad]: https://mmhaskell.com/blog/2022/3/3/using-either-as-a-monad
+ [together with `>>=`]: https://mmhaskell.com/monads/tutorial
+ [`>>=` for `Either`]: https://hackage.haskell.org/package/base-4.17.0.0/docs/src/Data.Either.html#Either
+
 
