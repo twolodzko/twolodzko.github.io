@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/ocaml-parser.html",
       "/posts/rust-errors.html",
       "/posts/lisp-in-rust.html",
       "/posts/hot-potato.html",
