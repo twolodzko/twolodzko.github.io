@@ -1,6 +1,6 @@
 ---
 title: "Writing parser in ocamllex and menhir"
-date: 2023-03-09
+date: 2023-03-10
 aliases:
   - "/ocaml-parser"
 categories: [blog]
@@ -16,7 +16,7 @@ Besides being very flexible, having a nice typing system, and powerful [pattern 
 has great libraries including [`ocamllex`][`ocamlyacc`] or [`sedlex`] (better support for unicode) for building [lexers],
 and [`ocamlyacc`] and its more modern cousin [`menhir`] for building parsers. There are many [tutorials] on using them,
 showing how to build a parser for a [calculator], or [JSON], which is also discussed in the great *[Real World OCaml]*
-book.
+book. There is also a nice [live coding video] showing a similar implementation to mine.
 
 Below I'll be intentionally omitting some implementation details and boilerplate, so for the full code remember to
 check the [actual implementation](https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/)
@@ -304,6 +304,7 @@ into a parser for us by `menhir` or `ocamlyacc`. If you know OCaml, they are rea
  [Real World OCaml]: https://dev.realworldocaml.org/parsing-with-ocamllex-and-menhir.html
  [JSON]: https://www.aleksandra.codes/parsing-json-with-ocaml/
  [calculator]: https://mukulrathi.com/create-your-own-programming-language/parsing-ocamllex-menhir/
+ [live coding video]: https://www.youtube.com/watch?v=z5qDV3FyYRo
  [Lambda calculus]: https://theory.stanford.edu/~blynn/lambda/
  [three kinds]: https://en.wikipedia.org/wiki/Lambda_calculus
  [abstract syntax tree]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
