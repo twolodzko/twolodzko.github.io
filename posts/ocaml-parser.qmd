@@ -32,7 +32,7 @@ or an [interpreter](https://github.com/twolodzko/lambda).
 
 This can be translated to the following OCaml data type
 
-[`term.ml`](../snippets/ocaml-parser/term.ml)
+[`term.ml`](https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/term.ml)
 
 ```ocaml
 type term =
@@ -57,7 +57,7 @@ mark the end of the expression with things like `;`, nothing like this exists in
 that the end of the line `END` marks also the end of the expression. We would also use `EOF` for the end of the file
 so that we know that there's nothing more to parse.
 
-[`parser.mly`](../snippets/ocaml-parser/parser.mly)
+[`parser.mly`](https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/parser.mly)
 
 ```ocaml
 %token <string> ID
@@ -82,7 +82,7 @@ but the rest of us would probably appreciate being able to write meaningful mult
 to use whitespaces for that, so we need to define the `white` characters. Since we don't care if we saw single or
 multiple whitespaces in the row, we would use `+` in the [regular expression] to say "one or more".
 
-[`lexer.mll`](../snippets/ocaml-parser/lexer.mll)
+[`lexer.mll`](https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/lexer.mll)
 
 ```ocaml
 let white = [' ' '\t']+
@@ -159,7 +159,7 @@ The [parser][parsers] converts the stream of tokens to an abstract syntax tree r
 We would start with the simplest case of parsing the variables. When reaching the `ID` token, the parser would
 transform its `x` value to `Var` with the identifier `x`.
 
-[`parser.mly`](../snippets/ocaml-parser/parser.mly)
+[`parser.mly`](https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/parser.mly)
 
 ```ocaml
 let variable :=
@@ -257,7 +257,7 @@ Having finished the above, we need to inform the OCaml parser to call `ocamllex`
 lexer and parser for us. This is specified in the `dune` file that uses lisp syntax for the compiler configuration.
 The definition assumes that we have a lexer defined in the `lexer.mll` file and a parser in the `parser.mly` file.
 
-[`dune`](../snippets/ocaml-parser/dune)
+[`dune`](https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/dune)
 
 ```lisp
 (ocamllex lexer)
@@ -271,7 +271,7 @@ executable command-line program that reads user input from standard input and pr
 this, we would use the recursive `loop` function that calls the `prog` function from our parser, which uses the
 `read` function from the lexer.
 
-[`main.ml`](../snippets/ocaml-parser/main.ml)
+[`main.ml`](https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/main.ml)
 
 ```ocaml
 let rec loop lexer =
