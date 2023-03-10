@@ -19,7 +19,7 @@ showing how to build a parser for a [calculator], or [JSON], which is also discu
 book.
 
 Below I'll be intentionally omitting some implementation details and boilerplate, so for the full code remember to
-check the [actual implementation](https://github.com/twolodzko/twolodzko.github.io/blob/main/)/snippets/ocaml-parser/)
+check the [actual implementation](https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/)
 or an [interpreter](https://github.com/twolodzko/lambda).
 
 ## Lambda calculus
