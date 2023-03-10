@@ -10,27 +10,29 @@ categories: [blog]
 (hence "ml" in its name), which as discussed by its author Robin Milner in *[The Definition of Standard ML]* book,
 
 > ‘ML’ stands for meta language; this is the term logicians use for a language in which other (formal or informal)
-languages are discussed and analysed.
+languages are discussed and analyzed.
 
-Besides being very flexible, having nice typing system, and powerful [pattern matching], that all are helpful, it also
-has great libraries for building parsers including [`ocamllex`][`ocamlyacc`] for building [lexers], [`ocamlyacc`] and
-its more modern cousin [`menhir`] for building parsers. There are many [tutorials] on using them, showing how to build a parser for a
-[calculator], or [JSON], which is also discussed in the great *[Real World OCaml]* book. I found them all helpful, but
-I needed  ....................
- and a [live coding video]
-on building a typed lambda calculus parser.
+Besides being very flexible, having a nice typing system, and powerful [pattern matching], all are helpful, it also
+has great libraries including [`ocamllex`][`ocamlyacc`] or [`sedlex`] (better support for unicode) for building [lexers],
+and [`ocamlyacc`] and its more modern cousin [`menhir`] for building parsers. There are many [tutorials] on using them,
+showing how to build a parser for a [calculator], or [JSON], which is also discussed in the great *[Real World OCaml]*
+book.
+
+Below I'll be intentionally omitting some implementation details and boilerplate, so for the full code remember to
+check the [actual implementation](https://github.com/twolodzko/twolodzko.github.io/blob/main/)/snippets/ocaml-parser/)
+or an [interpreter](https://github.com/twolodzko/lambda).
 
 ## Lambda calculus
 
-[Lambda calculus]
-
-it has three kinds of *terms*,
+[Lambda calculus] can be seen as the simplest programming language, it has [three kinds] of *terms*,
 
  * a *variable*, e.g. $x$,
  * an *application* like $t ~ u$, where $t$ is the function applied to the $u$ argument,
  * and an *abstraction* $\lambda x . t$, which is a function with an argument $a$ and the body $t$.
 
 This can be translated to the following OCaml data type
+
+[`term.ml`](../snippets/ocaml-parser/term.ml)
 
 ```ocaml
 type term =
@@ -41,31 +43,21 @@ type term =
 
 I'll use it as an example for writing a parser.
 
-it reduces like
-
-$$
-(\lambda x y . x y) (\lambda x . x) b \underset{\beta}\to
-(\lambda y . (\lambda x . x) y) b \underset{\beta}\to
-(\lambda x . x) b \underset{\beta}\to
-b
-$$
-
-
 ## Tokens
 
-Having defined the types, we can move to building a parser that would convert the source code representation of
-lambda calculus expressions to an [abstract syntax tree]. Let's start with the tokens we will be extracting from
-the source code. There is not many reserved symbols used by lambda calculus.
+Having defined the types, we can start building a parser that would convert the source code representation of
+lambda calculus expressions to an [abstract syntax tree]. Let's start with the tokens that we will be extracting from
+the source code.
 
-A variable is a string identyfying it's name, so it would be a `<string> ID` token by itself.
+A variable is a string identifying its name, that would make a `<string> ID` token.
 An abstraction starts with the Greek letter $\lambda$ that we'll represent with the `LAMBDA` token. It also uses $.$
-`DOT` to separate function argument from the body. But that is not all, as we can also group
-things by placing them between left `LPAREN` and right `RPAREN` bracket. Unlike many programming languages that
-mark end of the expression with things like `;`, nothing like this exists in lambda calculus, so we would assume
-that end of the line `END` marks the end of the expression. We would also use `EOF` the file to mark end of the file,
+`DOT` to separate the function argument from the body. But that is not all, as we can also group
+things by placing them between the left `LPAREN` and right `RPAREN` bracket. Unlike many programming languages that
+mark the end of the expression with things like `;`, nothing like this exists in lambda calculus, so we would assume
+that the end of the line `END` marks also the end of the expression. We would also use `EOF` for the end of the file
 so that we know that there's nothing more to parse.
 
-`parser.mly`
+[`parser.mly`](../snippets/ocaml-parser/parser.mly)
 
 ```ocaml
 %token <string> ID
@@ -77,40 +69,40 @@ so that we know that there's nothing more to parse.
 %token EOF
 ```
 
-You can ignore the quoted symbols on the right hand side, they are just aliases, so we could write `"λ"` instead of
-`LAMBDA` to make the parser code more readable later on.
+The quoted symbols on the right-hand side are just aliases, so we could write `"λ"` instead of `LAMBDA` to make
+the parser code more readable.
 
 ## Lexer
 
-`lexer.mll`
-
-Lexer reads source code character by character transforming it into tokens.
+[Lexer][lexers] reads source code character by character transforming it into tokens.
 
 A mathematician might be fine with writing $fxy$ meaning applying function $f$ with arguments $x$ and $y$,
-but the rest of us would probably appreciate to be able to write meaningful multi-character names like
-`myfunc foo bar`, to do this we would need to be able to mark where the names start and end, and the simplest way is
-to use whitespaces for that, so we need to define the `white` characters. Since we don't care if we saw a single, or
-multiple whitespace in the row, we would use `+` in the regular expression to say "one or more".
+but the rest of us would probably appreciate being able to write meaningful multi-character names like
+`myfunc foo bar`. To do this, we would need to be able to mark where the names start and end, and the simplest way is
+to use whitespaces for that, so we need to define the `white` characters. Since we don't care if we saw single or
+multiple whitespaces in the row, we would use `+` in the [regular expression] to say "one or more".
+
+[`lexer.mll`](../snippets/ocaml-parser/lexer.mll)
 
 ```ocaml
 let white = [' ' '\t']+
 ```
 
-For marking the end of an expression, we'll use `newline` characters
+For marking the end of an expression, we'll use `newline` characters.
 
 ```ocaml
 let newline = '\r' | '\n' | "\r\n"
 ```
 
-There would be also some reserved characters like `(`, `)`, `.`, `λ`, etc but all the rest could be considered as
-identifiers, so we would define a set of reserved characters and negate it `^` in the regular expression.
+There are some reserved characters like `(`, `)`, `.`, `λ`, etc but all the others could be considered as
+identifiers, so we would define a set of reserved characters and negate it with `^` in the regular expression.
 
 ```ocaml
 let string = [^ '(' ')' '\\' '.' '#' ' ' '\t' '\n' '\t']+
 ```
 
-Now we can start defining the lexing rules. We will start with the simplest case, where we reached the end of the file,
-or a newline character, so we return the `EOF` or `END` token.
+Now we can start defining the lexing rules. The simplest case is reaching the end of the file, or a newline character,
+so we return the `EOF` or `END` token.
 
 ```ocaml
 rule read =
@@ -119,13 +111,13 @@ rule read =
     | newline { END }
 ```
 
-For whitespaces the lexing rule is to read next character by recursivelly calling the `read` rule.
+For whitespaces, the lexing rule is to read the next character by recursively calling the `read` rule.
 
 ```ocaml
     | white { read lexbuf }
 ```
 
-For the brackets we would be returning the appropriate tokens.
+For the brackets, we would be returning the appropriate tokens.
 
 ```ocaml
     | "(" { LPAREN }
@@ -133,7 +125,7 @@ For the brackets we would be returning the appropriate tokens.
 ```
 
 The same happens for $\lambda$, but since it is not straightforward to write Greek letters using most keyboards,
-we would provide `\` as an alternative character (the same as [Haskell does]).
+we would use `\` as an alternative (as in [Haskell]).
 
 ```ocaml
     | "\\" { LAMBDA }
@@ -141,15 +133,15 @@ we would provide `\` as an alternative character (the same as [Haskell does]).
     | "." { DOT }
 ```
 
-For the idenfifiers, i.e. all the other strings, we would return the `ID` token with the string as it's value.
+For the identifiers, i.e. all the other strings, we would return the `ID` token with the string as its value.
 
 ```ocaml
     | string { ID (lexeme lexbuf) }
 ```
 
-Finally, it would be useful to support code comments. We will use `#` to mark start of the comment that contiunes till
-the end of the line. The lexer would call `skip_line` rule when reaching `#`. The rule would recursivelly call itself
-while skipping characters until the `newline` character that brings us back to the `read` rule again.
+Finally, it would be useful to support code comments. `#` would mark the start of the comment that continues till
+the end of the line. In such a case, the lexer would call the `skip_line`. The rule would recursively call itself
+while skipping the characters until hitting the `newline` character, which would bring us back to the `read` rule again.
 
 ```ocaml
     | "#" { skip_line lexbuf }
@@ -162,24 +154,27 @@ and skip_line =
 
 ## Parser
 
-`parser.mly`
+The [parser][parsers] converts the stream of tokens to an abstract syntax tree representation of the code.
 
 We would start with the simplest case of parsing the variables. When reaching the `ID` token, the parser would
-transform the token `x` value to `Var` with the identifier `x`.
+transform its `x` value to `Var` with the identifier `x`.
+
+[`parser.mly`](../snippets/ocaml-parser/parser.mly)
 
 ```ocaml
 let variable :=
   | x = ID; { Var x }
 ```
 
-Parsing the applications is slightly harder. As a reminder, applications can take form like $x ~ y$, where both $x$ and
-$y$ can be *any* terms (let's assume for now that `term` is already defined). We could naively define it as
+Parsing the applications is slightly harder. As a reminder, applications can take $x ~ y$ form, where both $x$ and
+$y$ can be *any* terms (let's assume for now that `term` is already defined). We could naively define it as one
+term following another.
 
 ```ocaml
   | t = term; u = term; { App (t, u) }
 ```
 
-But in such a case, the compiler would show us warnings when building the parser telling us that the rule is ambigous.
+But in such a case, the compiler would show us warnings that the rule is ambiguous.
 
 ```
 Warning: 2 states have shift/reduce conflicts.
@@ -187,10 +182,10 @@ Warning: 6 shift/reduce conflicts were arbitrarily resolved.
 ```
 
 The application could be $t ~ u$, but also $a ~ b ~ c$, or $a ~ b ~ \lambda x . x$. Since `App` has only two fields,
-how would we parse such cases? By convention, application is associative to the left, so $a ~ b ~ c ~ d$ reads as
+how would we parse such cases? By convention, the application is associative to the left, so $a ~ b ~ c ~ d$ reads as
 $((a ~ b) c) d$. Moreover, in the case where we would like to change the application order, we can use the brackets,
-e.g. $f x (y z)$ would become $(f x) (y z)$. To parse it, we would first define the `element` that can be a result of
-the `variable` rule that we already defined, or a `term` (wait for it...) surrounded by brackets.
+e.g. $f x (y z)$ would become $(f x) (y z)$. To parse it, we will first define the `element` that can be a result of
+the `variable` rule, that we already defined, or a `term` (wait for it...) surrounded by brackets.
 
 ```ocaml
 let element :=
@@ -198,11 +193,10 @@ let element :=
   | "("; x = term; ")"; { x }
 ```
 
-Now we can define a recursive `application` rule. Starting from the second part of the rule, if there is an `application`
+Now we can create a recursive `application` rule. Starting from the second part of the rule, if there is an `application`
 `t` and an `element` `u` following it, it reads it as a new application `App (App (_, _), u)`. The first part of the
-rule is that we read an `element`. By definition of the `element`, it can be something surrounded by brackets, or a
-single variable. As a sidenote, this makes the definition of `application` slightly misleasing, since it will read also
-things like the variable $x$ (using the `element` part of the rule), but we'll sacrifice a bit of purity to make it work.
+rule is that we just read an `element`. By definition of the `element`, it can be something surrounded by brackets, or a
+single variable.
 
 ```ocaml
 let application :=
@@ -210,17 +204,21 @@ let application :=
   | t = application; u = element; { App (t, u) }
 ```
 
-Now we're left with defining a rule for abstractions. As a reminder, an abstraction takes the $\lambda x . t$ form,
-identity function $\lambda x . x$ is the simplest example. But, what I didn't mention yet, it can have many arguments,
-e.g. $\lambda x y . x y$ reads as $\lambda x . \lambda y . x y$. Abstractions follow a different convention, they
-extend to the right, so $\lambda x . x y z$ is $\lambda x . (x y z)$ *not* $(\lambda x . x) y z$. This is related to
-[currying], but this is a different topic.
+As a side note, this makes the definition of `application` slightly misleading, since it will read also
+things like the variable $x$, or $(\lambda x . x)$ (using the `element` part of the rule), but we'll sacrifice
+a bit of purity to make it work.
+
+Now we need to define the parsing rule for abstractions. As a reminder, an abstraction takes the $\lambda x . t$ form,
+identity function $\lambda x . x$ is the simplest example. But, what I didn't mention yet, it can have multiple
+arguments, e.g. $\lambda x y . x y$ reads as $\lambda x . \lambda y . x y$. Abstractions follow a different convention
+than applications, they extend to the right, so $\lambda x . x y z$ is $\lambda x . (x y z)$ *not* $(\lambda x . x) y z$.
+This is related to [currying], but it's a different story.
 
 The parsing rule for an `abstraction` is that it is something starting with the `"λ"` token that is followed by an
-argument, and then the rest of it follows. In the simplest case, after the argument there is a `"."` token and the body
-of a function. Alternativelly, it may be followed by another argument and something following it, using the rule
-described above recursivelly. This translates to the `abstraction` rule that reads the head of the function and
-`body` rule that reads its tail recursivelly.
+argument, and then the rest of it follows. In the simplest case, after the argument, there is a `"."` token and the body
+of a function. Alternatively, it may be followed by another argument and something following it, using the above rule
+recursively. This translates to the two rules: `abstraction` which reads the head of the function and
+`body` which reads its tail.
 
 ```ocaml
 let abstraction :=
@@ -231,8 +229,8 @@ let body :=
   | x = ID; u = body; { Abs (x, u) }
 ```
 
-Having all the rules for reading the individual terms, we can finally `term` rule that reads an `application`
-(that can read a single `variable` or an application consisting of more elements) or an `abstraction`.
+Having all the rules for reading the individual terms, we can finally define the `term` that reads an `application`
+(which can read a single `variable` or an application consisting of more elements) or an `abstraction`.
 
 ```ocaml
 let term :=
@@ -240,8 +238,8 @@ let term :=
   | abstraction
 ```
 
-Finally, we want to have a general rule for reading the `term`s that will terminate the parser on `EOF`,
-read the `term`s followed by newline `END` tokens, and proceed to reading next token following the `END`
+Finally, we want to have a general rule for reading the `term`s. It will terminate the parser on `EOF`,
+read the `term`s followed by the newline `END` tokens, and proceed to read the next token following the `END`
 (the middle rule).
 
 ```ocaml
@@ -255,11 +253,11 @@ let line_end := END | EOF
 
 ## Wrap it up
 
-Having created the above, we need to inform the parser to invoke `ocamllex` and `menhir` so that they create the
-lexer and parser for us. This is defined in the `dune` file that uses lisp syntax for the compiler configuration.
-The definition assumes that we have lexer defined in the `lexer.mll` file and parser in the `parser.mly` file.
+Having finished the above, we need to inform the OCaml parser to call `ocamllex` and `menhir` so that they create the
+lexer and parser for us. This is specified in the `dune` file that uses lisp syntax for the compiler configuration.
+The definition assumes that we have a lexer defined in the `lexer.mll` file and a parser in the `parser.mly` file.
 
-`dune`
+[`dune`](../snippets/ocaml-parser/dune)
 
 ```lisp
 (ocamllex lexer)
@@ -268,12 +266,12 @@ The definition assumes that we have lexer defined in the `lexer.mll` file and pa
  (modules parser))
 ```
 
-Calling `dune build` would now create the lexer and parser for us. To check how they work, we can create an executable
-command-line program that reads user input from standard input and prints the parsed representation. For doing this,
-we would use the recursive `loop` function that calls the `prog` function from our parser, which uses the `read`
-function from our lexer.
+Calling `dune build` would now create the lexer and parser modules for us. To check how they work, we can create an
+executable command-line program that reads user input from standard input and prints the parsed representation. For
+this, we would use the recursive `loop` function that calls the `prog` function from our parser, which uses the
+`read` function from the lexer.
 
-`main.ml`
+[`main.ml`](../snippets/ocaml-parser/main.ml)
 
 ```ocaml
 let rec loop lexer =
@@ -288,10 +286,12 @@ let () =
   loop (from_channel stdin)
 ```
 
+## Conclusion
 
-
-
-https://github.com/ocaml-community/sedlex
+OCaml has great tools for building parsers. It allows us to write lexers using rules based on regular expressions,
+that could be made even more flexible by calling other rules (basically, functions). For building parsers, we can also
+use rich functional, pattern-matching-based language to build declarative parsing rules that would be translated
+into a parser for us by `menhir` or `ocamlyacc`. If you know OCaml, they are really easy to learn and quite intuitive.
 
 
  [OCaml]: https://ocaml.org/
@@ -299,15 +299,17 @@ https://github.com/ocaml-community/sedlex
  [The Definition of Standard ML]: https://smlfamily.github.io/sml97-defn.pdf
  [`menhir`]: http://cambium.inria.fr/~fpottier/menhir/
  [`ocamlyacc`]: https://v2.ocaml.org/manual/lexyacc.html#sec278
+ [`sedlex`]: https://github.com/ocaml-community/sedlex
  [tutorials]: https://cs3110.github.io/textbook/chapters/interp/parsing.html
  [Real World OCaml]: https://dev.realworldocaml.org/parsing-with-ocamllex-and-menhir.html
  [JSON]: https://www.aleksandra.codes/parsing-json-with-ocaml/
  [calculator]: https://mukulrathi.com/create-your-own-programming-language/parsing-ocamllex-menhir/
- [live coding video]: https://youtu.be/z5qDV3FyYRo
- [Lambda calculus]: https://en.wikipedia.org/wiki/Lambda_calculus
+ [Lambda calculus]: https://theory.stanford.edu/~blynn/lambda/
+ [three kinds]: https://en.wikipedia.org/wiki/Lambda_calculus
  [abstract syntax tree]: https://en.wikipedia.org/wiki/Abstract_syntax_tree
  [lexers]: https://en.wikipedia.org/wiki/Lexical_analysis
  [parsers]: https://en.wikipedia.org/wiki/Parsing#Parser
  [pattern matching]: https://sodocumentation.net/ocaml/topic/2656/pattern-matching
- [Haskell does]: https://wiki.haskell.org/Lambda_abstraction
+ [Haskell]: https://wiki.haskell.org/Lambda_abstraction
  [currying]: https://en.wikipedia.org/wiki/Currying
+ [regular expression]: https://v2.ocaml.org/releases/4.11/htmlman/lexyacc.html
