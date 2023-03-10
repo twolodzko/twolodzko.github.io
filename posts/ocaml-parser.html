@@ -214,7 +214,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <li>and an <em>abstraction</em> <span class="math inline">\(\lambda x . t\)</span>, which is a function with an argument <span class="math inline">\(a\)</span> and the body <span class="math inline">\(t\)</span>.</li>
 </ul>
 <p>This can be translated to the following OCaml data type</p>
-<p><a href="../snippets/ocaml-parser/term.ml"><code>term.ml</code></a></p>
+<p><a href="https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/term.ml"><code>term.ml</code></a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ocaml code-with-copy"><code class="sourceCode ocaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> term =</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  | Var <span class="kw">of</span> <span class="dt">string</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  | App <span class="kw">of</span> term * term</span>
@@ -225,7 +225,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <h2 class="anchored" data-anchor-id="tokens">Tokens</h2>
 <p>Having defined the types, we can start building a parser that would convert the source code representation of lambda calculus expressions to an <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">abstract syntax tree</a>. Let’s start with the tokens that we will be extracting from the source code.</p>
 <p>A variable is a string identifying its name, that would make a <code>&lt;string&gt; ID</code> token. An abstraction starts with the Greek letter <span class="math inline">\(\lambda\)</span> that we’ll represent with the <code>LAMBDA</code> token. It also uses <span class="math inline">\(.\)</span> <code>DOT</code> to separate the function argument from the body. But that is not all, as we can also group things by placing them between the left <code>LPAREN</code> and right <code>RPAREN</code> bracket. Unlike many programming languages that mark the end of the expression with things like <code>;</code>, nothing like this exists in lambda calculus, so we would assume that the end of the line <code>END</code> marks also the end of the expression. We would also use <code>EOF</code> for the end of the file so that we know that there’s nothing more to parse.</p>
-<p><a href="../snippets/ocaml-parser/parser.mly"><code>parser.mly</code></a></p>
+<p><a href="https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/parser.mly"><code>parser.mly</code></a></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode ocaml code-with-copy"><code class="sourceCode ocaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>%token &lt;<span class="dt">string</span>&gt; ID</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>%token LPAREN <span class="st">"("</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>%token RPAREN <span class="st">")"</span></span>
@@ -239,7 +239,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <h2 class="anchored" data-anchor-id="lexer">Lexer</h2>
 <p><a href="https://en.wikipedia.org/wiki/Lexical_analysis">Lexer</a> reads source code character by character transforming it into tokens.</p>
 <p>A mathematician might be fine with writing <span class="math inline">\(fxy\)</span> meaning applying function <span class="math inline">\(f\)</span> with arguments <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, but the rest of us would probably appreciate being able to write meaningful multi-character names like <code>myfunc foo bar</code>. To do this, we would need to be able to mark where the names start and end, and the simplest way is to use whitespaces for that, so we need to define the <code>white</code> characters. Since we don’t care if we saw single or multiple whitespaces in the row, we would use <code>+</code> in the <a href="https://v2.ocaml.org/releases/4.11/htmlman/lexyacc.html">regular expression</a> to say “one or more”.</p>
-<p><a href="../snippets/ocaml-parser/lexer.mll"><code>lexer.mll</code></a></p>
+<p><a href="https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/lexer.mll"><code>lexer.mll</code></a></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode ocaml code-with-copy"><code class="sourceCode ocaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> white = [<span class="ch">' '</span> <span class="ch">'\t'</span>]+</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For marking the end of an expression, we’ll use <code>newline</code> characters.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode ocaml code-with-copy"><code class="sourceCode ocaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> newline = <span class="ch">'\r'</span> | <span class="ch">'\n'</span> | <span class="st">"</span><span class="ch">\r\n</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -273,7 +273,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <h2 class="anchored" data-anchor-id="parser">Parser</h2>
 <p>The <a href="https://en.wikipedia.org/wiki/Parsing#Parser">parser</a> converts the stream of tokens to an abstract syntax tree representation of the code.</p>
 <p>We would start with the simplest case of parsing the variables. When reaching the <code>ID</code> token, the parser would transform its <code>x</code> value to <code>Var</code> with the identifier <code>x</code>.</p>
-<p><a href="../snippets/ocaml-parser/parser.mly"><code>parser.mly</code></a></p>
+<p><a href="https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/parser.mly"><code>parser.mly</code></a></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode ocaml code-with-copy"><code class="sourceCode ocaml"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> variable :=</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  | x = ID; { Var x }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Parsing the applications is slightly harder. As a reminder, applications can take <span class="math inline">\(x ~ y\)</span> form, where both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> can be <em>any</em> terms (let’s assume for now that <code>term</code> is already defined). We could naively define it as one term following another.</p>
@@ -313,13 +313,13 @@ Warning: 6 shift/reduce conflicts were arbitrarily resolved.</code></pre>
 <section id="wrap-it-up" class="level2">
 <h2 class="anchored" data-anchor-id="wrap-it-up">Wrap it up</h2>
 <p>Having finished the above, we need to inform the OCaml parser to call <code>ocamllex</code> and <code>menhir</code> so that they create the lexer and parser for us. This is specified in the <code>dune</code> file that uses lisp syntax for the compiler configuration. The definition assumes that we have a lexer defined in the <code>lexer.mll</code> file and a parser in the <code>parser.mly</code> file.</p>
-<p><a href="../snippets/ocaml-parser/dune"><code>dune</code></a></p>
+<p><a href="https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/dune"><code>dune</code></a></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode lisp code-with-copy"><code class="sourceCode commonlisp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(ocamllex lexer)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>(menhir</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a> (modules parser))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Calling <code>dune build</code> would now create the lexer and parser modules for us. To check how they work, we can create an executable command-line program that reads user input from standard input and prints the parsed representation. For this, we would use the recursive <code>loop</code> function that calls the <code>prog</code> function from our parser, which uses the <code>read</code> function from the lexer.</p>
-<p><a href="../snippets/ocaml-parser/main.ml"><code>main.ml</code></a></p>
+<p><a href="https://github.com/twolodzko/twolodzko.github.io/blob/main/snippets/ocaml-parser/main.ml"><code>main.ml</code></a></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode ocaml code-with-copy"><code class="sourceCode ocaml"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> <span class="kw">rec</span> loop lexer =</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">flush</span> <span class="dt">stdout</span>;</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> _ = <span class="kw">match</span> Parser.prog Lexer.read lexer <span class="kw">with</span></span>
