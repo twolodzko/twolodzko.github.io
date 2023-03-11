@@ -123,7 +123,7 @@
     "href": "posts/rust-errors.html#this-is-just-either",
     "title": "Imitating Rust’s error propagation in Haskell",
     "section": "This is just Either",
-    "text": "This is just Either\nThat said, my custom Result type with ?> behaves like the Either monad used together with >>=. In fact, >>= for Either is defined as\ninstance Monad (Either e) where\n    Left  l >>= _ = Left l\n    Right r >>= k = k r\nYou may notice that Left here has the same definition as Err and Right as Ok."
+    "text": "This is just Either\nThat said, my custom Result type with ?> behaves like the Either monad used together with >>=. In fact, >>= for Either is defined as\ninstance Monad (Either e) where\n    Left  l >>= _ = Left l\n    Right r >>= k = k r\nYou may notice that Left here has the same definition as Err and Right as Ok. This shows that in both cases we are dealing with a monad, Rust and Haskell just use different syntaxes for dealing with them. We don’t need ? in Haskell, because we have things like >>=."
   },
   {
     "objectID": "posts/makefiles.html",

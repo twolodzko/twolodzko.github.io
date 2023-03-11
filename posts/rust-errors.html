@@ -278,7 +278,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <div class="sourceCode" id="cb11"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">instance</span> <span class="dt">Monad</span> (<span class="dt">Either</span> e) <span class="kw">where</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Left</span>  l <span class="op">&gt;&gt;=</span> _ <span class="ot">=</span> <span class="dt">Left</span> l</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">Right</span> r <span class="op">&gt;&gt;=</span> k <span class="ot">=</span> k r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You may notice that <code>Left</code> here has the same definition as <code>Err</code> and <code>Right</code> as <code>Ok</code>.</p>
+<p>You may notice that <code>Left</code> here has the same definition as <code>Err</code> and <code>Right</code> as <code>Ok</code>. This shows that in both cases we are dealing with a monad, Rust and Haskell just use different syntaxes for dealing with them. We don’t need <code>?</code> in Haskell, because we have things like <code>&gt;&gt;=</code>.</p>
 
 
 </section>
