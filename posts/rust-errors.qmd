@@ -142,7 +142,7 @@ It can be used for chaining functions, but that's great since this is how we wou
 Early return at any point of the function is not possible, but it will work the same for the Haskell-like code as above.
 This is how we can have `?` in Haskell or any other functional language.
 
-![Astronaut looks at Earth from space: "It's a monad." Another astronaut pointing a gun at his back: "Always has been.".](../images/monad.png)
+![Astronaut looks at Earth from space: "It's a monad." Another astronaut pointing a gun at his back: "Always has been."](../images/monad.png)
 
 ## This is just `Either`
 
