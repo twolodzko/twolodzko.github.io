@@ -153,7 +153,9 @@ instance Monad (Either e) where
     Right r >>= k = k r
 ```
 
-You may notice that `Left` here has the same definition as `Err` and `Right` as `Ok`.
+You may notice that `Left` here has the same definition as `Err` and `Right` as `Ok`. This shows that in both cases we
+are dealing with a monad, Rust and Haskell just use different syntaxes for dealing with them. We don't need `?` in
+Haskell, because we have things like `>>=`.
 
 
  [mentioned by Dijkstra in his famous paper]: http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html
