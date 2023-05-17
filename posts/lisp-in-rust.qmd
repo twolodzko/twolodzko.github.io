@@ -173,48 +173,32 @@ Here came a surprise. While the lisp data resides in linked lists, we would usua
 accessing the lists' `head` and `tail` (recursively if needed). This is what most functional programming
 languages would do, but [not Rust]. The idiomatic way in Rust seems to be using the iterator. For it, we need to
 implement the [`Iter`] trait, by providing the `.next()` method. It would give us for free many other methods like
-`map`, `filter`, `collect`, etc. However, it was not only about "nicer" code, but rather simplified it by
+`map`, `filter`, `collect`, etc. However, it was not only about "nicer" code but rather simplified it by
 enabling me to use many utilities from the standard library (told you so).
 
 In the iterator, `.next()` returns the `Option` monad: `Some(element)` result when the element exists and `None` if
 we already iterated through all the available elements. The pattern that I repeated many times when implementing
 Scheme procedures was `sexprs.iter().map(|elem| eval(elem, env))`, where `sexprs` is the list of S-expressions
 `List<Sexpr>`. In such a case `.next()` would return `Option<Result<Sexpr, Error<Sexpr>>>`, the `Option`
-nested in `Result`. Unpacking both was clumsy. Moreover, I wanted the iterator to stop on error. This lead me to
-come up with my iterator that stops on an error and saves the error message, otherwise returning the `Option<Sexpr>`
-results. When calling its `.next()` method, I call the `self.inter.next()` from the inner iterator and unpack it.
+nested in `Result`. To not repeat myself, I created a wrapper that initializes such an iterator.
 
 ```rust
-fn next(&mut self) -> Option<Self::Item> {
-    debug_assert!(self.err.is_none());
-    match self.iter.next()? {
-        Ok(result) => Some(result),
-        err => {
-            self.err = Some(err);
-            None
-        }
-    }
+pub fn eval_iter<'a>(
+    args: &'a List<Sexpr>,
+    env: &'a mut Env,
+) -> impl Iterator<Item = FuncResult> + 'a {
+    args.iter().map(|elem| eval(elem, env))
 }
 ```
 
-Returning `None` marks that it was the final iteration. If you wonder what is the small `?` in the third line,
-it's another cool feature of Rust. It's a syntax that tells it to unpack the value contained in [`Option`] or [`Result`]
-and propagate the `None` value or error, so you don't need to write the boilerplate by yourself. How cool is that?
-
-The above helped me to write procedures like [`list`] with iterators, in just a few lines of code.
-The example below shows an iterator that goes through all the `args` evaluating them, then
-[`collect`]s the results to a lisp list `List<Sexpr>` (thanks to the fact that I already implemented the `FromIterator`
-trait for `List<T>`). In the end, I need to check if an error was raised by looking if `iter.err()` is not empty,
-then either raise it or return the result.
+The above helped me to write many procedures using iterators, in just a few lines of code. For example, [`list`] is
+a one-liner that uses [Rust's monad magic]. The example below shows an iterator that goes through all the `args`
+evaluating them, then [`collect`]s the results to a lisp list `List<Sexpr>` (thanks to the fact that I already
+implemented the `FromIterator` trait for `List<T>`). In case of an error, it will stop and return the error value.[^2]
 
 ```rust
-fn list(args: &Args, env: &mut Env) -> FuncResult {
-    let iter = &mut eval_iter(args, env);
-    let list: List<Sexpr> = iter.collect();
-    match iter.err() {
-        Some(Err(msg)) => Err(msg),
-        _ => Ok(Sexpr::List(list)),
-    }
+pub fn list(args: &Args, env: &mut Env) -> FuncResult {
+    eval_iter(args, env).collect()
 }
 ```
 
@@ -274,6 +258,7 @@ It was fun!
 
 
  [^1]: Clone all the elements in the list vs clone the reference in the head of the list.
+ [^2]: This section was re-written and simplified, as I learned to simplify my code.
 
  [cons linked lists]: https://en.wikipedia.org/wiki/Cons
  [notoriously hard]: https://rust-unofficial.github.io/too-many-lists/index.html
@@ -308,3 +293,4 @@ It was fun!
  [here it is]: https://github.com/twolodzko/rusch
  [Clippy]: https://github.com/rust-lang/rust-clippy
  [copy]: https://stackoverflow.com/questions/31012923/what-is-the-difference-between-copy-and-clone
+ [Rust's monad magic]: http://xion.io/post/code/rust-iter-patterns.html
