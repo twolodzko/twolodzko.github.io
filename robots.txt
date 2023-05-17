@@ -1,1 +1,1 @@
-Sitemap: https://twolodzko.github.io/sitemap.xml
+Sitemap: https://github.com/twolodzko/twolodzko.github.io/sitemap.xml

@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://twolodzko.github.io/posts/ocaml-parser.html</loc>
-    <lastmod>2023-03-11T11:18:27.139Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/quarto.html</loc>
+    <lastmod>2023-05-17T08:33:49.755Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/pipelines.html</loc>
-    <lastmod>2023-03-11T11:18:27.803Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/bash.html</loc>
+    <lastmod>2023-05-17T08:33:50.783Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/rust-errors.html</loc>
-    <lastmod>2023-03-11T11:18:28.227Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/dev-tools.html</loc>
+    <lastmod>2023-05-17T08:33:51.383Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/makefiles.html</loc>
-    <lastmod>2023-03-11T11:18:28.995Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/hot-potato.html</loc>
+    <lastmod>2023-05-17T08:33:51.759Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/dev-tools.html</loc>
-    <lastmod>2023-03-11T11:18:29.963Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/makefiles.html</loc>
+    <lastmod>2023-05-17T08:33:52.523Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/ml-checklist.html</loc>
-    <lastmod>2023-03-11T11:18:31.159Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/pipelines.html</loc>
+    <lastmod>2023-05-17T08:33:53.135Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/quarto.html</loc>
-    <lastmod>2023-03-11T11:18:32.055Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/makefile-programming.html</loc>
+    <lastmod>2023-05-17T08:33:53.947Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/hot-potato.html</loc>
-    <lastmod>2023-03-11T11:18:32.423Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/eafp-vs-lbyl.html</loc>
+    <lastmod>2023-05-17T08:33:54.311Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/ds-bad-code.html</loc>
-    <lastmod>2023-03-11T11:18:32.851Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/seven-wastes.html</loc>
+    <lastmod>2023-05-17T08:33:54.787Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/eafp-vs-lbyl.html</loc>
-    <lastmod>2023-03-11T11:18:33.451Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/implementing-lisps.html</loc>
+    <lastmod>2023-05-17T08:33:55.423Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/implementing-lisps.html</loc>
-    <lastmod>2023-03-11T11:18:34.435Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/lisp-in-rust.html</loc>
+    <lastmod>2023-05-17T08:33:56.123Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/seven-wastes.html</loc>
-    <lastmod>2023-03-11T11:18:35.083Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/rust-errors.html</loc>
+    <lastmod>2023-05-17T08:33:56.579Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/makefile-programming.html</loc>
-    <lastmod>2023-03-11T11:18:35.891Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/ds-bad-code.html</loc>
+    <lastmod>2023-05-17T08:33:57.063Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/lisp-in-rust.html</loc>
-    <lastmod>2023-03-11T11:18:37.047Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/ocaml-parser.html</loc>
+    <lastmod>2023-05-17T08:33:57.955Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/bash.html</loc>
-    <lastmod>2023-03-11T11:18:38.010Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/ml-checklist.html</loc>
+    <lastmod>2023-05-17T08:33:58.663Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/posts/env.html</loc>
-    <lastmod>2023-03-11T11:18:38.758Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/posts/env.html</loc>
+    <lastmod>2023-05-17T08:33:59.319Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/index.html</loc>
-    <lastmod>2023-03-11T11:18:39.670Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/index.html</loc>
+    <lastmod>2023-05-17T08:34:01.323Z</lastmod>
   </url>
   <url>
-    <loc>https://twolodzko.github.io/about.html</loc>
-    <lastmod>2023-03-11T11:18:39.954Z</lastmod>
+    <loc>https://github.com/twolodzko/twolodzko.github.io/about.html</loc>
+    <lastmod>2023-05-17T08:34:01.611Z</lastmod>
   </url>
 </urlset>

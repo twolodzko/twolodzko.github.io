@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -18,9 +18,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -47,43 +48,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -132,6 +103,7 @@ gtag('js', new Date());
 gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 </script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
@@ -148,17 +120,19 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
     <span class="navbar-title">Timothy Wolodzko</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../about.html">
+    <a class="nav-link" href="../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -204,7 +178,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../images/dads-learning-to-program.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">“Dad, no! Mom! Dad’s learning to program again!” https://laserdisc.party/<span class="citation" data-cites="andy/109712218341157640">@andy/109712218341157640</span></figcaption><p></p>
+<figcaption class="figure-caption">“Dad, no! Mom! Dad’s learning to program again!” https://laserdisc.party/<span class="citation" data-cites="andy/109712218341157640">@andy/109712218341157640</span></figcaption>
 </figure>
 </div>
 <section id="first-step-the-parser" class="level2">
@@ -284,28 +258,18 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 </section>
 <section id="fourth-step-the-scheme-procedures" class="level2">
 <h2 class="anchored" data-anchor-id="fourth-step-the-scheme-procedures">Fourth Step: the Scheme procedures</h2>
-<p>For it to be a programming language, I needed not only the data types but also the (minimal) set of basic procedures. Here came a surprise. While the lisp data resides in linked lists, we would usually iterate through it by accessing the lists’ <code>head</code> and <code>tail</code> (recursively if needed). This is what most functional programming languages would do, but <a href="https://dev.to/seanchen1991/the-story-of-tail-call-optimizations-in-rust-35hf">not Rust</a>. The idiomatic way in Rust seems to be using the iterator. For it, we need to implement the <a href="https://doc.rust-lang.org/std/iter/"><code>Iter</code></a> trait, by providing the <code>.next()</code> method. It would give us for free many other methods like <code>map</code>, <code>filter</code>, <code>collect</code>, etc. However, it was not only about “nicer” code, but rather simplified it by enabling me to use many utilities from the standard library (told you so).</p>
-<p>In the iterator, <code>.next()</code> returns the <code>Option</code> monad: <code>Some(element)</code> result when the element exists and <code>None</code> if we already iterated through all the available elements. The pattern that I repeated many times when implementing Scheme procedures was <code>sexprs.iter().map(|elem| eval(elem, env))</code>, where <code>sexprs</code> is the list of S-expressions <code>List&lt;Sexpr&gt;</code>. In such a case <code>.next()</code> would return <code>Option&lt;Result&lt;Sexpr, Error&lt;Sexpr&gt;&gt;&gt;</code>, the <code>Option</code> nested in <code>Result</code>. Unpacking both was clumsy. Moreover, I wanted the iterator to stop on error. This lead me to come up with my iterator that stops on an error and saves the error message, otherwise returning the <code>Option&lt;Sexpr&gt;</code> results. When calling its <code>.next()</code> method, I call the <code>self.inter.next()</code> from the inner iterator and unpack it.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> next(<span class="op">&amp;</span><span class="kw">mut</span> <span class="kw">self</span>) <span class="op">-&gt;</span> <span class="dt">Option</span><span class="op">&lt;</span><span class="dt">Self</span><span class="pp">::</span>Item<span class="op">&gt;</span> <span class="op">{</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">debug_assert!</span>(<span class="kw">self</span><span class="op">.</span>err<span class="op">.</span>is_none())<span class="op">;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">match</span> <span class="kw">self</span><span class="op">.</span>iter<span class="op">.</span>next()<span class="op">?</span> <span class="op">{</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="cn">Ok</span>(result) <span class="op">=&gt;</span> <span class="cn">Some</span>(result)<span class="op">,</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        err <span class="op">=&gt;</span> <span class="op">{</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">self</span><span class="op">.</span>err <span class="op">=</span> <span class="cn">Some</span>(err)<span class="op">;</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            <span class="cn">None</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Returning <code>None</code> marks that it was the final iteration. If you wonder what is the small <code>?</code> in the third line, it’s another cool feature of Rust. It’s a syntax that tells it to unpack the value contained in <a href="https://doc.rust-lang.org/std/option/"><code>Option</code></a> or <a href="https://doc.rust-lang.org/std/result/"><code>Result</code></a> and propagate the <code>None</code> value or error, so you don’t need to write the boilerplate by yourself. How cool is that?</p>
-<p>The above helped me to write procedures like <a href="https://www.scheme.com/tspl4/objects.html#./objects:s43"><code>list</code></a> with iterators, in just a few lines of code. The example below shows an iterator that goes through all the <code>args</code> evaluating them, then <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect"><code>collect</code></a>s the results to a lisp list <code>List&lt;Sexpr&gt;</code> (thanks to the fact that I already implemented the <code>FromIterator</code> trait for <code>List&lt;T&gt;</code>). In the end, I need to check if an error was raised by looking if <code>iter.err()</code> is not empty, then either raise it or return the result.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> list(args<span class="op">:</span> <span class="op">&amp;</span>Args<span class="op">,</span> env<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> Env) <span class="op">-&gt;</span> FuncResult <span class="op">{</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> iter <span class="op">=</span> <span class="op">&amp;</span><span class="kw">mut</span> eval_iter(args<span class="op">,</span> env)<span class="op">;</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> list<span class="op">:</span> List<span class="op">&lt;</span>Sexpr<span class="op">&gt;</span> <span class="op">=</span> iter<span class="op">.</span>collect()<span class="op">;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">match</span> iter<span class="op">.</span>err() <span class="op">{</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="cn">Some</span>(<span class="cn">Err</span>(msg)) <span class="op">=&gt;</span> <span class="cn">Err</span>(msg)<span class="op">,</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        _ <span class="op">=&gt;</span> <span class="cn">Ok</span>(<span class="pp">Sexpr::</span>List(list))<span class="op">,</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>For it to be a programming language, I needed not only the data types but also the (minimal) set of basic procedures. Here came a surprise. While the lisp data resides in linked lists, we would usually iterate through it by accessing the lists’ <code>head</code> and <code>tail</code> (recursively if needed). This is what most functional programming languages would do, but <a href="https://dev.to/seanchen1991/the-story-of-tail-call-optimizations-in-rust-35hf">not Rust</a>. The idiomatic way in Rust seems to be using the iterator. For it, we need to implement the <a href="https://doc.rust-lang.org/std/iter/"><code>Iter</code></a> trait, by providing the <code>.next()</code> method. It would give us for free many other methods like <code>map</code>, <code>filter</code>, <code>collect</code>, etc. However, it was not only about “nicer” code but rather simplified it by enabling me to use many utilities from the standard library (told you so).</p>
+<p>In the iterator, <code>.next()</code> returns the <code>Option</code> monad: <code>Some(element)</code> result when the element exists and <code>None</code> if we already iterated through all the available elements. The pattern that I repeated many times when implementing Scheme procedures was <code>sexprs.iter().map(|elem| eval(elem, env))</code>, where <code>sexprs</code> is the list of S-expressions <code>List&lt;Sexpr&gt;</code>. In such a case <code>.next()</code> would return <code>Option&lt;Result&lt;Sexpr, Error&lt;Sexpr&gt;&gt;&gt;</code>, the <code>Option</code> nested in <code>Result</code>. To not repeat myself, I created a wrapper that initializes such an iterator.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">fn</span> eval_iter<span class="op">&lt;</span><span class="ot">'a</span><span class="op">&gt;</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    args<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> List<span class="op">&lt;</span>Sexpr<span class="op">&gt;,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    env<span class="op">:</span> <span class="op">&amp;</span><span class="ot">'a</span> <span class="kw">mut</span> Env<span class="op">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="kw">impl</span> <span class="bu">Iterator</span><span class="op">&lt;</span>Item <span class="op">=</span> FuncResult<span class="op">&gt;</span> <span class="op">+</span> <span class="ot">'a</span> <span class="op">{</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    args<span class="op">.</span>iter()<span class="op">.</span>map(<span class="op">|</span>elem<span class="op">|</span> eval(elem<span class="op">,</span> env))</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The above helped me to write many procedures using iterators, in just a few lines of code. For example, <a href="https://www.scheme.com/tspl4/objects.html#./objects:s43"><code>list</code></a> is a one-liner that uses <a href="http://xion.io/post/code/rust-iter-patterns.html">Rust’s monad magic</a>. The example below shows an iterator that goes through all the <code>args</code> evaluating them, then <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect"><code>collect</code></a>s the results to a lisp list <code>List&lt;Sexpr&gt;</code> (thanks to the fact that I already implemented the <code>FromIterator</code> trait for <code>List&lt;T&gt;</code>). In case of an error, it will stop and return the error value.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">pub</span> <span class="kw">fn</span> list(args<span class="op">:</span> <span class="op">&amp;</span>Args<span class="op">,</span> env<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> Env) <span class="op">-&gt;</span> FuncResult <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    eval_iter(args<span class="op">,</span> env)<span class="op">.</span>collect()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="getting-stuck-again-reading-lines-from-a-file" class="level2">
 <h2 class="anchored" data-anchor-id="getting-stuck-again-reading-lines-from-a-file">Getting stuck again: reading lines from a file (?!)</h2>
@@ -328,7 +292,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../images/haskell-cpp-rust.jpeg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Noah finds an animal on his Ark that is a penguin with an elephant’s head (described as Rust). He angrily asks a penguin (described as C++) and an elephant (described as Haskell) “What the hell is this?”.</figcaption><p></p>
+<figcaption class="figure-caption">Noah finds an animal on his Ark that is a penguin with an elephant’s head (described as Rust). He angrily asks a penguin (described as C++) and an elephant (described as Haskell) “What the hell is this?”.</figcaption>
 </figure>
 </div>
 <p>Did I like it? Kind of. It has many great features. On another hand, to use it, you need to learn a lot about the language. With other programming languages, I use documentation to check some specific topics. In Rust, I had many tabs with the documentation for the standard library open constantly (<em>“was it <code>ok_or</code>, or maybe <code>ok_or_else</code>, or maybe <code>unwrap_or</code>..?”</em>). It’s also very verbose (I needed 1.4k lines of code vs 500 in OCaml or 600 in Lua).</p>
@@ -343,6 +307,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 
 <ol>
 <li id="fn1"><p>Clone all the elements in the list vs clone the reference in the head of the list.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This section was re-written and simplified, as I learned to simplify my code.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -372,9 +337,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -439,6 +418,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
