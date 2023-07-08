@@ -530,4 +530,5 @@ use it blindly.
 To discover common bugs and code smells in Bash scripts, you can use the [open-source `shellcheck` tool](https://github.com/koalaman/shellcheck).
 It conducts a static analysis of the script and provides many helpful hints for solving the issues.
 
-If you want to add unit tests to your code, there is a [useful `assert.sh` script](https://torokmark.github.io/assert.sh/).
+If you want to add unit tests to your code, there is a [useful `assert.sh` script](https://torokmark.github.io/assert.sh/)
+and the great [bats](https://github.com/bats-core/bats-core) testing framework.
