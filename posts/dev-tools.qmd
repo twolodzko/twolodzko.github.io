@@ -89,6 +89,8 @@ ignore =
     W5
  ```
 
+ *Update:* [ruff] is a more modern replacement for other linters and style checkers.
+
 # Testing
 
 [Pytest] is currently the gold standard when it comes to testing Python code,
@@ -153,3 +155,4 @@ The template for this setup can be found here: <https://github.com/twolodzko/bas
  [many dependency management tools]: https://www.youtube.com/watch?v=-C8uVImkTQg
  [pyenv]: https://github.com/pyenv/pyenv
  [mypy]: http://mypy-lang.org/
+ [ruff]: https://github.com/astral-sh/ruff
