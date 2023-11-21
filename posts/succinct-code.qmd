@@ -1,0 +1,82 @@
+---
+title: "Forced clean, succinct code"
+date: 2023-11-21
+aliases:
+  - "/succinct-code"
+categories: [blog]
+---
+
+The C2 Wiki [makes an interesting point]
+
+> In some languages there are commonly used idioms that encourage refactoring into small modules -- *quite independently of any formal refactoring or ExtremeProgramming influence.*
+
+It uses several, nice examples. [Forth] language defines programs in terms of words that are
+executed sequentially. The functions behind the words communicate through the shared stack.
+Because the language has very simple syntax, the program can get cluttered pretty fast.
+Consider the [FizzBuzz example] below.
+
+```default
+: fizz-buzz  1 do i dup
+  3 mod 0 = dup if ." Fizz" then swap
+  5 mod 0 = dup if ." Buzz" then or 0=
+  if i . then cr loop ;
+```
+
+It's quite hard to digest, isn't it..? That's why, you should break things down
+into short, well-defined words, like below.
+
+```default
+: fizz?  3 mod 0 = dup if ." Fizz" then ;
+: buzz?  5 mod 0 = dup if ." Buzz" then ;
+: fizz-buzz?  dup fizz? swap buzz? or 0= ;
+: fizz-buzz  1 do i fizz-buzz? if i . then cr loop ;
+```
+
+While the first snippet is dense and would be hard to understand, the second one is
+quite readable even if you do not know Forth.
+
+The Wiki article also uses as an example Lisp. First of all, you would not like
+many levels of nested brackets, so you would break the code into smaller chunks
+to make it readable. Second, for looping Lisps predominantly use recursion, so
+the body of a loop needs to be a separate function that can be called recursively.
+
+A similar thing applies to [Haskell], but it would not only make you move the loop
+body to a separate function but also syntactically move the logic on the outer
+boundary of the function. Consider the trivial example of the factorial function.
+
+```haskell
+fac :: (Integral a) => a -> a
+fac 0 = 1
+fac n = n * fac (n - 1)
+```
+
+Instead of having something like `if (x == 0) { return 1; } else { ...` nested inside
+the function, it uses pattern matching in the function definition. Different branches
+of the code would run depending on the inputs. By this, the code is forced to be split
+into smaller units. The pattern is used everywhere in Haskell and many other
+functional languages.
+
+Yet another example could be [Erlang]. It does not have classes or namespaces,
+so the only way to group related code is by using [modules], where each
+module needs to be a separate file. This forces you to split the code into
+smaller files. Moreover, it [has only the global namespace], so everything needs
+to have unique, comprehensible names.
+
+This is an intriguing idea that the apparent limitations of the programming languages
+can, in fact, promote good practices. The same applies to modern languages as
+well. Go, by its simplicity, prohibits you from writing "clever", overengineered
+code. Rust encourages you to use iterators that just work, sparing you all
+the tedious work or writing loops yourself. It even applies to Python, which delimits
+the code blocks with whitespaces only, making nested code rather unreadable,
+so sooner or later you split it into separate methods.
+
+Sometimes *less is more*.
+
+
+ [makes an interesting point]: https://wiki.c2.com/?CategoryIdiom
+ [Forth]: https://www.forth.com/starting-forth/
+ [modules]: https://www.erlang.org/doc/reference_manual/modules.html
+ [has only the global namespace]: https://stackoverflow.com/a/4476599/3986320
+ [Erlang]: https://learnyousomeerlang.com/content
+ [Haskell]: http://learnyouahaskell.com/chapters
+ [FizzBuzz example]: https://skilldrick.github.io/easyforth/
