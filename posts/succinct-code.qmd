@@ -70,6 +70,11 @@ the tedious work or writing loops yourself. It even applies to Python, which del
 the code blocks with whitespaces only, making nested code rather unreadable,
 so sooner or later you split it into separate methods.
 
+In *The Paradox of Choice* Barry Schwartz, drawing on decades of research, notices
+that when making choices if we are given more options, we quickly get overwhelmed
+and anxious, ending up less satisfied with our decisions.
+It seems to be a similar case, where less flexibility
+
 Sometimes *less is more*.
 
 

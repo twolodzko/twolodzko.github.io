@@ -91,6 +91,8 @@ ignore =
 
  *Update:* [ruff] is a more modern replacement for other linters and style checkers.
 
+ *Update 2:* Seems like ruff now can [both lint and format] the code, so you don't need the above.
+
 # Testing
 
 [Pytest] is currently the gold standard when it comes to testing Python code,
@@ -156,3 +158,4 @@ The template for this setup can be found here: <https://github.com/twolodzko/bas
  [pyenv]: https://github.com/pyenv/pyenv
  [mypy]: http://mypy-lang.org/
  [ruff]: https://github.com/astral-sh/ruff
+ [both lint and format]: https://docs.astral.sh/ruff/formatter/
