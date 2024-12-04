@@ -1,6 +1,6 @@
 ---
 title: "Collecting results from goroutines"
-date: 2024-12-
+date: 2024-12-04
 categories: [blog]
 ---
 
