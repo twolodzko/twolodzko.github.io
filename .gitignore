@@ -4,3 +4,5 @@
 
 *.beam
 _site
+
+.DS_Store
