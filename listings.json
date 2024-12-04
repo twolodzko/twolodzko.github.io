@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/go-channels-and-waiting.html",
       "/posts/succinct-code.html",
       "/posts/ocaml-parser.html",
       "/posts/rust-errors.html",
