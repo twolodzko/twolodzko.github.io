@@ -26,6 +26,10 @@ quality checks. But if it fails, who is there to blame? You who rubber stumped t
 who approved the tool? The company who produced a faulty product that you used? With hand written
 code it was always you, when using AI the accountability is diffused.
 
+We are hearing about the death of code review, how nobody reads the pull requests anymore.
+You didn't write the code. You didn't really read it carefully. Your colleagues do not want
+to sign off the code. Nobody feels responsible.
+
 Even if you know that AI is imperfect, when the code is broken, you can always "hey computer, fix it".
 When using AI your workflow is about iterative steps, where you ask AI to fix or improve what
 it produced earlier. It is easy not to stop the process at the code release, but start considering
