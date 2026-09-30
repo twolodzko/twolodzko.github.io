@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Timothy Wolodzko</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -32,22 +38,29 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-listing/list.min.js"></script>
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4478dccb6b48a2d41e0e3cfc5daf0353.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,8 +69,10 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script>
@@ -100,37 +115,64 @@ gtag('js', new Date());
 gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Timothy Wolodzko</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
 </ul>
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -140,9 +182,10 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(33)</span></div><div class="category" data-category="blog">blog <span class="quarto-category-count">(18)</span></div><div class="category" data-category="interview">interview <span class="quarto-category-count">(3)</span></div><div class="category" data-category="q&amp;a">q&amp;a <span class="quarto-category-count">(12)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(34)</span></div><div class="category" data-category="YmxvZw==">blog <span class="quarto-category-count">(19)</span></div><div class="category" data-category="aW50ZXJ2aWV3">interview <span class="quarto-category-count">(3)</span></div><div class="category" data-category="cSUyNmE=">q&amp;a <span class="quarto-category-count">(12)</span></div></div></div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
 
 
 
@@ -152,1056 +195,896 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-blog">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="blog" data-listing-date-sort="1733266800000" data-listing-file-modified-sort="1733345723964" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
-<div class="thumbnail">
-<p><a href="./posts/go-channels-and-waiting.html"> <p class="card-img-top"><img src="images/yo-dawg-parallel.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="0" data-categories="YmxvZw==" data-listing-date-sort="1790719200000" data-listing-file-modified-sort="1790756392089" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="557">
+<div class="thumbnail"><a href="./posts/ai-accountability.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/go-channels-and-waiting.html">
 <h3 class="no-anchor listing-title">
-Collecting results from goroutines
+<a href="./posts/ai-accountability.html" class="no-external">AI generated code and the lack of accountability</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/go-channels-and-waiting.html">
-<div class="listing-description">
-Let’s say that you are facing a problem where you have multiple jobs that need to be run, then you need to collect the results. Easy peasy, you write the code:
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/ai-accountability.html" class="no-external">
+LLMs make programmers “10x” more efficient, as they say. They make you produce more code in less time. By the mere scale, it is harder to quality check it. When writing code…
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/go-channels-and-waiting.html">
+<a href="./posts/ai-accountability.html" class="no-external">
+<div class="listing-date">
+Sep 30, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="YmxvZw==" data-listing-date-sort="1733266800000" data-listing-file-modified-sort="1790755243844" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="767">
+<div class="thumbnail"><a href="./posts/go-channels-and-waiting.html" class="no-external">
+
+<p class="card-img-top"><img loading='lazy' src="images/yo-dawg-parallel.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/go-channels-and-waiting.html" class="no-external">Collecting results from goroutines</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
+
+</div>
+<div class="delink listing-description"><a href="./posts/go-channels-and-waiting.html" class="no-external">
+Let’s say that you are facing a problem where you have multiple jobs that need to be run, then you need to collect the results. Easy peasy, you write the code:
+</a></div>
+</div>
+<div class="metadata">
+<a href="./posts/go-channels-and-waiting.html" class="no-external">
 <div class="listing-date">
 Dec 4, 2024
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="blog" data-listing-date-sort="1700521200000" data-listing-file-modified-sort="1700574191645" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./posts/succinct-code.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="2" data-categories="YmxvZw==" data-listing-date-sort="1700521200000" data-listing-file-modified-sort="1790755243845" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="523">
+<div class="thumbnail"><a href="./posts/succinct-code.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/succinct-code.html">
 <h3 class="no-anchor listing-title">
-Forced clean, succinct code
+<a href="./posts/succinct-code.html" class="no-external">Forced clean, succinct code</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/succinct-code.html">
-<div class="listing-description">
+<div class="delink listing-description"><a href="./posts/succinct-code.html" class="no-external">
 The C2 Wiki makes an interesting point
-</div>
-</a>
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/succinct-code.html">
+<a href="./posts/succinct-code.html" class="no-external">
 <div class="listing-date">
 Nov 21, 2023
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="blog" data-listing-date-sort="1678402800000" data-listing-file-modified-sort="1679065987293" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
-<div class="thumbnail">
-<p><a href="./posts/ocaml-parser.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="3" data-categories="YmxvZw==" data-listing-date-sort="1678402800000" data-listing-file-modified-sort="1790755243845" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1916">
+<div class="thumbnail"><a href="./posts/ocaml-parser.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/ocaml-parser.html">
 <h3 class="no-anchor listing-title">
-Writing parser in ocamllex and menhir
+<a href="./posts/ocaml-parser.html" class="no-external">Writing parser in ocamllex and menhir</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/ocaml-parser.html">
-<div class="listing-description">
-OCaml is a great language for creating programming languages. In fact, it is inspired by the ML language (he…<em></em>
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/ocaml-parser.html" class="no-external">
+OCaml is a great language for creating programming languages. In fact, it is inspired by the ML language (hence “ml” in its name), which as discussed by its author Robin…<em></em>
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/ocaml-parser.html">
+<a href="./posts/ocaml-parser.html" class="no-external">
 <div class="listing-date">
 Mar 10, 2023
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="blog" data-listing-date-sort="1675206000000" data-listing-file-modified-sort="1679065987293" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
-<div class="thumbnail">
-<p><a href="./posts/rust-errors.html"> <p class="card-img-top"><img src="images/monad.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="4" data-categories="YmxvZw==" data-listing-date-sort="1675206000000" data-listing-file-modified-sort="1790755243845" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1011">
+<div class="thumbnail"><a href="./posts/rust-errors.html" class="no-external">
+
+<p class="card-img-top"><img loading='lazy' src="images/monad.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
 <div class="body">
-<a href="./posts/rust-errors.html">
 <h3 class="no-anchor listing-title">
-Imitating Rust’s error propagation in Haskell
+<a href="./posts/rust-errors.html" class="no-external">Imitating Rust’s error propagation in Haskell</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/rust-errors.html">
-<div class="listing-description">
-Some programming languages treat errors as values that are returned, as opposed to stopping the…<code></code>
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/rust-errors.html" class="no-external">
+Some programming languages treat errors as values that are returned, as opposed to stopping the program and showing the error message right away. The problem with stopping…<code></code>
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/rust-errors.html">
+<a href="./posts/rust-errors.html" class="no-external">
 <div class="listing-date">
 Feb 1, 2023
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="blog" data-listing-date-sort="1674255600000" data-listing-file-modified-sort="1684312236722" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12">
-<div class="thumbnail">
-<p><a href="./posts/lisp-in-rust.html"> <p class="card-img-top"><img src="images/dads-learning-to-program.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="5" data-categories="YmxvZw==" data-listing-date-sort="1674255600000" data-listing-file-modified-sort="1790755243844" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-word-count-sort="2374">
+<div class="thumbnail"><a href="./posts/lisp-in-rust.html" class="no-external">
+
+<p class="card-img-top"><img loading='lazy' src="images/dads-learning-to-program.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
 <div class="body">
-<a href="./posts/lisp-in-rust.html">
 <h3 class="no-anchor listing-title">
-Learning Rust by implementing the lisp interpreter
+<a href="./posts/lisp-in-rust.html" class="no-external">Learning Rust by implementing the lisp interpreter</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/lisp-in-rust.html">
-<div class="listing-description">
-Rust is not the greatest language for implementing a lisp interpreter. First, lisp uses the cons linked lists for everything, while implementing them is notoriously hard in Rust.…
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/lisp-in-rust.html" class="no-external">
+Rust is not the greatest language for implementing a lisp interpreter. First, lisp uses the cons linked lists for everything, while implementing them is notoriously hard in…
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/lisp-in-rust.html">
+<a href="./posts/lisp-in-rust.html" class="no-external">
 <div class="listing-date">
 Jan 21, 2023
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="blog" data-listing-date-sort="1671663600000" data-listing-file-modified-sort="1679065987289" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
-<div class="thumbnail">
-<p><a href="./posts/hot-potato.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="6" data-categories="YmxvZw==" data-listing-date-sort="1671663600000" data-listing-file-modified-sort="1790755243844" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="788">
+<div class="thumbnail"><a href="./posts/hot-potato.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/hot-potato.html">
 <h3 class="no-anchor listing-title">
-Hot potato state in Erlang
+<a href="./posts/hot-potato.html" class="no-external">Hot potato state in Erlang</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/hot-potato.html">
-<div class="listing-description">
-Erlang is a peculiar language. It is a dynamically typed, functional language, with all the usual features like the preference for recursion over loops, pattern matching, etc. Unlike other…<em></em>
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/hot-potato.html" class="no-external">
+Erlang is a peculiar language. It is a dynamically typed, functional language, with all the usual features like the preference for recursion over loops, pattern matching…<em></em>
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/hot-potato.html">
+<a href="./posts/hot-potato.html" class="no-external">
 <div class="listing-date">
 Dec 22, 2022
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="blog" data-listing-date-sort="1671490800000" data-listing-file-modified-sort="1679065987293" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./posts/quarto.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="7" data-categories="YmxvZw==" data-listing-date-sort="1671490800000" data-listing-file-modified-sort="1790755243845" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="439">
+<div class="thumbnail"><a href="./posts/quarto.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/quarto.html">
 <h3 class="no-anchor listing-title">
-I ❤️ Quarto
+<a href="./posts/quarto.html" class="no-external">I ❤️ Quarto</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/quarto.html">
-<div class="listing-description">
-I recently decided to switch my page from Jekyll (GitHub Pages default) to Quatro. Both support creating pages in Markdown with configs in YAML, to build static web pages from them. They are simple and quite similar, but I found Quarto easier to use, has great dev…<span class="math inline"></span>
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/quarto.html" class="no-external">
+I recently decided to switch my page from Jekyll (GitHub Pages default) to Quatro. Both support creating pages in Markdown with configs in YAML, to build static web pages…<span class="math inline"></span>
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/quarto.html">
+<a href="./posts/quarto.html" class="no-external">
 <div class="listing-date">
 Dec 20, 2022
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="blog" data-listing-date-sort="1669676400000" data-listing-file-modified-sort="1679065987289" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11">
-<div class="thumbnail">
-<p><a href="./posts/implementing-lisps.html"> <p class="card-img-top"><img src="https://imgs.xkcd.com/comics/lisp_cycles.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="8" data-categories="YmxvZw==" data-listing-date-sort="1669676400000" data-listing-file-modified-sort="1790755243844" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2141">
+<div class="thumbnail"><a href="./posts/implementing-lisps.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/implementing-lisps.html">
 <h3 class="no-anchor listing-title">
-Lessons learned from implementing minimal Scheme <del>four</del> six times
+<a href="./posts/implementing-lisps.html" class="no-external">Lessons learned from implementing minimal Scheme <del>four</del> six times</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/implementing-lisps.html">
-<div class="listing-description">
+<div class="delink listing-description"><a href="./posts/implementing-lisps.html" class="no-external">
 We were in the middle of a global pandemic. Tormented by fear, locked in our homes, everyone was coping in their own way. Some people started baking bread, writing poetry…<em></em>
-</div>
-</a>
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/implementing-lisps.html">
+<a href="./posts/implementing-lisps.html" class="no-external">
 <div class="listing-date">
 Nov 29, 2022
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-categories="blog" data-listing-date-sort="1654639200000" data-listing-file-modified-sort="1679065987293" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
-<div class="thumbnail">
-<p><a href="./posts/pipelines.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="9" data-categories="YmxvZw==" data-listing-date-sort="1654639200000" data-listing-file-modified-sort="1790755243845" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="927">
+<div class="thumbnail"><a href="./posts/pipelines.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/pipelines.html">
 <h3 class="no-anchor listing-title">
-Pipelines: The #1 data processing design pattern
+<a href="./posts/pipelines.html" class="no-external">Pipelines: The #1 data processing design pattern</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/pipelines.html">
-<div class="listing-description">
+<div class="delink listing-description"><a href="./posts/pipelines.html" class="no-external">
 In mathematics, two functions <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> can be composed <span class="math inline">\(f \circ g\)</span>, what is defined as
-</div>
-</a>
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/pipelines.html">
+<a href="./posts/pipelines.html" class="no-external">
 <div class="listing-date">
 Jun 8, 2022
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-categories="blog" data-listing-date-sort="1648162800000" data-listing-file-modified-sort="1700569910453" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
-<div class="thumbnail">
-<p><a href="./posts/dev-tools.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="10" data-categories="YmxvZw==" data-listing-date-sort="1648162800000" data-listing-file-modified-sort="1790755243844" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="815">
+<div class="thumbnail"><a href="./posts/dev-tools.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/dev-tools.html">
 <h3 class="no-anchor listing-title">
-My favorite developer tools for Python
+<a href="./posts/dev-tools.html" class="no-external">My favorite developer tools for Python</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/dev-tools.html">
-<div class="listing-description">
-There are many dependency management tools for python: conda, poetry, pipenv, tox, etc. Each of them has its pros and cons, fans and opponents. After spending an awful lot of time researching them, resolving…
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/dev-tools.html" class="no-external">
+There are many dependency management tools for python: conda, poetry, pipenv, tox, etc. Each of them has its pros and cons, fans and opponents. After spending an awful lot…
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/dev-tools.html">
+<a href="./posts/dev-tools.html" class="no-external">
 <div class="listing-date">
 Mar 25, 2022
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="10" data-categories="blog" data-listing-date-sort="1642114800000" data-listing-file-modified-sort="1679065987289" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./posts/eafp-vs-lbyl.html"> <p class="card-img-top"><img src="images/eapf-vs-lbyl.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="11" data-categories="YmxvZw==" data-listing-date-sort="1642114800000" data-listing-file-modified-sort="1790755243844" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="591">
+<div class="thumbnail"><a href="./posts/eafp-vs-lbyl.html" class="no-external">
+
+<p class="card-img-top"><img loading='lazy' src="images/eapf-vs-lbyl.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
 <div class="body">
-<a href="./posts/eafp-vs-lbyl.html">
 <h3 class="no-anchor listing-title">
-When it is easier to ask for forgiveness than permission?
+<a href="./posts/eafp-vs-lbyl.html" class="no-external">When it is easier to ask for forgiveness than permission?</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/eafp-vs-lbyl.html">
-<div class="listing-description">
-There are two programming styles: look before you leap (LBYL) and easier to ask for forgiveness than permission (EAFP). There are pros and cons of both styles, EAFP in some cases may be more readable and…<code></code><code></code><code></code>
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/eafp-vs-lbyl.html" class="no-external">
+There are two programming styles: look before you leap (LBYL) and easier to ask for forgiveness than permission (EAFP). There are pros and cons of both styles, EAFP in some…<code></code><code></code><code></code>
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/eafp-vs-lbyl.html">
+<a href="./posts/eafp-vs-lbyl.html" class="no-external">
 <div class="listing-date">
 Jan 14, 2022
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="11" data-categories="blog" data-listing-date-sort="1641423600000" data-listing-file-modified-sort="1679065987289" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
-<div class="thumbnail">
-<p><a href="./posts/makefile-programming.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="12" data-categories="YmxvZw==" data-listing-date-sort="1641423600000" data-listing-file-modified-sort="1790755243844" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1706">
+<div class="thumbnail"><a href="./posts/makefile-programming.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/makefile-programming.html">
 <h3 class="no-anchor listing-title">
-Makefile Programming Language Tutorial
+<a href="./posts/makefile-programming.html" class="no-external">Makefile Programming Language Tutorial</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/makefile-programming.html">
-<div class="listing-description">
-Makefile language is a functional, dynamically typed language, and of course, it is Turing complete. It’s probably the most popular, unpopular programming language, widely adopted in many programming projects (especially ones using C as the main language). While it shares…
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/makefile-programming.html" class="no-external">
+Makefile language is a functional, dynamically typed language, and of course, it is Turing complete. It’s probably the most popular, unpopular programming language, widely…
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/makefile-programming.html">
+<a href="./posts/makefile-programming.html" class="no-external">
 <div class="listing-date">
 Jan 6, 2022
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="12" data-categories="interview" data-listing-date-sort="1640818800000">
-<div class="thumbnail">
-<p><a href="https://neptune.ai/blog/ways-ml-teams-use-ci-cd-in-production"> <img src="https://i0.wp.com/neptune.ai/wp-content/uploads/2022/10/GreenSteam-MLOPs-toolstack_1.png?ssl=1" class="thumbnail-image"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="13" data-categories="aW50ZXJ2aWV3" data-listing-date-sort="1640818800000">
+<div class="thumbnail"><a href="https://neptune.ai/blog/ways-ml-teams-use-ci-cd-in-production" class="no-external">
+
+<img loading="lazy" src="https://i0.wp.com/neptune.ai/wp-content/uploads/2022/10/GreenSteam-MLOPs-toolstack_1.png?ssl=1" class="thumbnail-image">
+
+</a></div>
 <div class="body">
-<a href="https://neptune.ai/blog/ways-ml-teams-use-ci-cd-in-production">
 <h3 class="no-anchor listing-title">
-4 Ways Machine Learning Teams Use CI/CD in Production
+<a href="https://neptune.ai/blog/ways-ml-teams-use-ci-cd-in-production" class="no-external">4 Ways Machine Learning Teams Use CI/CD in Production</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('aW50ZXJ2aWV3'); return false;">interview</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('interview'); return false;">
-interview
-</div>
-</div>
-<a href="https://neptune.ai/blog/ways-ml-teams-use-ci-cd-in-production">
-<div class="listing-description">
+<div class="delink listing-description"><a href="https://neptune.ai/blog/ways-ml-teams-use-ci-cd-in-production" class="no-external">
 <p>Stephen Oladele from Neptune.ai wrote an article where my work was used in one of the case studies.</p>
-</div>
-</a>
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://neptune.ai/blog/ways-ml-teams-use-ci-cd-in-production">
+<a href="https://neptune.ai/blog/ways-ml-teams-use-ci-cd-in-production" class="no-external">
 <div class="listing-date">
 Dec 30, 2021
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="13" data-categories="interview" data-listing-date-sort="1638745200000">
-<div class="thumbnail">
-<p><a href="https://applyingml.com/mentors/timothy-wolodzko/"> <img src="https://applyingml.com/default-og-image.png" class="thumbnail-image"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="14" data-categories="aW50ZXJ2aWV3" data-listing-date-sort="1638745200000">
+<div class="thumbnail"><a href="https://applyingml.com/mentors/timothy-wolodzko/" class="no-external">
+
+<img loading="lazy" src="https://applyingml.com/default-og-image.png" class="thumbnail-image">
+
+</a></div>
 <div class="body">
-<a href="https://applyingml.com/mentors/timothy-wolodzko/">
 <h3 class="no-anchor listing-title">
-Timothy Wolodzko - Staff Machine Learning Engineer @ Equinix
+<a href="https://applyingml.com/mentors/timothy-wolodzko/" class="no-external">Timothy Wolodzko - Staff Machine Learning Engineer @ Equinix</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('aW50ZXJ2aWV3'); return false;">interview</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('interview'); return false;">
-interview
-</div>
-</div>
-<a href="https://applyingml.com/mentors/timothy-wolodzko/">
-<div class="listing-description">
+<div class="delink listing-description"><a href="https://applyingml.com/mentors/timothy-wolodzko/" class="no-external">
 <p>An interview where I share my thoughts on deploying machine learning and MLOps.</p>
-</div>
-</a>
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://applyingml.com/mentors/timothy-wolodzko/">
+<a href="https://applyingml.com/mentors/timothy-wolodzko/" class="no-external">
 <div class="listing-date">
 Dec 6, 2021
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="14" data-categories="blog" data-listing-date-sort="1637708400000" data-listing-file-modified-sort="1679065987289" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
-<div class="thumbnail">
-<p><a href="./posts/ds-bad-code.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="15" data-categories="YmxvZw==" data-listing-date-sort="1637708400000" data-listing-file-modified-sort="1790755243844" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1379">
+<div class="thumbnail"><a href="./posts/ds-bad-code.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/ds-bad-code.html">
 <h3 class="no-anchor listing-title">
-Data Scientists Write Bad Code or Maybe That’s Not the Problem?
+<a href="./posts/ds-bad-code.html" class="no-external">Data Scientists Write Bad Code or Maybe That’s Not the Problem?</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/ds-bad-code.html">
-<div class="listing-description">
-Technologies and methodologies…
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/ds-bad-code.html" class="no-external">
+Technologies and methodologies that worked for software engineering don’t necessarily do for data science. At the same time, we hear software engineers complaining about the…
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/ds-bad-code.html">
+<a href="./posts/ds-bad-code.html" class="no-external">
 <div class="listing-date">
 Nov 24, 2021
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="15" data-categories="blog" data-listing-date-sort="1632780000000" data-listing-file-modified-sort="1679065987289" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
-<div class="thumbnail">
-<p><a href="./posts/env.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="16" data-categories="YmxvZw==" data-listing-date-sort="1632780000000" data-listing-file-modified-sort="1790755243844" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="875">
+<div class="thumbnail"><a href="./posts/env.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/env.html">
 <h3 class="no-anchor listing-title">
-Environment variables
+<a href="./posts/env.html" class="no-external">Environment variables</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/env.html">
-<div class="listing-description">
-Using environment variables for storing configuration is a de facto standard. It was one of the recommendations from Heroku’s Twelve-Factor App guide and has become widely adopted since then. We are all familiar with environment variables, but there are many, less…
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/env.html" class="no-external">
+Using environment variables for storing configuration is a de facto standard. It was one of the recommendations from Heroku’s Twelve-Factor App guide and has become widely…
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/env.html">
+<a href="./posts/env.html" class="no-external">
 <div class="listing-date">
 Sep 28, 2021
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="16" data-categories="blog" data-listing-date-sort="1623448800000" data-listing-file-modified-sort="1679065987293" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
-<div class="thumbnail">
-<p><a href="./posts/seven-wastes.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="17" data-categories="YmxvZw==" data-listing-date-sort="1623448800000" data-listing-file-modified-sort="1790755243845" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1246">
+<div class="thumbnail"><a href="./posts/seven-wastes.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/seven-wastes.html">
 <h3 class="no-anchor listing-title">
-Can Machine Learning be Lean?
+<a href="./posts/seven-wastes.html" class="no-external">Can Machine Learning be Lean?</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/seven-wastes.html">
-<div class="listing-description">
-Lean was a way of improving manufacturing efficiency in Toyota. Lean software development and lean startup methodologies followed it. One of the key take-aways of lean is cutting off the unnecessary processes while leaving the ones that bring actual value. Could the ideas be…
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/seven-wastes.html" class="no-external">
+Lean was a way of improving manufacturing efficiency in Toyota. Lean software development and lean startup methodologies followed it. One of the key take-aways of lean is…
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/seven-wastes.html">
+<a href="./posts/seven-wastes.html" class="no-external">
 <div class="listing-date">
 Jun 12, 2021
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="17" data-categories="interview" data-listing-date-sort="1617141600000">
-<div class="thumbnail">
-<p><a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study"> <img src="https://i0.wp.com/neptune.ai/wp-content/uploads/2022/10/MLOps-shipping-4.jpg?resize=960%2C539&amp;ssl=1" class="thumbnail-image"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="18" data-categories="aW50ZXJ2aWV3" data-listing-date-sort="1617141600000">
+<div class="thumbnail"><a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study" class="no-external">
+
+<img loading="lazy" src="https://i0.wp.com/neptune.ai/wp-content/uploads/2022/10/MLOps-shipping-4.jpg?resize=960%2C539&amp;ssl=1" class="thumbnail-image">
+
+</a></div>
 <div class="body">
-<a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study">
 <h3 class="no-anchor listing-title">
-MLOps at GreenSteam: Shipping Machine Learning [Case Study]
+<a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study" class="no-external">MLOps at GreenSteam: Shipping Machine Learning [Case Study] </a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('aW50ZXJ2aWV3'); return false;">interview</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('interview'); return false;">
-interview
-</div>
-</div>
-<a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study">
-<div class="listing-description">
+<div class="delink listing-description"><a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study" class="no-external">
 <p>I discuss the MLOps architecture I’ve build with my team at Greensteam.</p>
-</div>
-</a>
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study">
+<a href="https://neptune.ai/blog/mlops-at-greensteam-shipping-machine-learning-case-study" class="no-external">
 <div class="listing-date">
 Mar 31, 2021
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="18" data-categories="blog" data-listing-date-sort="1614294000000" data-listing-file-modified-sort="1688813143794" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16">
-<div class="thumbnail">
-<p><a href="./posts/bash.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="19" data-categories="YmxvZw==" data-listing-date-sort="1614294000000" data-listing-file-modified-sort="1790755243844" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3040">
+<div class="thumbnail"><a href="./posts/bash.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/bash.html">
 <h3 class="no-anchor listing-title">
-Bash pocket guide
+<a href="./posts/bash.html" class="no-external">Bash pocket guide</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/bash.html">
-<div class="listing-description">
-Bash is like regular expressions: everyone uses it, but nobody…
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/bash.html" class="no-external">
+Bash is like regular expressions: everyone uses it, but nobody knows it well. Every time I need to write Bash, I find myself googling a lot. The main purpose for writing…
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/bash.html">
+<a href="./posts/bash.html" class="no-external">
 <div class="listing-date">
 Feb 26, 2021
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="19" data-categories="blog" data-listing-date-sort="1610406000000" data-listing-file-modified-sort="1679065987293" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
-<div class="thumbnail">
-<p><a href="./posts/ml-checklist.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="20" data-categories="YmxvZw==" data-listing-date-sort="1610406000000" data-listing-file-modified-sort="1790755243845" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1995">
+<div class="thumbnail"><a href="./posts/ml-checklist.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/ml-checklist.html">
 <h3 class="no-anchor listing-title">
-Deploying Machine Learning Models: A Checklist
+<a href="./posts/ml-checklist.html" class="no-external">Deploying Machine Learning Models: A Checklist</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/ml-checklist.html">
-<div class="listing-description">
-In The Checklist Manifesto, Atul Gawande shows how using checklists can make everyone’s work more efficient and less error-prone. If they are useful for aircraft pilots and surgeons, we could use…
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/ml-checklist.html" class="no-external">
+In The Checklist Manifesto, Atul Gawande shows how using checklists can make everyone’s work more efficient and less error-prone. If they are useful for aircraft pilots and…
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/ml-checklist.html">
+<a href="./posts/ml-checklist.html" class="no-external">
 <div class="listing-date">
 Jan 12, 2021
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="20" data-categories="blog" data-listing-date-sort="1604271600000" data-listing-file-modified-sort="1679065987293" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
-<div class="thumbnail">
-<p><a href="./posts/makefiles.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="21" data-categories="YmxvZw==" data-listing-date-sort="1604271600000" data-listing-file-modified-sort="1790755243845" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1587">
+<div class="thumbnail"><a href="./posts/makefiles.html" class="no-external">
+
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+
+</a></div>
 <div class="body">
-<a href="./posts/makefiles.html">
 <h3 class="no-anchor listing-title">
-Makefiles for not-only programmers
+<a href="./posts/makefiles.html" class="no-external">Makefiles for not-only programmers</a>
 </h3>
-<div class="listing-subtitle">
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('YmxvZw=='); return false;">blog</div>
 
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/makefiles.html">
-<div class="listing-description">
-Make is commonly used in software development for managing the compilation of the source code. Use cases of make however go far beyond…<em></em>
-</div>
-</a>
+<div class="delink listing-description"><a href="./posts/makefiles.html" class="no-external">
+Make is commonly used in software development for managing the compilation of the source code. Use cases of make however go far beyond compiling C code, as it can be used as…<em></em>
+</a></div>
 </div>
 <div class="metadata">
-<a href="./posts/makefiles.html">
+<a href="./posts/makefiles.html" class="no-external">
 <div class="listing-date">
 Nov 2, 2020
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="21" data-categories="q&amp;a" data-listing-date-sort="1573340400000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/435444/35989"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="22" data-categories="cSUyNmE=" data-listing-date-sort="1573340400000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/435444/35989" class="no-external">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/435444/35989">
 <h3 class="no-anchor listing-title">
-A: could someone please give a concrete example to illustrate the Dirichlet distribution prior for bag-of-words?
+<a href="https://stats.stackexchange.com/a/435444/35989" class="no-external">A: could someone please give a concrete example to illustrate the Dirichlet distribution prior for bag-of-words?</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/435444/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/435444/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/435444/35989">
+<a href="https://stats.stackexchange.com/a/435444/35989" class="no-external">
 <div class="listing-date">
 Nov 10, 2019
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="22" data-categories="q&amp;a" data-listing-date-sort="1518476400000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/328345/35989"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="23" data-categories="cSUyNmE=" data-listing-date-sort="1518476400000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/328345/35989" class="no-external">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/328345/35989">
 <h3 class="no-anchor listing-title">
-A: Is Bayesian Ridge Regression another name of Bayesian Linear Regression?
+<a href="https://stats.stackexchange.com/a/328345/35989" class="no-external">A: Is Bayesian Ridge Regression another name of Bayesian Linear Regression?</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/328345/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/328345/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/328345/35989">
+<a href="https://stats.stackexchange.com/a/328345/35989" class="no-external">
 <div class="listing-date">
 Feb 13, 2018
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="23" data-categories="q&amp;a" data-listing-date-sort="1505944800000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/304316/35989"> <img src="https://i.stack.imgur.com/FXtoT.png" class="thumbnail-image"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="24" data-categories="cSUyNmE=" data-listing-date-sort="1505944800000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/304316/35989" class="no-external">
+
+<img loading="lazy" src="https://i.stack.imgur.com/FXtoT.png" class="thumbnail-image">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/304316/35989">
 <h3 class="no-anchor listing-title">
-A: Why is the James-Stein estimator called a “shrinkage” estimator?
+<a href="https://stats.stackexchange.com/a/304316/35989" class="no-external">A: Why is the James-Stein estimator called a “shrinkage” estimator?</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/304316/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/304316/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/304316/35989">
+<a href="https://stats.stackexchange.com/a/304316/35989" class="no-external">
 <div class="listing-date">
 Sep 21, 2017
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="24" data-categories="q&amp;a" data-listing-date-sort="1505599200000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/303592/35989"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="25" data-categories="cSUyNmE=" data-listing-date-sort="1505599200000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/303592/35989" class="no-external">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/303592/35989">
 <h3 class="no-anchor listing-title">
-A: How to decide which glm family to use?
+<a href="https://stats.stackexchange.com/a/303592/35989" class="no-external">A: How to decide which glm family to use?</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/303592/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/303592/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/303592/35989">
+<a href="https://stats.stackexchange.com/a/303592/35989" class="no-external">
 <div class="listing-date">
 Sep 17, 2017
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="25" data-categories="q&amp;a" data-listing-date-sort="1491429600000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/272256/35989"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="26" data-categories="cSUyNmE=" data-listing-date-sort="1491429600000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/272256/35989" class="no-external">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/272256/35989">
 <h3 class="no-anchor listing-title">
-A: Best way to check implementation of density, distribution function and random generation
+<a href="https://stats.stackexchange.com/a/272256/35989" class="no-external">A: Best way to check implementation of density, distribution function and random generation</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/272256/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/272256/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/272256/35989">
+<a href="https://stats.stackexchange.com/a/272256/35989" class="no-external">
 <div class="listing-date">
 Apr 6, 2017
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="26" data-categories="q&amp;a" data-listing-date-sort="1482188400000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/252608/35989"> <img data-src="https://i.stack.imgur.com/CJ9dW.jpg" class="thumbnail-image"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="27" data-categories="cSUyNmE=" data-listing-date-sort="1482188400000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/252608/35989" class="no-external">
+
+<img loading="lazy" data-src="https://i.stack.imgur.com/CJ9dW.jpg" class="thumbnail-image">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/252608/35989">
 <h3 class="no-anchor listing-title">
-A: Bayes regression: how is it done in comparison to standard regression?
+<a href="https://stats.stackexchange.com/a/252608/35989" class="no-external">A: Bayes regression: how is it done in comparison to standard regression?</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/252608/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/252608/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/252608/35989">
+<a href="https://stats.stackexchange.com/a/252608/35989" class="no-external">
 <div class="listing-date">
 Dec 20, 2016
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="27" data-categories="q&amp;a" data-listing-date-sort="1479078000000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/245910/35989"> <img data-src="https://i.stack.imgur.com/ntC6i.png" class="thumbnail-image"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="28" data-categories="cSUyNmE=" data-listing-date-sort="1479078000000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/245910/35989" class="no-external">
+
+<img loading="lazy" data-src="https://i.stack.imgur.com/ntC6i.png" class="thumbnail-image">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/245910/35989">
 <h3 class="no-anchor listing-title">
-A: Is there any algorithm combining classification and regression?
+<a href="https://stats.stackexchange.com/a/245910/35989" class="no-external">A: Is there any algorithm combining classification and regression?</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/245910/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/245910/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/245910/35989">
+<a href="https://stats.stackexchange.com/a/245910/35989" class="no-external">
 <div class="listing-date">
 Nov 14, 2016
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="28" data-categories="q&amp;a" data-listing-date-sort="1478818800000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/246734/35989"> <img data-src="https://i.stack.imgur.com/5Nzqf.png" class="thumbnail-image"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="29" data-categories="cSUyNmE=" data-listing-date-sort="1478818800000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/246734/35989" class="no-external">
+
+<img loading="lazy" data-src="https://i.stack.imgur.com/5Nzqf.png" class="thumbnail-image">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/246734/35989">
 <h3 class="no-anchor listing-title">
-A: Size of bootstrap samples
+<a href="https://stats.stackexchange.com/a/246734/35989" class="no-external">A: Size of bootstrap samples</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/246734/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/246734/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/246734/35989">
+<a href="https://stats.stackexchange.com/a/246734/35989" class="no-external">
 <div class="listing-date">
 Nov 11, 2016
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="29" data-categories="q&amp;a" data-listing-date-sort="1478559600000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/244946/35989"> <img data-src="https://i.stack.imgur.com/7ZiDs.png" class="thumbnail-image"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="30" data-categories="cSUyNmE=" data-listing-date-sort="1478559600000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/244946/35989" class="no-external">
+
+<img loading="lazy" data-src="https://i.stack.imgur.com/7ZiDs.png" class="thumbnail-image">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/244946/35989">
 <h3 class="no-anchor listing-title">
-A: What exactly is the alpha in the Dirichlet distribution?
+<a href="https://stats.stackexchange.com/a/244946/35989" class="no-external">A: What exactly is the alpha in the Dirichlet distribution?</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/244946/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/244946/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/244946/35989">
+<a href="https://stats.stackexchange.com/a/244946/35989" class="no-external">
 <div class="listing-date">
 Nov 8, 2016
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="30" data-categories="q&amp;a" data-listing-date-sort="1478127600000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/244023/35989"> <img data-src="https://i.stack.imgur.com/JDEG5.png" class="thumbnail-image"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="31" data-categories="cSUyNmE=" data-listing-date-sort="1478127600000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/244023/35989" class="no-external">
+
+<img loading="lazy" data-src="https://i.stack.imgur.com/JDEG5.png" class="thumbnail-image">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/244023/35989">
 <h3 class="no-anchor listing-title">
-A: Can you explain Parzen window (kernel) density estimation in layman’s terms?
+<a href="https://stats.stackexchange.com/a/244023/35989" class="no-external">A: Can you explain Parzen window (kernel) density estimation in layman’s terms?</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/244023/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/244023/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/244023/35989">
+<a href="https://stats.stackexchange.com/a/244023/35989" class="no-external">
 <div class="listing-date">
 Nov 3, 2016
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="31" data-categories="q&amp;a" data-listing-date-sort="1457564400000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/201059/35989"> <img data-src="https://i.stack.imgur.com/dBPgH.png" class="thumbnail-image"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="32" data-categories="cSUyNmE=" data-listing-date-sort="1457564400000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/201059/35989" class="no-external">
+
+<img loading="lazy" data-src="https://i.stack.imgur.com/dBPgH.png" class="thumbnail-image">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/201059/35989">
 <h3 class="no-anchor listing-title">
-A: Do Bayesian priors become irrelevant with large sample size?
+<a href="https://stats.stackexchange.com/a/201059/35989" class="no-external">A: Do Bayesian priors become irrelevant with large sample size?</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/201059/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/201059/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/201059/35989">
+<a href="https://stats.stackexchange.com/a/201059/35989" class="no-external">
 <div class="listing-date">
 Mar 10, 2016
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="32" data-categories="q&amp;a" data-listing-date-sort="1423954800000">
-<div class="thumbnail">
-<p><a href="https://stats.stackexchange.com/a/137837/35989"> </a></p>
-</div>
+<div class="quarto-post image-right" data-index="33" data-categories="cSUyNmE=" data-listing-date-sort="1423954800000">
+<div class="thumbnail"><a href="https://stats.stackexchange.com/a/137837/35989" class="no-external">
+
+</a></div>
 <div class="body">
-<a href="https://stats.stackexchange.com/a/137837/35989">
 <h3 class="no-anchor listing-title">
-A: Fixed effect vs random effect when all possibilities are included in a mixed effects model
+<a href="https://stats.stackexchange.com/a/137837/35989" class="no-external">A: Fixed effect vs random effect when all possibilities are included in a mixed effects model</a>
 </h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('q&amp;a'); return false;">
-q&amp;a
-</div>
-</div>
-<a href="https://stats.stackexchange.com/a/137837/35989">
-<div class="listing-description">
+
+<div class="listing-category" onclick="window.quartoListingCategory('cSUyNmE='); return false;">q&amp;a</div>
 
 </div>
-</a>
+<div class="delink listing-description"><a href="https://stats.stackexchange.com/a/137837/35989" class="no-external">
+</a></div>
 </div>
 <div class="metadata">
-<a href="https://stats.stackexchange.com/a/137837/35989">
+<a href="https://stats.stackexchange.com/a/137837/35989" class="no-external">
 <div class="listing-date">
 Feb 15, 2015
 </div>
@@ -1209,51 +1092,64 @@ Feb 15, 2015
 </div>
 </div>
 </div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
+<div class="listing-no-matching d-none">No matching items</div>
 <nav id="blog-pagination" class="listing-pagination" aria-label="Page Navigation">
   <ul class="pagination"></ul>
 </nav>
 </div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
       for (const childEl of codeEl.children) {
         if (isCodeAnnotation(childEl)) {
           childEl.remove();
@@ -1261,195 +1157,348 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
       return codeEl.innerText;
     }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn) {
-    const config = {
-      allowHTML: true,
-      content: contentFn,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start'
-    };
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
     });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
     }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/twolodzko\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
       });
     }
-  }
-});
-</script>
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 </div> <!-- /content -->
+
 
 
 

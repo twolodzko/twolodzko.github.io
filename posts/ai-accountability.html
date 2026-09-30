@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2022-03-25">
+<meta name="dcterms.date" content="2026-09-30">
 
-<title>My favorite developer tools for Python – Timothy Wolodzko</title>
+<title>AI generated code and the lack of accountability – Timothy Wolodzko</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,41 +26,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -155,7 +120,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">My favorite developer tools for Python</h1>
+      <h1 class="title">AI generated code and the lack of accountability</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">blog</div>
               </div>
@@ -169,7 +134,7 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 25, 2022</p>
+        <p class="date">September 30, 2026</p>
       </div>
     </div>
     
@@ -188,74 +153,14 @@ gtag('config', 'G-V9DH8RH1V5', { 'anonymize_ip': true});
 
 
 
-<section id="dependency-management" class="level1">
-<h1>Dependency management</h1>
-<p>There are <a href="https://www.youtube.com/watch?v=-C8uVImkTQg">many dependency management tools</a> for python: conda, poetry, pipenv, tox, etc. Each of them has its pros and cons, fans and opponents. After spending an awful lot of time researching them, resolving conflicts in the environments, duckduckgoing many cryptic errors, I feel that in the long run they are not really worth it. Currently, my favorite setup is the build-ins: pip + <a href="https://realpython.com/python-virtual-environments-a-primer/">venv</a>. For handling multiple versions of Python on the same machine, I found <a href="https://github.com/pyenv/pyenv">pyenv</a> to work great.</p>
-<p>The only time when <code>pip</code> goes wrong is when you use the wrong <code>pip</code>, and for example, <code>pip install</code> a package to a different virtual environment or use <code>pip</code> when you should have used <code>pip3</code>. The solution is trivial, just always call <code>python -m pip</code> instead of just <code>pip</code>, so that you use the “pip for the python interpreter I’m currently using”. You can also add an <code>alias pip='python -m pip'</code> and never worry about it again.</p>
-<p>For virtual environments, venv “just works”, is lightweight and doesn’t need any additional dependencies, commands, or special formats for the configurations.</p>
-<p>To make the <a href="https://twolodzko.github.io/env">environment variables</a> consistent, <code>.env</code> files are great. <code>.env</code> has a <a href="https://smartmob-rfc.readthedocs.io/en/latest/2-dotenv.html">trivial format</a>. There are many tools to auto-load the files like <a href="https://pypi.org/project/python-dotenv/">python-dotenv</a> and <a href="https://github.com/sloria/environs">environs</a> that can validate the settings as well.</p>
-<p>For the best reliability and portability, I use docker.</p>
-</section>
-<section id="automation" class="level1">
-<h1>Automation</h1>
-<p>There are many tools for automating repeatable tasks, like running tests, and deployments. I stick to <a href="https://twolodzko.github.io/makefiles">Makefiles</a> and <a href="https://twolodzko.github.io/bash">Bash</a>. Not that they are the best, but they are the most widely known and probably pre-installed on your machine. Makefile has its quirks as it was designed for compiling C code, so projects like <a href="https://github.com/casey/just">just</a> try to skip them by leaving only the good parts, but it’s not that mature yet, so I’m still hesitating.</p>
-</section>
-<section id="linting-and-formatting" class="level1">
-<h1>Linting and formatting</h1>
-<p>There are many holy wars about linters and formatters. I don’t like wasting time on discussing formatting during code review, so I like to just <a href="https://black.readthedocs.io/en/stable/">black</a> everything. Together with black, I use <a href="https://pycqa.github.io/isort/">isort</a> that nicely sorts the imports, that has <a href="https://pycqa.github.io/isort/docs/configuration/black_compatibility.html">black compatibility mode</a>. My usual pyproject.toml config is something like:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[tool.black]</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">line-length</span> <span class="op">=</span> <span class="dv">120</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">skip-string-normalization</span> <span class="op">=</span> <span class="cn">true</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">target-version</span> <span class="op">=</span> <span class="op">[</span><span class="st">'</span><span class="vs">py37</span><span class="st">'</span><span class="op">,</span> <span class="st">'</span><span class="vs">py38</span><span class="st">'</span><span class="op">,</span> <span class="st">'</span><span class="vs">py39</span><span class="st">'</span><span class="op">]</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">include</span> <span class="op">=</span> <span class="st">'</span><span class="vs">\.pyi?$</span><span class="st">'</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">exclude</span> <span class="op">=</span> <span class="st">'''</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="vs">/(</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="vs">    \.git</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="vs">  | \.mypy_cache</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="vs">  | \.tox</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="vs">  | \.venv</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="vs">  | build</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="vs">  | data</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="vs">)/</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="st">'''</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">[tool.isort]</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="dt">profile</span> <span class="op">=</span> <span class="st">"black"</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="dt">line_length</span> <span class="op">=</span> <span class="dv">120</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>While I agree that linters are very helpful as an additional code validation layer, I don’t like linters that need overtly complex configuration. For me, <a href="https://flake8.pycqa.org/en/latest/">flake8</a> is the sweet spot, as it mostly works out-of-the-box. Additionally, flake8 uses <a href="https://pypi.org/project/mccabe/">mccabe</a> to check for code complexity issues. To configure it, I usually ignore the formatting warnings in setup.cfg, as sometimes they conflict with black.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[flake8]</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">max_line_length </span><span class="ot">=</span><span class="st"> </span><span class="dv">120</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">max_complexity </span><span class="ot">=</span><span class="st"> </span><span class="dv">10</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">ignore </span><span class="ot">=</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">    </span><span class="co"># Formatting (fixed by black)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dt">    E1,E2,E3,</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">    </span><span class="co"># line too long</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">    E501,</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="dt">    </span><span class="co"># Whitespace warning</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">    W2,</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dt">    </span><span class="co"># Line break warning</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dt">    W5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><em>Update:</em> <a href="https://github.com/astral-sh/ruff">ruff</a> is a more modern replacement for other linters and style checkers.</p>
-<p><em>Update 2:</em> Seems like ruff now can <a href="https://docs.astral.sh/ruff/formatter/">both lint and format</a> the code, so you don’t need the above.</p>
-</section>
-<section id="testing" class="level1">
-<h1>Testing</h1>
-<p><a href="https://realpython.com/pytest-python-testing/">Pytest</a> is currently the gold standard when it comes to testing Python code, so there is probably no reason to use anything else. That doesn’t mean you should ignore the good old unittest, for example, it has great <a href="https://realpython.com/python-mock-library/">unittest.mock</a> module. It is worth mentioning that Pytest has many good plugins, for example, it can run <a href="https://docs.pytest.org/en/latest/how-to/doctest.html">doctest</a> tests, and <a href="https://pypi.org/project/pytest-cov/">pytest-cov</a> produces test coverage reports. When running it from command-line, there are two useful flags: <code>-x</code> for <a href="https://docs.pytest.org/en/7.1.x/how-to/failures.html">failing fast</a> at the first failed test, and <code>--ff</code> for running the tests that failed at the previous run before other tests, so you immediately know if you fixed the issue. The whole command then becomes:</p>
-<pre class="shell"><code>python -m pytest -x --ff -v --color=yes --doctest-modules .</code></pre>
-<p>By the way, you should also consider <a href="https://stackoverflow.com/questions/10253826/path-issue-with-pytest-importerror-no-module-named-yadayadayada/34140498#34140498">always calling it with</a> <code>python -m pytest</code>.</p>
-<p>I also found <a href="http://mypy-lang.org/">mypy</a> pretty useful for finding issues with the code (“this function should not return <code>None</code>”, “you assumed <code>np.array</code> but pass <code>pd.Series</code>”, etc), though I agree that it can sometimes be too picky.</p>
-<p>There are also other code testing tools that I really like but haven’t chance to use yet: <a href="https://behave.readthedocs.io/en/stable/">behave</a> for Behavior Driven Development and <a href="https://github.com/returntocorp/semgrep">semgrep</a> that lets you write custom pattern-based tests for the code.</p>
-</section>
-<section id="other-code-issues" class="level1">
-<h1>Other code issues</h1>
-<p>There are two more developer tools, that I found useful and I’d like to mention: <a href="https://pydeps.readthedocs.io/en/latest/">pydeps</a> finds and visualizes the dependencies between the modules in your code and is very helpful for tracking the parts of code that are too tightly coupled, and <a href="https://pypi.org/project/vulture/">vulture</a> can help with finding dead code.</p>
-</section>
-<section id="ready-template" class="level1">
-<h1>Ready template</h1>
-<p>The template for this setup can be found here: <a href="https://github.com/twolodzko/base-python-project" class="uri">https://github.com/twolodzko/base-python-project</a>.</p>
+<p>LLMs make programmers “10x” more efficient, as they say. They make you produce more code in less time. By the mere scale, it is harder to quality check it. When writing code by hand, the quality came from proficiency. With mass production, it becomes a statistic on a dashboard that you try to control.</p>
+<p>In the, not that distant, times when programming was considered by some as a craft, the pride you took from your work prevented you from writing bad code. With AI you’re more of an manager of McDonald’s restaurant than an artisan chef. It’s more about making the factory efficient than the quality of an hand crafted item.</p>
+<p>If it is about efficiency, you have good reasons not to see the quality issues. Say that AI was writing the code for you, maybe it was an agent that did it all by itself, maybe you needed to click “ok” every now and then. Maybe it spent 10 minutes on the task, maybe half an hour, maybe much more. This is the time you saved by using AI. Of course, unless the code is wrong. In the latter case, this time is wasted. Since it is all about prompting and all about efficiency, the waste is on you.</p>
+<p>AI is a tool. You are using it because “everybody does”, it became an industry standard, and most likely your manager or your company approved it. You have all the reasons to trust it. If you didn’t, it wouldn’t make you more efficient, as you would need to waste the time you gained for detailed quality checks. But if it fails, who is there to blame? You who rubber stumped the result? Your manager who approved the tool? The company who produced a faulty product that you used? With hand written code it was always you, when using AI the accountability is diffused.</p>
+<p>Even if you know that AI is imperfect, when the code is broken, you can always “hey computer, fix it”. When using AI your workflow is about iterative steps, where you ask AI to fix or improve what it produced earlier. It is easy not to stop the process at the code release, but start considering code as a temporary byproduct that can always be fixed. There always was this misunderstanding of tech debt as a card you can play to become more efficient. The business people often considered software engineers as being to pedantic, and encouraged them to “move fast”. With AI we all got moving fast at the cost of continuous accumulation of tech debt.</p>
+<p>Some say that AI has led to a paradigm shift in programming. It’s an industrial revolution and now we have efficient code factories. However before AI we already could create websites using open-source or commercial solutions using simple UI interfaces, we could buy (vs build) a software to do whatever we wanted. The premise of tech industry was that we always need the custom solutions. But if the solutions are custom, you cannot treat producing them as an automated process with known, but variable, amount of defects. If it is custom, not all the defects are alike. One bug may make the service 1ms slower, other may introduce a critical security vulnerability, or take down a production system. What we have is automation without repeatability. Repetability is not possible, neither by the nature of AI, nor by the nature of the problems we are solving. This makes lack of accountability and lack of good tools and processes for quality assurance especially troubling.</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

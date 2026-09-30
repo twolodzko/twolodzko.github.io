@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/ai-accountability.html",
       "/posts/go-channels-and-waiting.html",
       "/posts/succinct-code.html",
       "/posts/ocaml-parser.html",
